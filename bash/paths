@@ -1,0 +1,23 @@
+#!/bin/bash
+
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+[[ -d $HOME/.dotfiles/bin ]] && PATH=$PATH:$HOME/.dotfiles/bin
+
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+[[ -d $HOME/.rvm/bin ]] && PATH=$PATH:$HOME/.rvm/bin
+
+if [[ -d $HOME/.gemrepo ]]; then
+    export GEM_HOME=$HOME/.gemrepo
+    PATH=$PATH:$HOME/.gemrepo/bin
+fi
+
+[[ -d /opt/node/bin ]] && PATH=$PATH:/opt/node/bin
+
+[[ -d /opt/nginx/sbin ]] && PATH=$PATH:/opt/nginx/sbin
+
+if [[ "$SYSTEM" == "Darwin" ]] && [[ -d "$(brew --prefix josegonzalez/php/php54)/bin" ]]; then
+    PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
+fi
+
+export PATH

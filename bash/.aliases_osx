@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+# Basic
+alias ls='ls -G'
+alias o='open -a Finder'
+alias ff='open -a firefox'
+
+# Show and Hide hidden files
+alias show-dotfiles='defaults write com.apple.Finder AppleShowAllFiles -bool true && killall Finder'
+alias hide-dotfiles='defaults write com.apple.Finder AppleShowAllFiles -bool false && killall Finder'
+# Show and Hide all desktop icons
+alias show-deskicons='defaults write com.apple.Finder CreateDesktop -bool true && killall Finder'
+alias hide-deskicons='defaults write com.apple.Finder CreateDesktop -bool false && killall Finder'
+
+# Apache
+alias apache-start='sudo apachectl start'
+alias apache-restart='sudo apachectl restart'
+alias apache-stop='sudo apachectl stop'
+alias edit-httpd-conf='sudo vim /etc/apache2/httpd.conf'
+
+# Nginx
+alias nginx-start='sudo nginx'
+alias nginx-restart='sudo nginx -s reload'
+alias nginx-stop='sudo nginx -s stop'
+alias nginx-info='sudo nginx -V'
+alias nginx-test='sudo nginx -t'
+
+# PHP
+alias php-start='launchctl load -w /usr/local/Cellar/php54/5.4.22/homebrew-php.josegonzalez.php54.plist'
+alias php-stop='launchctl unload -w /usr/local/Cellar/php54/5.4.22/homebrew-php.josegonzalez.php54.plist'
+
+# Mysql
+alias mysql-start='mysql.server start'
+alias mysql-stop='mysql.server stop'
+
+# PHP - Homebrew-php
+alias edit-php-ini='sudo vim /usr/local/etc/php/5.4/php.ini'
+alias edit-php-fpm='sudo vim /usr/local/etc/php/5.4/php-fpm.conf'

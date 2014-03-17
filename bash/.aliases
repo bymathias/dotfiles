@@ -1,0 +1,61 @@
+#!/bin/bash
+
+
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Basic
+alias l='ls -F'
+alias ll='ls -alF'
+alias ld='ls -l | grep "^d"'
+alias h='history'
+alias c='clear'
+alias q='exit'
+alias now='date +"%d-%m-%Y %T"'
+alias cpb='pwd | tr -d "\r\n" | pbcopy'
+
+# Editor
+alias v='vim'
+alias sv='sudoedit'
+
+# Tmux
+alias t='tmux'
+alias tn='tmux new-session -s'
+alias ta='tmux attach-session -t'
+alias tl='tmux list-session'
+alias tk='tmux kill-server'
+alias tx='tmux -q has-session && tmux attach-session -d || tmux new-session -s$USER'
+
+# Git
+alias g='git'
+alias ga='git add'
+alias gc='git commit'
+alias gac='git add --all && git commit -m'
+alias gd='git diff'
+alias gs='git status'
+alias gb='git branch'
+alias gh='git push'
+alias gl='git pull'
+alias ghom='git push origin master'
+alias glom='git pull origin master'
+alias gb='git branch'
+alias gt='git checkout'
+alias ge='git clone'
+
+# Path
+alias dbox='cd ~/Dropbox && ls'
+alias note='cd ~/Dropbox/Notes && vim'
+alias site='cd ~/Sites && ls'
+alias repo='cd ~/Repositories && ls'
+
+# IP
+alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
+
+# Hosts
+alias edit-hosts='sudo vim /etc/hosts'
+
+# MongoDB
+alias mongod='./.mongodb/bin/mongod --dbpath ~/.mongodb_data'
+alias mongo='./.mongodb/bin/mongo'

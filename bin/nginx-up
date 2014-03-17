@@ -1,0 +1,138 @@
+#!/bin/bash
+
+#
+# Backup and upgrade Nginx
+# OSX (locally) / Debian (server)
+# @usage: nginx-up <version>
+#
+
+set -e
+
+sudo -v
+
+# Variables
+
+SYSTEM=`uname -s`
+TIMESTAMP=$(date +"%Y-%m-%d")
+
+NGINX_DIR=/opt/nginx
+TMP_DIR=~/tmp/nginx-$TIMESTAMP
+
+NGINX_CONF=('*.conf' '*.types' 'fastcgi_params')
+NGINX_SITE=('sites-available' 'sites-enabled')
+
+if [ $# -lt 1 ]; then
+    echo "Example new version: nginx-up 1.2.7"
+    exit
+fi
+
+# Create folder
+
+mkdir -pv $TMP_DIR 
+
+# Stop all services
+
+case $SYSTEM in
+    "Darwin")
+        sudo nginx -s stop
+        launchctl unload -w /usr/local/Cellar/php54/5.4.22/homebrew-php.josegonzalez.php54.plist
+        mysql.server stop
+    ;;
+    "Linux")
+        sudo /etc/init.d/nginx stop
+        sudo /etc/init.d/php5-fpm stop
+        sudo /etc/init.d/mysql stop
+    ;;
+    *) 
+        echo "Can't stop services." && exit
+    ;;
+esac
+
+# Backup Nginx conf
+
+for i in ${NGINX_CONF[@]}; do
+    sudo rsync -av $NGINX_DIR/conf/$i $TMP_DIR/conf/
+done
+
+for i in ${NGINX_SITE[@]}; do
+    sudo rsync -av $NGINX_DIR/$i/* $TMP_DIR/$i/
+done
+
+# Remove old Nginx and modules
+
+sudo rm -rfv $NGINX_DIR
+sudo rm -rfv $NGINX_DIR-modules
+
+# Nginx modules
+
+#sudo mkdir -pv $NGINX_DIR-modules
+#cd $NGINX_DIR-modules
+
+# Nginx upload progress modules
+# Add module path to configuration options, using
+# --add-module=/opt/nginx-modules/nginx-upload-progress-module/
+#sudo git clone git://github.com/masterzen/nginx-upload-progress-module.git
+
+# Install Nginx
+
+cd $TMP_DIR
+wget http://nginx.org/download/nginx-$1.tar.gz
+tar -zxvf nginx-$1.tar.gz
+cd nginx-$1
+
+case $SYSTEM in
+    "Darwin")
+    ./configure \
+        --prefix=/opt/nginx \
+        --with-http_ssl_module \
+        --with-ipv6 \
+        --with-http_mp4_module \
+        --with-http_flv_module
+    ;;
+    *)
+    ./configure \
+        --prefix=/opt/nginx \
+        --user=www-data --group=www-data \
+        --with-http_ssl_module \
+        --with-ipv6 \
+        --with-http_mp4_module \
+        --with-http_flv_module
+    ;;
+esac
+
+make
+sudo make install
+
+# Reinstall Nginx conf
+
+for i in ${NGINX_CONF[@]}; do
+    sudo rm -v $NGINX_DIR/conf/$i
+done
+
+for i in ${NGINX_CONF[@]}; do
+    sudo rsync -av $TMP_DIR/conf/$i $NGINX_DIR/conf/
+done
+
+for i in ${NGINX_SITE[@]}; do
+    sudo rsync -av $TMP_DIR/$i/* $NGINX_DIR/$i/
+done
+
+# Restart all services
+
+case $SYSTEM in
+    "Darwin")
+        sudo nginx
+        launchctl load -w /usr/local/Cellar/php54/5.4.22/homebrew-php.josegonzalez.php54.plist
+        mysql.server start
+    ;;
+    "Linux")
+        sudo /etc/init.d/nginx start
+        sudo /etc/init.d/php5-fpm start
+        sudo /etc/init.d/mysql start
+    ;;
+    *) 
+        echo "Can't start services." && exit
+    ;;
+esac
+
+echo "Nginx updated !"

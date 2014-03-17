@@ -1,0 +1,24 @@
+[user]
+    name = Mathias Brouilly
+    email = bymathias@gmail.com
+[core]
+    editor = vim
+    excludesfile = "~/.dotfiles/git/.gitignore_global"
+    whitespace = trailing-space,space-before-tab
+[branch]
+    autosetupmerge = true
+[push]
+    default = tracking
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = auto
+[difftool]
+    prompt = false
+[difftool "Kaleidoscope"]
+    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+[diff]
+    tool = Kaleidoscope
+[github]
+    user = bymathias

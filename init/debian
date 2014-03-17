@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -e
+
+# Ask for admin password upfront
+sudo -v
+
+# Update, upgrade
+sudo apt-get update
+sudo apt-get -y dist-upgrade
+
+sudo apt-get install \
+    build-essential \
+    make \
+    gcc \
+    checkinstall \
+    chrpath \
+    libxml2-dev \
+    libxslt-dev \
+    sqlite3 \
+    libsqlite3-dev \
+    libcurl4-openssl-dev \
+    libc6-dev \
+    libmysql++-dev \
+    curl \
+    wget \
+    rsync \
+    git-core \
+    mercurial \
+    bash-completion \
+    openssh-server \
+    imagemagick \
+    exuberant-ctags \
+    python-pygments
+
+sudo apt-get install \
+    tmux \
+    vim-nox \
+    keepassx \
+    iceweasel \
+    gpick \
+    fontforge \
+    trimage \
+    xclip \
+    scribus 
+
+# Fonts
+sudo apt-get install \
+    ttf-inconsolata \
+    ttf-droid \
+    ttf-dejavu \
+    ttf-liberation \
+    xfonts-terminus \
+    xfonts-terminus-oblique \
+    console-terminus
+
+# Final upgrade and clean up packages
+sudo apt-get upgrade
+sudo apt-get autoremove
+sudo apt-get clean

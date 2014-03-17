@@ -1,0 +1,57 @@
+#!/bin/bash
+
+
+# Basic
+# ============================ #
+
+cdl()
+{
+    cd "$1" && ls; 
+}
+
+mdc()
+{
+    mkdir -p "$1" && cd "$1";
+}
+
+
+# New script
+# Usage: newscript <filename>
+# ============================ #
+
+newscript()
+{
+    [[ -e "$1" ]] && echo "'$1' already exists" && return
+    echo "#!/bin/bash" > "$1" && \
+        chmod a+x "$1" && \
+            vim "$1"
+}
+
+
+# Colored man pages with less command
+# http://bit.ly/IqWXtu
+# ============================ #
+
+man() 
+{
+    env \
+        LESS_TERMCAP_mb=$(printf "\033[1;31m") \
+        LESS_TERMCAP_md=$(printf "\033[1;31m") \
+        LESS_TERMCAP_me=$(printf "\033[0m") \
+        LESS_TERMCAP_se=$(printf "\033[0m") \
+        LESS_TERMCAP_so=$(printf "\033[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\033[0m") \
+        LESS_TERMCAP_us=$(printf "\033[1;32m") \
+    man "$@"
+}
+
+
+# Git init
+# ============================ #
+
+git-setup()
+{
+    git init \
+        && git add . \
+            && git commit -m 'Initial commit'
+}

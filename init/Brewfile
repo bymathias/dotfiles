@@ -1,0 +1,45 @@
+# Make sure we’re using the latest Homebrew
+update
+
+# Upgrade any already-installed formulae
+upgrade
+
+
+# Install other useful binaries
+install autoconf
+install automake
+install libtool
+install pcre
+install wget --enable-iri
+
+install git
+install mercurial
+
+install mongodb
+install mysql
+
+install openssl
+
+install ctags-exuberant
+install phantomjs
+install pkg-config
+install readline
+
+install tmux
+
+install bash
+install bash-completion
+
+install tree
+install htop-osx
+
+# Install more recent versions of some OS X tools
+tap homebrew/dupes
+
+tap josegonzalez/homebrew-php
+install php54 --with-intl --with-mysql --with-fpm --with-homebrew-openssl
+install php54-intl
+
+
+# Remove outdated versions from the cellar
+cleanup
