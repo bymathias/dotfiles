@@ -52,7 +52,7 @@ hi! link FoldColumn	Folded
 
 " StatusLine
 hi StatusLine	ctermfg=white ctermbg=27 cterm=none
-hi StatusLineNC	ctermfg=white ctermbg=75 cterm=none
+hi StatusLineNC	ctermfg=238 ctermbg=232 cterm=none
 hi VertSplit	ctermfg=235 ctermbg=235 cterm=none
 hi LineNr		ctermfg=238 ctermbg=232 cterm=none
 hi NonText		ctermfg=234 ctermbg=234 cterm=none
