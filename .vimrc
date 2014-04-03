@@ -323,6 +323,9 @@ endif
 
 let mapleader = ','                 "set the leader key            
 
+" map 'jj' to 'exit insert mode' 
+:imap jj <esc>
+
 "quickly edit/auto reload the vimrc file
 nmap <leader>ev :tabedit $MYVIMRC<cr>
 
