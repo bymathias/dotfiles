@@ -50,6 +50,8 @@ if exists('*vundle#rc')
     Bundle 'majutsushi/tagbar'
     " Version control
     Bundle 'tpope/vim-fugitive'
+    " Tmux
+    Bundle 'wellle/tmux-complete.vim'
 
 endif
 
