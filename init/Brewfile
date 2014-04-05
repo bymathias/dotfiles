@@ -40,6 +40,10 @@ tap josegonzalez/homebrew-php
 install php54 --with-intl --with-mysql --with-fpm --with-homebrew-openssl
 install php54-intl
 
+# Install homebrew-cask
+brew tap phinze/cask
+brew install brew-cask
+
 
 # Remove outdated versions from the cellar
 cleanup
