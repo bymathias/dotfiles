@@ -227,6 +227,7 @@ if has('autocmd')
     au BufNewFile,BufRead *.rss set ft=xml                                      "treat .rss files as xml
     au BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown                   "these are markdown
     au BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx      "nginx syntax highlighting
+    au BufNewFile,BufRead *.cson set ft=coffee
 
     au BufNewFile,BufReadPost *.{json,jade} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
     "disable automatic comment insertion
