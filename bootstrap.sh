@@ -15,6 +15,7 @@ DOT_DIR=~/.dotfiles
 DOT_FLS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
 
 DOT_WPCLI=$DOT_DIR/bin/wp
+DOT_SPDT=$DOT_DIR/bin/speedtest
 
 
 dep_check()
@@ -88,6 +89,11 @@ bootstrap()
             get_files $DOT_WPCLI https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
             chmod +x $DOT_WPCLI
 
+            # Get Speedtest-cli
+            # see https://github.com/sivel/speedtest-cli
+            get_files $DOT_SPDT https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+            chmod +x $DOT_SPDT
+
             # Get Vim Vundle and install plugins
             git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
             vim +BundleInstall +qall 2>/dev/null
@@ -127,6 +133,10 @@ bootstrap()
             # Update WP-CLI
             get_files $DOT_WPCLI https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
             chmod +x $DOT_WPCLI
+
+            # Update Speedtest-cli
+            get_files $DOT_SPDT https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+            chmod +x $DOT_SPDT
 
             # Update Vim plugins using Vundle
             vim +BundleInstall +qall 2>/dev/null
