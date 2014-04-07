@@ -437,14 +437,7 @@ if exists('*vundle#rc')
     " Map Emmet expand to tab key
     imap <expr><tab> emmet#isExpandable() ? "\<C-e>" : "\<tab>"
     let g:use_emmet_complete_tag=1
-    let g:user_emmet_settings = {
-    \  'php': {
-    \    'extends': 'html',
-    \    'snippets' : {
-    \      'php': '<?php | ?>'
-    \    }
-    \  }
-    \}
+    let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.vim/snippets.json')), "\n"))
 
     " Ultisnips
     let g:UltiSnipsExpandTrigger='<C-u>'
