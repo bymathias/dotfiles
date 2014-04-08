@@ -4,4 +4,6 @@
 npm install -g \
     bower \
     gulp \
-    pageres
+    pageres \
+    david \
+    forever
