@@ -27,8 +27,8 @@ alias nginx-info='sudo nginx -V'
 alias nginx-test='sudo nginx -t'
 
 # PHP
-alias php-start='launchctl load -w /usr/local/Cellar/php54/5.4.22/homebrew-php.josegonzalez.php54.plist'
-alias php-stop='launchctl unload -w /usr/local/Cellar/php54/5.4.22/homebrew-php.josegonzalez.php54.plist'
+alias php-start='launchctl load -w /usr/local/Cellar/php54/5.4.26/homebrew-php.josegonzalez.php54.plist'
+alias php-stop='launchctl unload -w /usr/local/Cellar/php54/5.4.26/homebrew-php.josegonzalez.php54.plist'
 
 # Mysql
 alias mysql-start='mysql.server start'
