@@ -40,11 +40,12 @@ if exists('*vundle#rc')
     Bundle 'mustache/vim-mustache-handlebars'
     Bundle 'spf13/PIV'
     Bundle 'evanmiller/nginx-vim-syntax'
+    Bundle 'plasticboy/vim-markdown'
+    Bundle 'junegunn/goyo.vim'
     " Snippets
     Bundle 'mattn/emmet-vim'
     Bundle 'SirVer/ultisnips'
     Bundle 'honza/vim-snippets'
-    " gist-vim require webapi-vim
     Bundle 'mattn/gist-vim'
     " Ctags
     Bundle 'majutsushi/tagbar'
@@ -445,6 +446,9 @@ if exists('*vundle#rc')
     let g:UltiSnipsListSnippets='<C-l>'
     let g:UltiSnipsJumpForwardTrigger='<C-n>'
     let g:UltiSnipsJumpBackwardTrigger='<C-b>'
+
+    " Goyo
+    let g:goyo_width='120'
 
 endif
 
