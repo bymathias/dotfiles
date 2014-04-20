@@ -35,14 +35,14 @@ install htop-osx
 
 # Install more recent versions of some OS X tools
 tap homebrew/dupes
+tap homebrew/versions
 
-tap josegonzalez/homebrew-php
-install php54 --with-intl --with-mysql --with-fpm --with-homebrew-openssl
-install php54-intl
+install php55 --with-intl --with-mysql --with-fpm --with-homebrew-openssl
+install php55-intl
 
 # Install homebrew-cask
-brew tap phinze/cask
-brew install brew-cask
+tap phinze/cask
+install brew-cask
 
 
 # Remove outdated versions from the cellar

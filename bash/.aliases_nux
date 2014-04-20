@@ -9,13 +9,6 @@ alias ff='/usr/bin/firefox &'
 # SSH
 alias sa='ssh-add'
 
-# Packages
-alias update='sudo apt-get update'
-alias upgrade='sudo apt-get dist-upgrade'
-alias autoremove='sudo apt-get autoremove'
-alias clean='sudo apt-get clean'
-alias autoclean='sudo apt-get autoclean'
-
 # Nginx
 alias nginx-start='sudo /etc/init.d/nginx start'
 alias nginx-restart='sudo /etc/init.d/nginx restart'
@@ -32,8 +25,3 @@ alias php-stop='sudo /etc/init.d/php5-fpm stop'
 alias mysql-start='sudo /etc/init.d/mysql start'
 alias mysql-restart='sudo /etc/init.d/mysql restart'
 alias mysql-stop='sudo /etc/init.d/mysql stop'
-
-# MongoDB
-alias mongo-start='sudo /etc/init.d/mongodb start'
-alias mongo-restart='sudo /etc/init.d/mongodb restart'
-alias mongo-stop='sudo /etc/init.d/mongodb stop'

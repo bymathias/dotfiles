@@ -55,7 +55,3 @@ alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
 
 # Hosts
 alias edit-hosts='sudo vim /etc/hosts'
-
-# MongoDB
-alias mongod='./.mongodb/bin/mongod --dbpath ~/.mongodb_data'
-alias mongo='./.mongodb/bin/mongo'
