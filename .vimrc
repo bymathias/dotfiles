@@ -397,6 +397,8 @@ if exists('*vundle#rc')
     let NERDTreeMinimalUI=1                                 "disable the label 'Press ? for help'
     let g:NERDTreeDirArrows=0
     let NERDTreeMouseMode=3                                 "single click to open any node
+    " Highlight the selected entry in the tree
+    let NERDTreeHighlightCursorline=1
     " Ignore these files extensions
     let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
     " Open NERDTree
