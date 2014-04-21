@@ -1,9 +1,0 @@
-#!/bin/bash
-
-
-npm install -g \
-    bower \
-    gulp \
-    pageres \
-    david \
-    forever

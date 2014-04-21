@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Install, remove and update .dotfiles
+# Install, uninstall and update .dotfiles
 # https://github.com/bymathias/dotfiles
 #
 
@@ -13,9 +13,6 @@ DOT_DEP=(git wget vim)
 
 DOT_DIR=~/.dotfiles
 DOT_FLS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
-
-DOT_WPCLI=$DOT_DIR/bin/wp
-DOT_SPDT=$DOT_DIR/bin/speedtest
 
 
 dep_check()
@@ -46,6 +43,18 @@ get_files()
 {
     [[ -f $1 ]] && rm -v $1
     wget -O $1 $2
+}
+
+bin_scripts()
+{
+    get_files $DOT_DIR/bin/wp https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    get_files $DOT_DIR/bin/speedtest https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+    get_files $DOT_DIR/bin/timebackup https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
+
+    for file in wp speedtest timebackup
+    do
+        chmod +x $DOT_DIR/bin/$file
+    done
 }
 
 bootstrap()
@@ -84,15 +93,8 @@ bootstrap()
                 fi
             done
 
-            # Get WP-CLI
-            # see http://wp-cli.org/
-            get_files $DOT_WPCLI https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-            chmod +x $DOT_WPCLI
-
-            # Get Speedtest-cli
-            # see https://github.com/sivel/speedtest-cli
-            get_files $DOT_SPDT https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
-            chmod +x $DOT_SPDT
+            # Get bin scripts
+            bin_scripts
 
             # Get Vim Vundle and install plugins
             git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
@@ -130,13 +132,8 @@ bootstrap()
             ;;
         "update")
 
-            # Update WP-CLI
-            get_files $DOT_WPCLI https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-            chmod +x $DOT_WPCLI
-
-            # Update Speedtest-cli
-            get_files $DOT_SPDT https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
-            chmod +x $DOT_SPDT
+            # Update bin scripts
+            bin_scripts
 
             # Update Vim plugins using Vundle
             vim +BundleInstall +qall 2>/dev/null
