@@ -13,13 +13,13 @@ SYSTEM=`uname -s`
 TIMESTAMP=$(date +'%Y-%m-%d')
 
 NGINX_DIR=/opt/nginx
-TMP_DIR=~/tmp/nginx-$TIMESTAMP
+TMP_DIR=~/tmp/nginx-conf-$TIMESTAMP
 
 NGINX_CONF=('*.conf' '*.types' 'fastcgi_params')
 NGINX_SITE=('sites-available' 'sites-enabled')
 
 if [ $# -lt 1 ]; then
-    echo "Version required, ex: nginx-up 1.2.7"
+    echo "Version required, ex: nginx-up 1.4.7"
     exit
 fi
 
@@ -52,11 +52,11 @@ sudo rm -rfv $NGINX_DIR-modules
 sudo mkdir -pv $NGINX_DIR-modules
 cd $NGINX_DIR-modules
 # Nginx upload progress modules
-sudo git clone git://github.com/masterzen/nginx-upload-progress-module.git
+sudo git clone https://github.com/masterzen/nginx-upload-progress-module.git
 
 # Install Nginx
 
-cd $TMP_DIR
+cd ~/tmp
 wget http://nginx.org/download/nginx-$1.tar.gz
 tar -zxvf nginx-$1.tar.gz
 cd nginx-$1
