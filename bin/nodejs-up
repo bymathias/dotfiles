@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#
+# Upgrade Node.js
+# @usage: nodejs-up <version>
+#
+
+set -e
+
+sudo -v
+
+NODE_DIR=/opt/node
+TMP_DIR=~/tmp
+
+if [ $# -lt 1 ]; then
+    echo "Version required, ex: nodejs-up 1.2.7"
+    exit
+fi
+
+# Remove old
+
+sudo rm -rf $NODE_DIR
+sudo rm -rf /usr/local/include/node
+
+# Install
+
+cd $TMP_DIR
+git clone https://github.com/joyent/node.git node-$1
+cd $TMP_DIR/node-$1
+git checkout v$1
+./configure --prefix=$NODE_DIR
+make
+sudo make install
+
+echo "Node.js updated to v$1 !"

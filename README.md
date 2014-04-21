@@ -1,10 +1,10 @@
-# [math's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles
+# [Math's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles
 
 Config files to setup a system (debian/osx) the way I want it.
 
 ## Installation
 
-Clone the repository and install:
+Clone the repository and install.
 
     git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
     cd .dotfiles
@@ -14,18 +14,20 @@ Edit the [`.gitconfig`](https://github.com/bymathias/dotfiles/blob/master/git/.g
 
 #### Terminal setup
 
-Add [iTerm2](http://www.iterm2.com/) color presets
+[iTerm2](http://www.iterm2.com/) color presets.
 
     open "~/.dotfiles/init/Kivabien.itermcolors"
 
-Add [Terminator](http://gnometerminator.blogspot.nl/p/introduction.html) config 
+[Terminator](http://gnometerminator.blogspot.nl/p/introduction.html) config.
 
     mv ~/.config/terminator/config ~/.config/terminator/config.defaults.bak
     cp ~/.dotfiles/init/terminator.config ~/.config/terminator/config
 
+Done.
+
 ## License
 
-**MIT License** Copyright (c) 2013 [Mathias Brouilly](http://mathias.brouilly.fr)
+**MIT License** Copyright (c) 2013 [Mathias Brouilly](http://mathias.brouilly.fr).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
 associated documentation files (the "Software"), to deal in the Software without restriction, 
