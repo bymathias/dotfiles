@@ -23,10 +23,10 @@ if [ $# -lt 1 ]; then
     exit
 fi
 
-if pgrep nginx > /dev/null; then
-    echo "Nginx is running. Stop it before running this script";
-    exit
-fi
+# if pgrep nginx > /dev/null; then
+#     echo "Nginx is running. Stop it before running this script";
+#     exit
+# fi
 
 # Create folder
 
