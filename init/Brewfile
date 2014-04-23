@@ -1,3 +1,6 @@
+# Install command-line tools using Homebrew
+# Usage: `brew bundle Brewfile`
+
 # Make sure we’re using the latest Homebrew
 update
 
@@ -39,11 +42,6 @@ tap homebrew/versions
 
 install php55 --with-intl --with-mysql --with-fpm --with-homebrew-openssl
 install php55-intl
-
-# Install homebrew-cask
-tap phinze/cask
-install brew-cask
-
 
 # Remove outdated versions from the cellar
 cleanup
