@@ -1,0 +1,7 @@
+# Install native apps
+# Usage: `brew bundle Caskfile`
+
+install phinze/cask/brew-cask
+tap caskroom/versions
+
+cask install google-chrome-canary 2> /dev/null
