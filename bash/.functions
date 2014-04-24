@@ -16,15 +16,29 @@ mdc()
 
 
 # New script
-# Usage: newscript <filename>
+# Usage: new-script <filename>
 # ============================ #
 
-newscript()
+new-script()
 {
     [[ -e "$1" ]] && echo "'$1' already exists" && return
     echo "#!/bin/bash" > "$1" && \
-        chmod a+x "$1" && \
-            vim "$1"
+    chmod a+x "$1" && \
+        vim "$1"
+}
+
+# New project
+# Usage: new-project <foldername>
+# ============================ #
+
+new-project()
+{
+    [[ -d "$1" ]] && echo "'$1' already exists" && return
+    mkdir $1 && \
+    cd $1 && \
+        curl -#L https://github.com/bymathias/bp/tarball/master | tar -xzv --strip-components 1 && \
+        npm i && \
+        bower i
 }
 
 
