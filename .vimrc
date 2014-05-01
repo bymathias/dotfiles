@@ -41,7 +41,6 @@ if exists('*vundle#rc')
     Bundle 'spf13/PIV'
     Bundle 'evanmiller/nginx-vim-syntax'
     Bundle 'plasticboy/vim-markdown'
-    Bundle 'junegunn/goyo.vim'
     " Snippets
     Bundle 'mattn/emmet-vim'
     Bundle 'SirVer/ultisnips'
@@ -53,6 +52,8 @@ if exists('*vundle#rc')
     Bundle 'tpope/vim-fugitive'
     " Tmux
     Bundle 'wellle/tmux-complete.vim'
+    " Writing
+    Bundle 'junegunn/goyo.vim'
 
 endif
 
