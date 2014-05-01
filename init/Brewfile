@@ -27,6 +27,7 @@ install ctags-exuberant
 install phantomjs
 install pkg-config
 install readline
+install webkit2png
 
 install tmux
 
