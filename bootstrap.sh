@@ -9,7 +9,7 @@ set -e
 
 DOT_SYS=`uname -s`
 DOT_BAK=$(date +"%Y-%m-%d").bak
-DOT_DEP=(git wget vim)
+DOT_DEP=(git curl vim)
 
 DOT_DIR=~/.dotfiles
 DOT_FLS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
@@ -42,7 +42,7 @@ bak_files()
 get_files()
 {
     [[ -f $1 ]] && rm -v $1
-    wget -O $1 $2
+    curl -fL -o $1 -s $2
 }
 
 bin_scripts()
