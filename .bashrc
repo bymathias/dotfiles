@@ -24,8 +24,10 @@ case "$SYSTEM" in
     "Darwin") [[ -f $DOT_B/.aliases_osx ]] && . $DOT_B/.aliases_osx ;;
 esac
 
-# Bash completion
+# Completion
 
 if [[ "$SYSTEM" == "Darwin" ]] && [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
+
+[[ -r $HOME/.nvm/bash_completion ]] && . $HOME/.nvm/bash_completion

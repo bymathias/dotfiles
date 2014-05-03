@@ -12,7 +12,8 @@ if [[ -d $HOME/.gemrepo ]]; then
     PATH=$PATH:$HOME/.gemrepo/bin
 fi
 
-[[ -d /opt/node/bin ]] && PATH=$PATH:/opt/node/bin
+[[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh
+# [[ -d /opt/node/bin ]] && PATH=$PATH:/opt/node/bin
 
 [[ -d /opt/nginx/sbin ]] && PATH=$PATH:/opt/nginx/sbin
 
