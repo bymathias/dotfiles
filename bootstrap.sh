@@ -15,16 +15,13 @@ DOT_DIR=~/.dotfiles
 DOT_FLS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
 
 
+echo_notice() { echo -e "\n\033[4;37m$1\033[0m"; }
+
 dep_check()
 {
     type -p $1 &> /dev/null
     local INS_DEP=$?
-    if [[ $INS_DEP -eq 0 ]]
-    then
-        echo -e "$1 OK"
-    else
-        echo -e "$1 is required"
-    fi
+    [[ $INS_DEP -eq 0 ]] && echo -e "$1 OK" || echo -e "$1 is required"
     return $INS_DEP
 }
 
@@ -44,6 +41,7 @@ get_files()
     [[ -f $1 ]] && rm -v $1
     curl -fL -o $1 -s $2
 }
+
 
 bin_scripts()
 {
@@ -73,7 +71,8 @@ bootstrap()
             echo "          ./bootstrap.sh install"
             echo "          ./bootstrap.sh uninstall"
             echo "          ./bootstrap.sh update"
-            echo "                                  That's it !"
+            echo " "
+            echo " Doc: github.com/bymathias/dotfiles"
             echo "-----------------------------------------------"
 
             ;;
@@ -106,9 +105,6 @@ bootstrap()
                 sudo ln -siv $DOT_DIR/.vimrc /root/.vimrc
                 sudo ln -siv $DOT_DIR/vim /root/.vim
             fi
- 
-            echo -e "\n.dotfiles installed !";
-            bootstrap help
 
             ;;
         "uninstall")
@@ -128,8 +124,6 @@ bootstrap()
             # Backup .dotfiles folder
             mv -v $DOT_DIR $DOT_DIR.$DOT_BAK
 
-            echo -e "\n.dotfiles uninstalled (backup \"$DOT_DIR.$DOT_BAK\") !";
-
             ;;
         "update")
 
@@ -138,8 +132,6 @@ bootstrap()
 
             # Update Vim plugins using Vundle
             vim +BundleInstall +qall 2>/dev/null
-
-            echo -e "\n.dotfiles updated !"
 
             ;;
         *)
@@ -151,11 +143,17 @@ bootstrap()
 }
 
 
-echo -e "Checking dependencies.."
+echo_notice "Checking dependencies..."
 
 for i in "${DOT_DEP[@]}"
 do
     dep_check $i
 done
 
+
+echo_notice "Dotfiles $1..."
+
 bootstrap "$@"
+
+
+echo_notice "Dotfiles $1 done."
