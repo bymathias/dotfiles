@@ -2,6 +2,10 @@
 
 Config files to setup a system (debian/osx) the way I want it.
 
+## Requirements
+
+[Git](http://git-scm.com/), [Curl](http://curl.haxx.se/), and [Vim](http://www.vim.org/).
+
 ## Installation
 
 Clone the repository and install.
