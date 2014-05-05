@@ -1,24 +1,19 @@
 #!/bin/bash
 
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-[[ -d $HOME/.dotfiles/bin ]] && PATH=$PATH:$HOME/.dotfiles/bin
+[[ -d $HOME/.dotfiles/bin ]] && export PATH=$PATH:$HOME/.dotfiles/bin
 
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-[[ -d $HOME/.rvm/bin ]] && PATH=$PATH:$HOME/.rvm/bin
-
-if [[ -d $HOME/.gemrepo ]]; then
-    export GEM_HOME=$HOME/.gemrepo
-    PATH=$PATH:$HOME/.gemrepo/bin
-fi
+## Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+## Add RVM to PATH for scripting
+[[ -d $HOME/.rvm/bin ]] && export PATH="$PATH:$HOME/.rvm/bin" 
 
 [[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh
 # [[ -d /opt/node/bin ]] && PATH=$PATH:/opt/node/bin
 
-[[ -d /opt/nginx/sbin ]] && PATH=$PATH:/opt/nginx/sbin
+[[ -d /opt/nginx/sbin ]] && export PATH=$PATH:/opt/nginx/sbin
 
-if [[ "$SYSTEM" == "Darwin" ]] && [[ -d "$(brew --prefix homebrew/php/php55)/bin" ]]; then
-    PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
-fi
-
-export PATH
+# if [[ "$SYSTEM" == "Darwin" ]] && [[ -d "$(brew --prefix homebrew/php/php55)/bin" ]]; then
+#     PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+# fi
