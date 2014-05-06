@@ -16,17 +16,6 @@ Clone the repository and install.
 
 Edit the [`.gitconfig`](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1 ".gitconfig") user to fit your details.
 
-#### Terminal setup
-
-[iTerm2](http://www.iterm2.com/) color presets.
-
-    open "~/.dotfiles/init/Kivabien.itermcolors"
-
-[Terminator](http://gnometerminator.blogspot.nl/p/introduction.html) config.
-
-    mv ~/.config/terminator/config ~/.config/terminator/config.defaults.bak
-    cp ~/.dotfiles/init/terminator.config ~/.config/terminator/config
-
 Done.
 
 ## License
