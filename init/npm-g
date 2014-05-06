@@ -1,8 +1,0 @@
-#!/bin/bash
-
-npm install -g \
-    bower \
-    gulp \
-    csso \
-    uglify-js \
-    david
