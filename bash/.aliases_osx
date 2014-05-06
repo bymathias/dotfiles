@@ -1,22 +1,22 @@
 #!/bin/bash
 
 
-# Basic
+## Basic
 alias ls='ls -G'
 alias o='open -a Finder'
 alias ff='open -a firefox'
 
-# Nginx
+## Nginx
 alias nginx-start='sudo nginx'
 alias nginx-restart='sudo nginx -s reload'
 alias nginx-stop='sudo nginx -s stop'
 alias nginx-info='sudo nginx -V'
 alias nginx-test='sudo nginx -t'
 
-# PHP
+## PHP
 alias php-start='launchctl load -w /usr/local/Cellar/php55/5.5.12/homebrew.mxcl.php55.plist'
 alias php-stop='launchctl unload -w /usr/local/Cellar/php55/5.5.12/homebrew.mxcl.php55.plist'
 
-# Mysql
+## Mysql
 alias mysql-start='mysql.server start'
 alias mysql-stop='mysql.server stop'

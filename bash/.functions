@@ -1,23 +1,16 @@
 #!/bin/bash
 
 
-# Basic
-# ============================ #
+## Basic
+## ============================ #
 
-cdl()
-{
-    cd "$1" && ls; 
-}
-
-mdc()
-{
-    mkdir -p "$1" && cd "$1";
-}
+cdl() { cd "$1" && ls; }
+mkc() { mkdir -p "$1" && cd "$1"; }
 
 
-# New script
-# Usage: new-script <filename>
-# ============================ #
+## New script
+## Usage: new-script <filename>
+## ============================ #
 
 new-script()
 {
@@ -28,9 +21,9 @@ new-script()
 }
 
 
-# Colored man pages with less command
-# http://bit.ly/IqWXtu
-# ============================ #
+## Colored man pages with less command
+## @see http://bit.ly/IqWXtu
+## ============================ #
 
 man() 
 {
@@ -46,8 +39,8 @@ man()
 }
 
 
-# Git
-# ============================ #
+## Git
+## ============================ #
 
 git-setup()
 {

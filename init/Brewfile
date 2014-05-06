@@ -1,14 +1,14 @@
-# Install command-line tools using Homebrew
-# Usage: `brew bundle Brewfile`
+## Install command-line tools using Homebrew
+## Usage: `brew bundle Brewfile`
 
-# Make sure we’re using the latest Homebrew
+## Make sure we’re using the latest Homebrew
 update
 
-# Upgrade any already-installed formulae
+## Upgrade any already-installed formulae
 upgrade
 
 
-# Install other useful binaries
+## Install other useful binaries
 install autoconf
 install automake
 install libtool
@@ -37,7 +37,7 @@ install bash-completion
 install tree
 install htop-osx
 
-# Install more recent versions of some OS X tools
+## Install more recent versions of some OS X tools
 tap homebrew/dupes
 tap homebrew/versions
 
@@ -46,5 +46,5 @@ tap homebrew/homebrew-php
 install php55 --with-mysql --with-fpm --with-homebrew-openssl
 install php55-intl
 
-# Remove outdated versions from the cellar
+## Remove outdated versions from the cellar
 cleanup

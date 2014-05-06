@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#
-# Unpack archive
-# Usage: unpack <file>
-#
+## Unpack archive
+## Usage: `unpack <file>`
 
 
 if [[ -f "$1" ]]; then

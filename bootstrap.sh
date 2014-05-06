@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#
-# Install, uninstall and update .dotfiles
-# https://github.com/bymathias/dotfiles
-#
+## Install, uninstall and update .dotfiles
+## https://github.com/bymathias/dotfiles
 
 set -e
 
@@ -78,7 +76,7 @@ bootstrap()
             ;;
         "install")
 
-            # Create all symlinks
+            ## Create all symlinks
             for file in "${DOT_FLS[@]}"
             do
                 bak_files $file
@@ -93,14 +91,14 @@ bootstrap()
                 fi
             done
 
-            # Get bin scripts
+            ## Get bin scripts
             bin_scripts
 
-            # Get Vim Vundle and install plugins
+            ## Get Vim Vundle and install plugins
             git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
             vim +BundleInstall +qall 2>/dev/null
 
-            # Set Vim config for root user
+            ## Set Vim config for root user
             if [[ $DOT_SYS == "Linux" ]]; then
                 sudo ln -siv $DOT_DIR/.vimrc /root/.vimrc
                 sudo ln -siv $DOT_DIR/vim /root/.vim
@@ -109,28 +107,28 @@ bootstrap()
             ;;
         "uninstall")
 
-            # Remove all symlinks
+            ## Remove all symlinks
             for file in "${DOT_FLS[@]}"
             do
                 rm -v ~/$file
             done
 
-            # Remove Vim config for root user
+            ## Remove Vim config for root user
             if [[ $DOT_SYS == "Linux" ]]; then
                 sudo rm -iv --preserve-root /root/.vimrc
                 sudo rm -Riv --preserve-root /root/.vim
             fi
 
-            # Backup .dotfiles folder
+            ## Backup .dotfiles folder
             mv -v $DOT_DIR $DOT_DIR.$DOT_BAK
 
             ;;
         "update")
 
-            # Update bin scripts
+            ## Update bin scripts
             bin_scripts
 
-            # Update Vim plugins using Vundle
+            ## Update Vim plugins using Vundle
             vim +BundleInstall +qall 2>/dev/null
 
             ;;

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Regular
+## Regular
 Red="\[\e[0;31m\]"
 Green="\[\e[0;32m\]"
 Yellow="\[\e[0;33m\]"
@@ -10,7 +10,7 @@ Purple="\[\e[0;35m\]"
 Cyan="\[\e[0;36m\]"
 White="\[\e[0;37m\]"
 
-# Bold
+## Bold
 BRed="\[\e[1;31m\]"
 BGreen="\[\e[1;32m\]"
 BYellow="\[\e[1;33m\]"
@@ -19,7 +19,7 @@ BPurple="\[\e[1;35m\]"
 BCyan="\[\e[1;36m\]"
 BWhite="\[\e[1;37m\]"
 
-# Underlined
+## Underlined
 URed="\[\e[4;31m\]"
 UGreen="\[\e[4;32m\]"
 UYellow="\[\e[4;33m\]"
@@ -28,7 +28,7 @@ UPurple="\[\e[4;35m\]"
 UCyan="\[\e[4;36m\]"
 UWhite="\[\e[4;37m\]"
 
-# Background
+## Background
 BKRed="\[\e[41m\]"
 BKGreen="\[\e[42m\]"
 BKYellow="\[\e[43m\]"
@@ -37,5 +37,5 @@ BKPurple="\[\e[45m\]"
 BKCyan="\[\e[46m\]"
 BKWhite="\[\e[47m\]"
 
-# No Colors
+## No Colors
 NC="\[\e[0m\]"

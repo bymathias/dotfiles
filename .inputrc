@@ -1,15 +1,15 @@
 set bell-style none
 
-# Make bash 8bit clean
+## Make bash 8bit clean
 set meta-flag on
 set input-meta on
 set output-meta on
 set convert-meta off
 
-# Vi-like keybindings
+## Vi-like keybindings
 set editing-mode vi
 
-# Use case-insensitive expansion
+## Use case-insensitive expansion
 #set show-all-if-ambiguous on
 set completion-ignore-case on
 #set completion-map-case on
