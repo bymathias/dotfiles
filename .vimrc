@@ -450,6 +450,9 @@ if exists('*vundle#rc')
     let g:UltiSnipsJumpForwardTrigger='<C-n>'
     let g:UltiSnipsJumpBackwardTrigger='<C-b>'
 
+    " Markdown
+    let g:vim_markdown_folding_disabled=1
+
     " Goyo
     let g:goyo_width='120'
 

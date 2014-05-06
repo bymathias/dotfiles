@@ -6,9 +6,6 @@ alias ls='ls --color=auto --group-directories-first'
 alias o='thunar &'
 alias ff='/usr/bin/firefox &'
 
-# SSH
-alias sa='ssh-add'
-
 # Nginx
 alias nginx-start='sudo /etc/init.d/nginx start'
 alias nginx-restart='sudo /etc/init.d/nginx restart'

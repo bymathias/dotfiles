@@ -38,11 +38,13 @@ install tree
 install htop-osx
 
 # Install more recent versions of some OS X tools
-# tap homebrew/dupes
-# tap homebrew/versions
+tap homebrew/dupes
+tap homebrew/versions
 
-# install php55 --with-intl --with-mysql --with-fpm --with-homebrew-openssl
-# install php55-intl
+tap homebrew/homebrew-php
+
+install php55 --with-mysql --with-fpm --with-homebrew-openssl
+install php55-intl
 
 # Remove outdated versions from the cellar
 cleanup

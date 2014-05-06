@@ -14,6 +14,6 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 [[ -d /opt/nginx/sbin ]] && export PATH=$PATH:/opt/nginx/sbin
 
-# if [[ "$SYSTEM" == "Darwin" ]] && [[ -d "$(brew --prefix homebrew/php/php55)/bin" ]]; then
-#     PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
-# fi
+if [[ "$SYSTEM" == "Darwin" ]] && [[ -d "$(brew --prefix homebrew/php/php55)/bin" ]]; then
+    PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+fi
