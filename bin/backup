@@ -1,1 +1,81 @@
 #!/bin/bash
+
+## Backup utility
+## Usage: `backup help`
+
+set -e
+
+TIMESTAMP=$(date +"%Y-%m-%d")
+BCK_DIR=~/backup/server-$TIMESTAMP
+
+NGINX_DIR=/opt/nginx
+NGINX_CONF=('*.conf' '*.types' 'fastcgi_params')
+NGINX_SITE=('sites-available' 'sites-enabled')
+
+SITE_DIR=/srv/www
+
+backup()
+{
+    if [ $# -ne 1 ]; then
+        backup help
+        return
+    fi
+
+    case "$1" in
+        "help")
+            echo "-------------------------------------------"
+            echo " Usage:"
+            echo "           backup db"
+            echo "           backup ngx"
+            echo "           backup www"
+            echo " "
+            echo "           backup server"
+            echo "-------------------------------------------"
+            ;;
+        "db")
+            ## Create folder for MySql backup
+            mkdir -p "$BCK_DIR/mysql"
+
+            ## Backup all databases
+            for i in `mysql -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema)"`; do
+                mysqldump --force --opt --databases "$i" | gzip > "$BCK_DIR/mysql/$i.sql.gz"
+            done
+            ;;
+        "ngx")
+            ## Create folder for the Nginx config
+            mkdir -p "$BCK_DIR/nginx-config"
+
+            ## Backup Nginx config
+            for i in ${NGINX_CONF[@]}; do
+                sudo rsync -a $NGINX_DIR/conf/$i $BCK_DIR/server/nginx/conf/
+            done
+
+            ## Backup Nginx sites config
+            for i in ${NGINX_SITE[@]}; do
+                sudo rsync -a $NGINX_DIR/$i/* $BCK_DIR/server/nginx/$i/
+            done 
+            ;;
+        "www")
+            ## Backup Nginx sites files
+            mkdir -p "$BCK_DIR/www"
+
+            ## Backup sites
+            sudo rsync -a $SITE_DIR/* $BCK_DIR/www/
+
+            ## Compress sites files
+            cd $BCK_DIR/www
+            for i in */; do
+                sudo tar -cvzf "${i%/}.tar.gz" "$i"
+            done
+
+            ## Remove sites files not compressed
+            rm -rf $BCK_DIR/www/*/
+            ;;
+        *)
+            backup help
+            ;;
+    esac
+}
+backup "$@"
+
+echo -e "$1 backup done."

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Upgrade Nginx from source
+## Usage: `ngxup 1.4.7`
+
 set -e
 
 ## Ask for the administrator password
