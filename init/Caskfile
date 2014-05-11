@@ -13,8 +13,9 @@ cask install iterm2 2> /dev/null
 cask install keepassx 2> /dev/null
 cask install colorschemer-studio 2> /dev/null
 cask install transmit 2> /dev/null
+cask install virtualbox 2> /dev/null
 cask install the-unarchiver 2> /dev/null
 cask install appcleaner 2> /dev/null
 cask install onyx 2> /dev/null
-cask install virtualbox 2> /dev/null
+cask install clamxav 2> /dev/null
 cask install vlc 2> /dev/null
