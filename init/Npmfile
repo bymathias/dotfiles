@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+npm install -g \
+    bower \
+    gulp \
+    jade \
+    uglify-js \
+    csso
