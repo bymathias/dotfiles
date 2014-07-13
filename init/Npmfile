@@ -3,6 +3,7 @@
 
 npm install -g \
     bower \
+    component \
     gulp \
     jade \
     uglify-js \
