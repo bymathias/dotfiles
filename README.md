@@ -1,4 +1,4 @@
-# [Math's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles
+# [Mathias's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles
 
 Config files to setup a system (debian/osx) the way I want it.
 
@@ -14,13 +14,14 @@ Clone the repository and install.
     cd .dotfiles
     ./bootstrap.sh install
 
-Edit the [`.gitconfig`](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1 ".gitconfig") user to fit your details.
+Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) user and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details.
 
 Done.
 
 ## License
 
-**MIT License** Copyright (c) 2013 [Mathias Brouilly](http://mathias.brouilly.fr).
+```
+MIT License Copyright (c) 2013 Mathias Brouilly.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
 associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -36,3 +37,4 @@ LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE A
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
