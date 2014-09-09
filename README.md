@@ -14,9 +14,7 @@ Clone the repository and install.
     cd .dotfiles
     ./bootstrap.sh install
 
-Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) user and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details.
-
-Done.
+Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details.
 
 ## License
 
@@ -29,7 +27,7 @@ including without limitation the rights to use, copy, modify, merge, publish, di
 and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
 subject to the following conditions:
 
-> The above copyright notice and this permission notice shall be included in all copies or substantial 
+The above copyright notice and this permission notice shall be included in all copies or substantial 
 portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
