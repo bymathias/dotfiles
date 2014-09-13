@@ -1,4 +1,4 @@
-# [Mathias's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles [![MIT License](http://img.shields.io/badge/MIT-License-blue.svg?style=flat)](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md "MIT License")
+# [Mathias's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles [![MIT License](http://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md "MIT License")
 
 Config files to setup a system (debian/osx) the way I want it.
 
