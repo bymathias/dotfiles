@@ -17,4 +17,4 @@ Clone the repository and install.
 Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details.
 
 
-[http://img.shields.io/badge/License-MIT-blue.svg?style=flat](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md)
+[![MIT License](http://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md "MIT License")
