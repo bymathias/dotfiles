@@ -12,6 +12,19 @@ Clone the repository and install.
 
     git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
     cd .dotfiles
+
     ./bootstrap.sh install
 
 Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details.
+
+## Update
+
+Update the bin scripts and vim plugins.
+
+    ./bootstrap.sh update
+
+## Uninstall
+
+To remove the dotfile configs.
+
+    ./bootstrap.sh uninstall
