@@ -7,4 +7,6 @@ npm install -g \
     gulp \
     jade \
     uglify-js \
-    csso
+    csso \
+    html-minifier \
+    stylestats
