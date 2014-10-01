@@ -28,6 +28,7 @@ install phantomjs
 install pkg-config
 install readline
 install webkit2png
+install icoutils
 
 install tmux
 
