@@ -47,9 +47,8 @@ bin_scripts()
     get_files $DOT_DIR/bin/speedtest https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
     get_files $DOT_DIR/bin/timebackup https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
     get_files $DOT_DIR/bin/cloudapp https://raw.github.com/bonifaido/cloudapp-cli/master/cloudapp
-    get_files $DOT_DIR/bin/laravel http://laravel.com/laravel.phar
 
-    for file in wp speedtest timebackup cloudapp laravel
+    for file in wp speedtest timebackup cloudapp
     do
         chmod +x $DOT_DIR/bin/$file
     done
