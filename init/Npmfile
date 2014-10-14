@@ -2,6 +2,7 @@
 
 
 npm install -g \
+    david \
     bower \
     component \
     gulp \
@@ -9,4 +10,10 @@ npm install -g \
     uglify-js \
     csso \
     html-minifier \
-    stylestats
+    js-beautify \
+    stylestats \
+    colorguard \
+    complexity-report \
+    plato \
+    license-gen \
+    harp
