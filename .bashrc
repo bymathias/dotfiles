@@ -31,3 +31,6 @@ if [[ "$SYSTEM" == "Darwin" ]] && [ -f $(brew --prefix)/etc/bash_completion ]; t
 fi
 
 [[ -r $HOME/.nvm/bash_completion ]] && . $HOME/.nvm/bash_completion
+
+# added by travis gem
+[ -f /Users/bm/.travis/travis.sh ] && source /Users/bm/.travis/travis.sh

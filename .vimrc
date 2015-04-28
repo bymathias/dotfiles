@@ -31,7 +31,8 @@ if exists('*vundle#rc')
     Bundle 'Valloric/MatchTagAlways'
     Bundle 'editorconfig/editorconfig-vim'
     " Syntax
-    Bundle 'pangloss/vim-javascript'
+    Bundle 'othree/yajs.vim'
+    Bundle 'othree/javascript-libraries-syntax.vim'
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'elzr/vim-json'
     Bundle 'hail2u/vim-css3-syntax'

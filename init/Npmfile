@@ -4,14 +4,5 @@
 npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs npm -g rm &&
 
 npm install -g \
-    david \
-    license-gen \
-    release-it \
     bower \
-    component \
-    gulp \
-    uglify-js \
-    csso \
-    html-minifier \
-    js-beautify \
-    jade
+    gulp
