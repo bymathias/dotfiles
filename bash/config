@@ -20,6 +20,8 @@ export HISTIGNORE='&:ls:ll:[bf]g:pwd:v:clear:exit:history'
 shopt -s checkwinsize
 ## Allow bash to correct small typos
 shopt -s cdspell
+## Extended pattern matching
+shopt -s extglob
 
 ## Set vim as default editor
 export EDITOR=vim
