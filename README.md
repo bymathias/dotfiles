@@ -1,10 +1,10 @@
-# [Mathias's](https://github.com/bymathias/dotfiles "Mathias Brouilly") dotfiles [![MIT License](http://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md "MIT License")
+# Mathias's [dotfiles][home-url] [![MIT License][license-badge]][license-url]
 
-Config files to setup a system (debian/osx) the way I want it.
+> Config files to setup a system (debian/osx) the way I want it.
 
 ## Requirements
 
-[Git](http://git-scm.com/), [Curl](http://curl.haxx.se/), and [Vim](http://www.vim.org/).
+[Git][git-url], [Curl][curl-url], [Node.js][nodejs-url] and [Vim][vim-url].
 
 ## Installation
 
@@ -28,3 +28,20 @@ Update the bin scripts and vim plugins.
 To remove the dotfile configs.
 
     ./bootstrap.sh uninstall
+
+## Todo
+
+- Add changelog generator from git metadata.
+
+
+<!-- Link Labels -->
+
+[home-url]: https://github.com/bymathias/dotfiles
+
+[license-badge]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+[license-url]:   https://github.com/bymathias/dotfiles/blob/master/LICENSE.md
+
+[git-url]:    http://git-scm.com
+[curl-url]:   http://curl.haxx.se
+[nodejs-url]: https://nodejs.org
+[vim-url]:    http://www.vim.org
