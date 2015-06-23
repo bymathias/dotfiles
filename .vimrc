@@ -56,6 +56,7 @@ if exists('*vundle#rc')
     Bundle 'wellle/tmux-complete.vim'
     " Writing
     Bundle 'junegunn/goyo.vim'
+    Bundle 'suan/vim-instant-markdown'
 
 endif
 
