@@ -42,9 +42,15 @@ man()
 ## Git
 ## ============================ #
 
-git-setup()
+git-init()
 {
-    git init && \
-    git add . && \
-    git commit -m 'Initial commit'
+    if [[ -d ".git" ]]
+    then
+        echo "Already a git repository"
+        exit
+    fi
+    git init &&
+    git add --all &&
+    git commit -m 'Initial commit' &&
+    git tag -a v0.1.0 -m "Version 0.1.0"
 }
