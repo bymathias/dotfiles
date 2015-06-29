@@ -15,11 +15,10 @@ mkc() { mkdir -p "$1" && cd "$1"; }
 new-script()
 {
     [[ -e "$1" ]] && echo "'$1' already exists" && return
-    echo -e "#!/bin/bash\n\nset -e\n" > "$1" && \
+    echo "#!/bin/bash" > "$1" && \
     chmod a+x "$1" && \
         vim "$1"
 }
-
 
 ## Colored man pages with less command
 ## @see http://bit.ly/IqWXtu
