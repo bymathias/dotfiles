@@ -44,6 +44,7 @@ if exists('*vundle#rc')
     Bundle 'evanmiller/nginx-vim-syntax'
     Bundle 'plasticboy/vim-markdown'
     " Snippets
+    Bundle 'AutoComplPop'
     Bundle 'mattn/emmet-vim'
     Bundle 'SirVer/ultisnips'
     Bundle 'honza/vim-snippets'
@@ -368,7 +369,7 @@ nmap <leader>l <C-w>l
 nmap <leader>/ :nohlsearch<cr>
 
 "autocomplete with Ctrl + Space
-inoremap <Nul> <C-x><C-o>
+" inoremap <Nul> <C-x><C-o>
 
 "insert blank lines without going into insert mode
 nmap go o<esc>
@@ -442,14 +443,16 @@ if exists('*vundle#rc')
     hi MatchTag ctermfg=227 ctermbg=234
 
     " Emmet
-    let g:user_emmet_expandabbr_key='<C-e>'
+    " Enable emmet only for html and css
+    " let g:user_emmet_install_global = 0
+    " autocmd FileType html,css EmmetInstall
+    let g:user_emmet_expandabbr_key='<Nul>'
     " Map Emmet expand to tab key
-    imap <expr><tab> emmet#isExpandable() ? "\<C-e>" : "\<tab>"
+    " imap <expr><tab> emmet#isExpandable() ? '\<C-e>' : '\<tab>'
     let g:use_emmet_complete_tag=1
-    let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.vim/snippets.json')), "\n"))
 
     " Ultisnips
-    let g:UltiSnipsExpandTrigger='<C-u>'
+    let g:UltiSnipsExpandTrigger='<tab>'
     let g:UltiSnipsListSnippets='<C-l>'
     let g:UltiSnipsJumpForwardTrigger='<C-n>'
     let g:UltiSnipsJumpBackwardTrigger='<C-b>'

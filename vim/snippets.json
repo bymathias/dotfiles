@@ -1,8 +1,0 @@
-{
-  "php": {
-    "extends": "html",
-    "snippets" : {
-      "php": "<?php | ?>"
-    }
-  }
-}
