@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+# Variables
+TIMESTAMP=$(date +"%Y-%m-%d")
+BACKUP_DIR=~/backup/$TIMESTAMP
+
+NGINX_DIR=/opt/nginx
+NGINX_CONF=('*.conf' '*.types' 'fastcgi_params')
+NGINX_SITE=('sites-available' 'sites-enabled')
+
+SITE_DIR=/srv/www
+MYSQL_DATA=`mysql -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema)"`
+
+
+# Ask for the administrator password
+sudo -v
+
+# Backup MySQL
+mkdir -p "$BACKUP_DIR/server/mysql"
+
+for i in $MYSQL_DATA; do
+    mysqldump --force --opt --databases $i | gzip > "$BACKUP_DIR/server/mysql/$i.sql.gz"
+done
+
+# Backup Nginx config
+mkdir -p "$BACKUP_DIR/server/nginx"
+
+for i in ${NGINX_CONF[@]}; do
+    sudo rsync -a $NGINX_DIR/conf/$i $BACKUP_DIR/server/nginx/conf/
+done
+
+for i in ${NGINX_SITE[@]}; do
+    sudo rsync -a $NGINX_DIR/$i/* $BACKUP_DIR/server/nginx/$i/
+done            
+
+# Backup Sites files
+mkdir -p "$BACKUP_DIR/server/site"
+
+sudo rsync -a $SITE_DIR/* $BACKUP_DIR/server/site/
+
+cd $BACKUP_DIR/server/site
+
+for i in */; do
+    sudo tar -cvzf "${i%/}.tar.gz" "$i"
+done
+
+rm -rf $BACKUP_DIR/server/site/*/
+
+# DONE !
+echo "Server backup successfull !"
