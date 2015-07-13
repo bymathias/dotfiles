@@ -31,6 +31,7 @@ if exists('*vundle#rc')
     Bundle 'Valloric/MatchTagAlways'
     Bundle 'editorconfig/editorconfig-vim'
     Bundle 'terryma/vim-expand-region'
+    Bundle 'csscomb/vim-csscomb'
     " Syntax
     Bundle 'othree/yajs.vim'
     Bundle 'othree/javascript-libraries-syntax.vim'
