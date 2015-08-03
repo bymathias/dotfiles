@@ -95,8 +95,8 @@ hi Directory ctermfg=107 ctermbg=none cterm=none
 "hi Question
 "hi Scrollbar
 hi SignColumn ctermfg=238 ctermbg=232 cterm=none
-"hi SpellBad
-"hi SpellCap
+hi SpellBad ctermfg=255 ctermbg=197
+hi SpellCap ctermfg=255 ctermbg=197
 "hi SpellLocal
 "hi SpellRare
 hi TabLine ctermfg=White ctermbg=DarkBlue cterm=none

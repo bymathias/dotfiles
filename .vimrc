@@ -45,6 +45,7 @@ if exists('*vundle#rc')
     Bundle 'spf13/PIV'
     Bundle 'evanmiller/nginx-vim-syntax'
     Bundle 'plasticboy/vim-markdown'
+    " Bundle 'scrooloose/syntastic'
     " Snippets
     Bundle 'AutoComplPop'
     Bundle 'mattn/emmet-vim'
@@ -323,6 +324,11 @@ if has('statusline')
     set stl+=%t                     "file name
     set stl+=%{FileSize()}          "file size
     set stl+=\ \%*
+    " if exists('*vundle#rc') 
+    "     set stl+=%#warningmsg#
+    "     set stl+=%{SyntasticStatuslineFlag()}
+    "     set stl+=%*
+    " endif
     set stl+=%1*\ %l\/%L            "infos line number
     set stl+=\ \|\ %p%%             "percent through file
     set stl+=\ \%*
@@ -460,6 +466,12 @@ if exists('*vundle#rc')
     let g:UltiSnipsListSnippets='<C-l>'
     let g:UltiSnipsJumpForwardTrigger='<C-n>'
     let g:UltiSnipsJumpBackwardTrigger='<C-b>'
+
+    " Syntastic
+    " let g:syntastic_check_on_open=1
+    " highlight link SyntasticError SpellBad
+    " highlight link SyntasticWarning SpellCap    
+    " highlight link SyntasticErrorLine SpellBad
 
     " Markdown
     let g:vim_markdown_folding_disabled=1

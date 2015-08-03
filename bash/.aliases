@@ -55,5 +55,7 @@ alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
 ## SSH
 alias ssa='ssh-add'
 
-## Hosts
-alias edit-hosts='sudo vim /etc/hosts'
+## Localhost
+alias host-edit='sudo vim /etc/hosts'
+alias host-start='mysql-start && php-start && nginx-start'
+alias host-stop='nginx-stop && php-stop && mysql-stop'

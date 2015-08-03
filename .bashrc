@@ -7,7 +7,7 @@ DOT_B=$HOME/.dotfiles/bash
 
 for file in config colors prompt paths
 do
-    . $DOT_B/$file
+    . "$DOT_B/$file"
 done
 
 ## Aliases/Functions
