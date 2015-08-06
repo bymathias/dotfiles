@@ -466,6 +466,8 @@ if exists('*vundle#rc')
     let g:UltiSnipsListSnippets='<C-l>'
     let g:UltiSnipsJumpForwardTrigger='<C-n>'
     let g:UltiSnipsJumpBackwardTrigger='<C-b>'
+    let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/mysnippets'
+    let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
 
     " Syntastic
     " let g:syntastic_check_on_open=1
