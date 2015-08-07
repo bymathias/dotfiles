@@ -32,6 +32,7 @@ To remove the dotfile configs.
 ## Todo
 
 - Add changelog generator from git metadata.
+- Add vim key binding list and snippets cheat sheets.
 
 
 <!-- Link Labels -->
