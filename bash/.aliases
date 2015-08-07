@@ -59,3 +59,6 @@ alias ssa='ssh-add'
 alias host-edit='sudo vim /etc/hosts'
 alias host-start='mysql-start && php-start && nginx-start'
 alias host-stop='nginx-stop && php-stop && mysql-stop'
+
+## Nu Html Checker
+alias check-html='java -jar ~/.dotfiles/bin/vnu.jar'
