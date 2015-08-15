@@ -22,3 +22,5 @@
     tool = Kaleidoscope
 [github]
     user = bymathias
+[alias]
+	undo = reset --soft HEAD^
