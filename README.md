@@ -6,33 +6,46 @@
 
 [Git][git-url], [Curl][curl-url], [Node.js][nodejs-url] and [Vim][vim-url].
 
-## Installation
+## Setup
+
+#### Installation
 
 Clone the repository and install.
 
-    git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
-    cd .dotfiles
+```sh
+git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
+cd .dotfiles
 
-    ./bootstrap.sh install
+./bootstrap.sh install
+```
 
-Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details.
+Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details. Et voilà.
 
-## Update
+#### Update
 
 Update the bin scripts and vim plugins.
 
-    ./bootstrap.sh update
+```sh
+./bootstrap.sh update
+```
 
-## Uninstall
+#### Uninstall
 
-To remove the dotfile configs.
+To remove the dotfiles.
 
-    ./bootstrap.sh uninstall
+```sh
+./bootstrap.sh uninstall
+```
 
 ## Todo
 
 - Add changelog generator from git metadata.
 - Add vim key binding list and snippets cheat sheets.
+- Add bin scripts usage.
+
+## License
+
+Licensed under the [MIT License][license-url].
 
 
 <!-- Link Labels -->

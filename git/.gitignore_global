@@ -1,7 +1,7 @@
 ## github.com/github/gitignore
 
 ## VIM
-*.s[a-w][a-z]
+# *.s[a-w][a-z]
 *.un~
 Session.vim
 .netrwhist
