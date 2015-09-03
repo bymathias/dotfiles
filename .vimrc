@@ -32,6 +32,7 @@ if exists('*vundle#rc')
     Bundle 'editorconfig/editorconfig-vim'
     Bundle 'terryma/vim-expand-region'
     Bundle 'csscomb/vim-csscomb'
+    " Bundle 'scrooloose/syntastic'
     " Syntax
     Bundle 'othree/yajs.vim'
     Bundle 'othree/javascript-libraries-syntax.vim'
@@ -45,7 +46,7 @@ if exists('*vundle#rc')
     Bundle 'spf13/PIV'
     Bundle 'evanmiller/nginx-vim-syntax'
     Bundle 'plasticboy/vim-markdown'
-    " Bundle 'scrooloose/syntastic'
+    Bundle 'dsawardekar/wordpress.vim'
     " Snippets
     Bundle 'AutoComplPop'
     Bundle 'mattn/emmet-vim'
@@ -462,10 +463,11 @@ if exists('*vundle#rc')
     let g:use_emmet_complete_tag=1
 
     " Ultisnips
-    let g:UltiSnipsExpandTrigger='<tab>'
+    let g:UltiSnipsExpandTrigger='<Tab>'
+    let g:UltiSnipsJumpForwardTrigger='<Tab>'
+    let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
     let g:UltiSnipsListSnippets='<C-l>'
-    let g:UltiSnipsJumpForwardTrigger='<C-n>'
-    let g:UltiSnipsJumpBackwardTrigger='<C-b>'
+
     let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/mysnippets'
     let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
 

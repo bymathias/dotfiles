@@ -7,7 +7,7 @@ set -e
 
 DOT_SYS=`uname -s`
 DOT_BAK=$(date +"%Y-%m-%d").bak
-DOT_DEP=(git curl vim node npm)
+DOT_DEP=(git curl vim)
 
 DOT_DIR=~/.dotfiles
 DOT_FLS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
@@ -96,10 +96,10 @@ bootstrap()
 
             ## Required for Vim plugins
             ## Vim instant markdown
-            npm -g install instant-markdown-d
-            if [[ $DOT_SYS == "Linux" ]]; then
-                sudo apt-get install xdg-utils
-            fi
+            # npm -g install instant-markdown-d
+            # if [[ $DOT_SYS == "Linux" ]]; then
+            #     sudo apt-get install xdg-utils
+            # fi
 
             ## Get Vim Vundle and install plugins
             git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
@@ -134,6 +134,9 @@ bootstrap()
 
             ## Update bin scripts
             bin_scripts
+
+            ## Init global npm packages
+            # ./init/Npmfile
 
             ## Update Vim plugins using Vundle
             vim +BundleInstall +qall 2>/dev/null

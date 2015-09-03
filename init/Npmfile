@@ -5,5 +5,9 @@ npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs
 
 npm install -g \
     gulp \
+    bower \
+    instant-markdown-d \
+    ungit \
+    speed-test \
     peerflix \
     termflix
