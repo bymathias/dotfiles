@@ -36,6 +36,7 @@ if exists('*vundle#rc')
     " Syntax
     Bundle 'othree/yajs.vim'
     Bundle 'othree/javascript-libraries-syntax.vim'
+    Bundle 'moll/vim-node'
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'elzr/vim-json'
     Bundle 'hail2u/vim-css3-syntax'
