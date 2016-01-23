@@ -53,3 +53,15 @@ git-init()
     git commit -m 'Initial commit' &&
     git tag -a v0.1.0 -m "Version 0.1.0"
 }
+
+## List todos
+## ============================ #
+
+list-todo()
+{
+    grep \
+        --exclude-dir="node_modules" \
+        --exclude-dir="bower_components" \
+        --color=always \
+        -rnw . -e "TODO:"
+}
