@@ -37,12 +37,6 @@ To remove the dotfiles.
 ./bootstrap.sh uninstall
 ```
 
-## Todo
-
-- Add changelog generator from git metadata.
-- Add vim key binding list and snippets cheat sheets.
-- Add bin scripts usage.
-
 ## License
 
 Licensed under the [MIT License][license-url].
