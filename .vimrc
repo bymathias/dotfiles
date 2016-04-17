@@ -42,6 +42,7 @@ if exists('*vundle#rc')
     Bundle 'hail2u/vim-css3-syntax'
     Bundle 'wavded/vim-stylus'
     Bundle 'othree/html5.vim'
+    Bundle 'Glench/Vim-Jinja2-Syntax'
     Bundle 'digitaltoad/vim-jade'
     Bundle 'mustache/vim-mustache-handlebars'
     Bundle 'spf13/PIV'
