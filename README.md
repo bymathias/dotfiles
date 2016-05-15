@@ -4,7 +4,7 @@
 
 ## Requirements
 
-[Git][git-url], [Curl][curl-url], [Node.js][nodejs-url] and [Vim][vim-url].
+[Git][git-url], [Curl][curl-url], ~~[Node.js][nodejs-url]~~ and [Vim][vim-url].
 
 ## Setup
 
