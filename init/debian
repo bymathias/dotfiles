@@ -10,25 +10,12 @@ sudo apt-get update
 sudo apt-get -y dist-upgrade
 
 sudo apt-get install \
-    build-essential \
-    make \
-    gcc \
-    checkinstall \
-    chrpath \
-    libxml2-dev \
-    libxslt-dev \
-    sqlite3 \
-    libsqlite3-dev \
-    libcurl4-openssl-dev \
-    libc6-dev \
-    libmysql++-dev \
     curl \
     wget \
     rsync \
-    git-core \
+    git \
     mercurial \
     bash-completion \
-    openssh-server \
     imagemagick \
     exuberant-ctags \
     python-pygments
@@ -41,18 +28,12 @@ sudo apt-get install \
     gpick \
     fontforge \
     trimage \
-    xclip \
     scribus 
 
 ## Fonts
 sudo apt-get install \
-    ttf-inconsolata \
-    ttf-droid \
-    ttf-dejavu \
-    ttf-liberation \
-    xfonts-terminus \
-    xfonts-terminus-oblique \
-    console-terminus
+    fonts-inconsolata \
+    fonts-droid
 
 ## Final upgrade and clean up
 sudo apt-get upgrade
