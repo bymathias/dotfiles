@@ -7,7 +7,7 @@ DOT_B=$HOME/.dotfiles/bash
 
 for file in config colors prompt paths
 do
-    . "$DOT_B/$file"
+    . $DOT_B/$file
 done
 
 ## Aliases/Functions
@@ -18,7 +18,6 @@ do
 done
 
 ## OS specific aliases
-
 case "$SYSTEM" in
     "Linux") [[ -f $DOT_B/.aliases_nux ]] && . $DOT_B/.aliases_nux ;;
     "Darwin") [[ -f $DOT_B/.aliases_osx ]] && . $DOT_B/.aliases_osx ;;
@@ -30,7 +29,9 @@ if [[ "$SYSTEM" == "Darwin" ]] && [ -f $(brew --prefix)/etc/bash_completion ]; t
     . $(brew --prefix)/etc/bash_completion
 fi
 
-[[ -r $HOME/.nvm/bash_completion ]] && . $HOME/.nvm/bash_completion
+[ -r "$HOME/.nvm/bash_completion" ] && . "$HOME/.nvm/bash_completion"
 
-# added by travis gem
-[ -f /Users/bm/.travis/travis.sh ] && source /Users/bm/.travis/travis.sh
+[ -f "$HOME/.travis/travis.sh" ] && . "$HOME/.travis/travis.sh"
+
+## iTerm Shell Integration
+test -e "$HOME/.iterm2_shell_integration.bash" && source "$HOME/.iterm2_shell_integration.bash"

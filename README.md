@@ -37,6 +37,15 @@ To remove the dotfiles.
 ./bootstrap.sh uninstall
 ```
 
+#### Color Schemes
+
+```sh
+# Install the theme for iTerm
+open ~/.dotfiles/init/Kivabien.itermcolors
+
+# Terminator..
+```
+
 ## License
 
 Licensed under the [MIT License][license-url].

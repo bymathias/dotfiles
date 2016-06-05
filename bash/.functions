@@ -65,16 +65,3 @@ list-todo()
         --color=always \
         -rnw . -e "TODO:"
 }
-
-## List aliases
-## ============================ #
-
-aliases()
-{
-    cat $HOME/.dotfiles/bash/.aliases &&
-    if [[ "$SYSTEM" == "Darwin" ]]; then
-        cat $HOME/.dotfiles/bash/.aliases_osx
-    else
-        cat $HOME/.dotfiles/bash/.aliases_nux
-    fi
-}

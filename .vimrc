@@ -110,9 +110,9 @@ set maxmempattern=20000
 " INDENTATION {{{
 
 set expandtab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set smarttab
 set smartindent
 set autoindent
@@ -244,7 +244,7 @@ if has('autocmd')
     au BufNewFile,BufRead *.cson set ft=coffee
     au BufNewFile,BufRead *.{stylus,styl} set ft=stylus.css                     "css autocomplete for stylus
 
-    au BufNewFile,BufReadPost *.{json,jade,stylus,styl} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+    au BufNewFile,BufReadPost *.{css,stylus,styl,json,jade} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
     "disable automatic comment insertion
     au FileType * setl formatoptions-=c formatoptions-=r formatoptions-=o
     "comments used to indicate folds for vim files
