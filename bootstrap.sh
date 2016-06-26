@@ -37,17 +37,17 @@ bak_files()
 get_files()
 {
     [[ -f $1 ]] && rm -v $1
-    curl -fL -o $1 -s $2
+    curl -L# -o $1 $2
 }
-
 
 bin_scripts()
 {
     get_files $DOT_DIR/bin/wp https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     get_files $DOT_DIR/bin/speedtest https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
     get_files $DOT_DIR/bin/timebackup https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
+    get_files $DOT_DIR/bin/youtube-dl https://yt-dl.org/latest/youtube-dl
 
-    for file in wp speedtest timebackup
+    for file in wp speedtest timebackup youtube-dl
     do
         chmod +x $DOT_DIR/bin/$file
     done
@@ -90,8 +90,15 @@ bootstrap()
                 fi
             done
 
-            ## Get bin scripts
-            bin_scripts
+            ## Set Vim config for root user
+            if [[ $DOT_SYS == "Linux" ]]; then
+                sudo ln -siv $DOT_DIR/.vimrc /root/.vimrc
+                sudo ln -siv $DOT_DIR/vim /root/.vim
+            fi
+
+            ## Get Vim Vundle and install plugins
+            git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
+            vim +BundleInstall +qall 2>/dev/null
 
             ## Required for Vim plugins
             ## Vim instant markdown
@@ -100,15 +107,8 @@ bootstrap()
             #     sudo apt-get install xdg-utils
             # fi
 
-            ## Get Vim Vundle and install plugins
-            git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
-            vim +BundleInstall +qall 2>/dev/null
-
-            ## Set Vim config for root user
-            if [[ $DOT_SYS == "Linux" ]]; then
-                sudo ln -siv $DOT_DIR/.vimrc /root/.vimrc
-                sudo ln -siv $DOT_DIR/vim /root/.vim
-            fi
+            ## Get bin scripts
+            bin_scripts
 
             ;;
         "uninstall")
@@ -131,36 +131,26 @@ bootstrap()
             ;;
         "update")
 
-            ## Update bin scripts
-            bin_scripts
-
-            ## Init global npm packages
-            # ./init/Npmfile
-
             ## Update Vim plugins using Vundle
             vim +BundleInstall +qall 2>/dev/null
 
+            ## Update bin scripts
+            bin_scripts
+
             ;;
+        # "test")
+        #     ;;
         *)
-
             bootstrap help
-
             ;;
     esac
 }
 
-
 echo_notice "Checking dependencies..."
-
 for i in "${DOT_DEP[@]}"
 do
     dep_check $i
 done
 
-
 echo_notice "Dotfiles $1..."
-
 bootstrap "$@"
-
-
-echo_notice "Dotfiles $1 done."

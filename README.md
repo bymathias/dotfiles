@@ -2,13 +2,11 @@
 
 > Config files to setup a system (debian/osx) the way I want it.
 
-## Requirements
+### Requirements
 
 [Git][git-url], [Curl][curl-url], ~~[Node.js][nodejs-url]~~ and [Vim][vim-url].
 
-## Setup
-
-#### Installation
+### Installation
 
 Clone the repository and install.
 
@@ -21,32 +19,7 @@ cd .dotfiles
 
 Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details. Et voilà.
 
-#### Update
-
-Update the bin scripts and vim plugins.
-
-```sh
-./bootstrap.sh update
-```
-
-#### Uninstall
-
-To remove the dotfiles.
-
-```sh
-./bootstrap.sh uninstall
-```
-
-#### Color Schemes
-
-```sh
-# Install the theme for iTerm
-open ~/.dotfiles/init/Kivabien.itermcolors
-
-# Terminator..
-```
-
-## License
+### License
 
 Licensed under the [MIT License][license-url].
 
