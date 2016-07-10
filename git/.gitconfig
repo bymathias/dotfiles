@@ -1,26 +1,26 @@
 [user]
-    name = Mathias Brouilly
-    email = bymathias@gmail.com
+  name = Mathias Brouilly
+  email = bymathias@gmail.com
 [core]
-    editor = vim
-    excludesfile = "~/.dotfiles/git/.gitignore_global"
-    whitespace = trailing-space,space-before-tab
+  editor = vim
+  excludesfile = "~/.dotfiles/git/.gitignore_global"
+  whitespace = trailing-space,space-before-tab
 [branch]
-    autosetupmerge = true
+  autosetupmerge = true
 [push]
-    default = tracking
+  default = tracking
 [color]
-    diff = auto
-    status = auto
-    branch = auto
-    ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  ui = auto
 [difftool]
-    prompt = false
+  prompt = false
 [difftool "Kaleidoscope"]
-    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+  cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
 [diff]
-    tool = Kaleidoscope
+  tool = Kaleidoscope
 [github]
-    user = bymathias
+  user = bymathias
 [alias]
-	undo = reset --soft HEAD^
+  undo = reset --soft HEAD^

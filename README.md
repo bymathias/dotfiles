@@ -4,7 +4,7 @@
 
 ### Requirements
 
-[Git][git-url], [Curl][curl-url], ~~[Node.js][nodejs-url]~~ and [Vim][vim-url].
+[Git][git-url], [Curl][curl-url] and [Vim][vim-url]
 
 ### Installation
 
@@ -15,6 +15,7 @@ git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
 cd .dotfiles
 
 ./bootstrap.sh install
+# ./bootstrap.sh [ install | uninstall | update ]
 ```
 
 Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L1) and [github user](https://github.com/bymathias/dotfiles/blob/master/git/.gitconfig#L23) to fit your details. Et voilà.
@@ -22,7 +23,6 @@ Edit the `.gitconfig` [user](https://github.com/bymathias/dotfiles/blob/master/g
 ### License
 
 Licensed under the [MIT License][license-url].
-
 
 <!-- Link Labels -->
 

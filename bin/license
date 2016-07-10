@@ -9,8 +9,8 @@ AUTHOR_NAME="Mathias Brouilly"
 AUTHOR_URL="http://mathias.brouilly.fr"
 
 if [ -f $FILE_NAME ]; then
-    echo "'$FILE_NAME' already exists"
-    exit
+  echo "'$FILE_NAME' already exists"
+  exit
 fi
 
 cat > $FILE_NAME <<EOT

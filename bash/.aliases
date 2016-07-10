@@ -44,6 +44,7 @@ alias gt='git checkout'
 alias ge='git clone'
 
 ## Path
+alias dots='cd ~/.dotfiles && vim'
 alias dbox='cd ~/Dropbox && ls'
 alias note='cd ~/Dropbox/Notes && vim'
 alias site='cd ~/Sites && ls'

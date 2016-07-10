@@ -10,30 +10,31 @@ sudo apt-get update
 sudo apt-get -y dist-upgrade
 
 sudo apt-get install \
-    curl \
-    wget \
-    rsync \
-    git \
-    mercurial \
-    bash-completion \
-    imagemagick \
-    exuberant-ctags \
-    python-pygments
+  bash-completion \
+  curl \
+  exuberant-ctags \
+  git \
+	git-extras \
+  imagemagick \
+  mercurial \
+  python-pygments \
+  rsync \
+  wget
 
 sudo apt-get install \
-    tmux \
-    vim-nox \
-    keepassx \
-    iceweasel \
-    gpick \
-    fontforge \
-    trimage \
-    scribus 
+  fontforge \
+  gpick \
+  iceweasel \
+  keepassx \
+  scribus \
+  tmux \
+  trimage \
+  vim-nox
 
 ## Fonts
 sudo apt-get install \
-    fonts-inconsolata \
-    fonts-droid
+  fonts-inconsolata \
+  fonts-droid
 
 ## Final upgrade and clean up
 sudo apt-get upgrade

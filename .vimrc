@@ -13,59 +13,59 @@ silent! call vundle#rc()
 
 if exists('*vundle#rc')
 
-    " Let Vundle manage Vundle, required
-    Bundle 'gmarik/vundle'
-    " BUNDLES
-    " Libraries
-    Bundle 'mattn/webapi-vim'
-    " Navigation
-    Bundle 'scrooloose/nerdtree'
-    Bundle 'kien/ctrlp.vim'
-    " Helpers
-    Bundle 'tpope/vim-surround'
-    Bundle 'terryma/vim-multiple-cursors'
-    Bundle 'tpope/vim-commentary'
-    Bundle 'Raimondi/delimitMate'
-    Bundle 'nathanaelkane/vim-indent-guides'
-    Bundle 'junegunn/vim-easy-align'
-    Bundle 'Valloric/MatchTagAlways'
-    Bundle 'editorconfig/editorconfig-vim'
-    Bundle 'terryma/vim-expand-region'
-    Bundle 'csscomb/vim-csscomb'
-    " Bundle 'scrooloose/syntastic'
-    " Syntax
-    Bundle 'othree/yajs.vim'
-    Bundle 'othree/javascript-libraries-syntax.vim'
-    Bundle 'moll/vim-node'
-    Bundle 'kchmck/vim-coffee-script'
-    Bundle 'elzr/vim-json'
-    Bundle 'hail2u/vim-css3-syntax'
-    Bundle 'wavded/vim-stylus'
-    Bundle 'othree/html5.vim'
-    Bundle 'Glench/Vim-Jinja2-Syntax'
-    Bundle 'digitaltoad/vim-jade'
-    Bundle 'mustache/vim-mustache-handlebars'
-    Bundle 'spf13/PIV'
-    Bundle 'evanmiller/nginx-vim-syntax'
-    Bundle 'plasticboy/vim-markdown'
-    Bundle 'dsawardekar/wordpress.vim'
-    " Snippets
-    Bundle 'AutoComplPop'
-    Bundle 'mattn/emmet-vim'
-    Bundle 'SirVer/ultisnips'
-    Bundle 'honza/vim-snippets'
-    Bundle 'mattn/gist-vim'
-    " Ctags
-    Bundle 'majutsushi/tagbar'
-    " Version control
-    Bundle 'tpope/vim-fugitive'
-    " Tmux
-    Bundle 'wellle/tmux-complete.vim'
-    " Terminal
-    " Bundle 'wincent/terminus'
-    " Writing
-    Bundle 'junegunn/goyo.vim'
-    Bundle 'suan/vim-instant-markdown'
+  " Let Vundle manage Vundle, required
+  Bundle 'gmarik/vundle'
+  " BUNDLES
+  " Libraries
+  Bundle 'mattn/webapi-vim'
+  " Navigation
+  Bundle 'scrooloose/nerdtree'
+  Bundle 'kien/ctrlp.vim'
+  " Helpers
+  Bundle 'tpope/vim-surround'
+  Bundle 'terryma/vim-multiple-cursors'
+  Bundle 'tpope/vim-commentary'
+  Bundle 'Raimondi/delimitMate'
+  Bundle 'nathanaelkane/vim-indent-guides'
+  Bundle 'junegunn/vim-easy-align'
+  Bundle 'Valloric/MatchTagAlways'
+  Bundle 'editorconfig/editorconfig-vim'
+  Bundle 'terryma/vim-expand-region'
+  Bundle 'csscomb/vim-csscomb'
+  " Bundle 'scrooloose/syntastic'
+  " Syntax
+  Bundle 'othree/yajs.vim'
+  Bundle 'othree/javascript-libraries-syntax.vim'
+  Bundle 'moll/vim-node'
+  Bundle 'kchmck/vim-coffee-script'
+  Bundle 'elzr/vim-json'
+  Bundle 'hail2u/vim-css3-syntax'
+  Bundle 'wavded/vim-stylus'
+  Bundle 'othree/html5.vim'
+  Bundle 'Glench/Vim-Jinja2-Syntax'
+  Bundle 'digitaltoad/vim-jade'
+  Bundle 'mustache/vim-mustache-handlebars'
+  Bundle 'spf13/PIV'
+  Bundle 'evanmiller/nginx-vim-syntax'
+  Bundle 'plasticboy/vim-markdown'
+  Bundle 'dsawardekar/wordpress.vim'
+  " Snippets
+  Bundle 'AutoComplPop'
+  Bundle 'mattn/emmet-vim'
+  Bundle 'SirVer/ultisnips'
+  Bundle 'honza/vim-snippets'
+  Bundle 'mattn/gist-vim'
+  " Ctags
+  Bundle 'majutsushi/tagbar'
+  " Version control
+  Bundle 'tpope/vim-fugitive'
+  " Tmux
+  Bundle 'wellle/tmux-complete.vim'
+  " Terminal
+  " Bundle 'wincent/terminus'
+  " Writing
+  Bundle 'junegunn/goyo.vim'
+  Bundle 'suan/vim-instant-markdown'
 
 endif
 
@@ -165,8 +165,8 @@ set clipboard=unnamed           "copy and paste friendly, require vim > 7.3
 
 if has('gui_running')  
 
-    set guioptions-=T           "hide toolbar
-    set guioptions-=m           "hide menu bar
+  set guioptions-=T           "hide toolbar
+  set guioptions-=m           "hide menu bar
 
 endif
 
@@ -201,12 +201,12 @@ set wildignore+=*/.git/*,*/.svn/*               "ignore source control files
 
 if has('autocmd')
 
-    "auto enable autocomplete for html, css, javascript, php..
-    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+  "auto enable autocomplete for html, css, javascript, php..
+  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+  autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 
 endif
 
@@ -221,10 +221,10 @@ set history=500                 "longer history than 20(default)
 
 if has('persistent_undo')
 
-    set undodir=~/.vim/undo     "set the undo directory
-    set undofile                "set undo file even when closed
-    set undolevels=500          "maximum number of changes that can be undone
-    set undoreload=5000 
+  set undodir=~/.vim/undo     "set the undo directory
+  set undofile                "set undo file even when closed
+  set undolevels=500          "maximum number of changes that can be undone
+  set undoreload=5000 
 
 endif
 
@@ -238,19 +238,19 @@ let php_sql_query=1             "highlight sql queries
 
 if has('autocmd')
 
-    au BufNewFile,BufRead *.rss set ft=xml                                      "treat .rss files as xml
-    au BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown                   "these are markdown
-    au BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx      "nginx syntax highlighting
-    au BufNewFile,BufRead *.cson set ft=coffee
-    au BufNewFile,BufRead *.{stylus,styl} set ft=stylus.css                     "css autocomplete for stylus
+  au BufNewFile,BufRead *.rss set ft=xml                                      "treat .rss files as xml
+  au BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown                   "these are markdown
+  au BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx      "nginx syntax highlighting
+  au BufNewFile,BufRead *.cson set ft=coffee
+  au BufNewFile,BufRead *.{stylus,styl} set ft=stylus.css                     "css autocomplete for stylus
 
-    au BufNewFile,BufReadPost *.{css,stylus,styl,json,jade} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-    "disable automatic comment insertion
-    au FileType * setl formatoptions-=c formatoptions-=r formatoptions-=o
-    "comments used to indicate folds for vim files
-    au FileType vim setl foldenable foldmethod=marker
-    "auto reload .vimrc
-    au BufWritepost .vimrc source $MYVIMRC
+  au BufNewFile,BufReadPost *.{css,stylus,styl,json,jade} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+  "disable automatic comment insertion
+  au FileType * setl formatoptions-=c formatoptions-=r formatoptions-=o
+  "comments used to indicate folds for vim files
+  au FileType vim setl foldenable foldmethod=marker
+  "auto reload .vimrc
+  au BufWritepost .vimrc source $MYVIMRC
 
 endif
 
@@ -264,31 +264,31 @@ set showtabline=1
 
 if exists('+showtabline')
 
-    function! MyTabs()
-        let s = ''
-        for i in range(tabpagenr('$'))
-            let tab = i + 1
-            let winnr = tabpagewinnr(tab)                   "gets current window of current tab
-            let buflist = tabpagebuflist(tab)               "list of buffers associated with the windows in the current tab
-            let bufnr = buflist[winnr - 1]                  "current buffer number
-            let bufname = bufname(bufnr)                    "gets the name of the current buffer in the current window of the current tab
-            let bufmodified = getbufvar(bufnr, "&mod")
+  function! MyTabs()
+    let s = ''
+    for i in range(tabpagenr('$'))
+      let tab = i + 1
+      let winnr = tabpagewinnr(tab)                   "gets current window of current tab
+      let buflist = tabpagebuflist(tab)               "list of buffers associated with the windows in the current tab
+      let bufnr = buflist[winnr - 1]                  "current buffer number
+      let bufname = bufname(bufnr)                    "gets the name of the current buffer in the current window of the current tab
+      let bufmodified = getbufvar(bufnr, "&mod")
 
-            let s .= '%' . tab . 'T'
-            let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')                      "if this tab is the current tab...set the right highlighting
-            let s .= ' ' . tab .'-'
-            let s .= (bufname != '' ? ''. fnamemodify(bufname, ':t') . ' ' : 'NO NAME ')
+      let s .= '%' . tab . 'T'
+      let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')                      "if this tab is the current tab...set the right highlighting
+      let s .= ' ' . tab .'-'
+      let s .= (bufname != '' ? ''. fnamemodify(bufname, ':t') . ' ' : 'NO NAME ')
 
-            if bufmodified
-                let s .= '[+] '
-            endif
-        endfor
+      if bufmodified
+        let s .= '[+] '
+      endif
+    endfor
 
-        let s .= '%#TabLineFill#'                           "blank highlighting between the tabs and the righthand close 'X'
-        return s
-    endfunction
+    let s .= '%#TabLineFill#'                           "blank highlighting between the tabs and the righthand close 'X'
+    return s
+  endfunction
 
-    set tabline=%!MyTabs()
+  set tabline=%!MyTabs()
 
 endif
 
@@ -300,41 +300,41 @@ set laststatus=2                    "always show statusline
 
 if has('statusline')
 
-    function! FileSize()
-        let bytes = getfsize(expand('%:p'))
-        if bytes <= 0
-            return ''
-        endif
-        if bytes < 1024
-            return ' ' . bytes . 'B'
-        else
-            return ' ' . (bytes / 1024) . 'K'
-        endif
-    endfunction
-        
-    set statusline=
-    set stl+=\ %m                   "modified flag [+/-]
-    set stl+=\ %Y                   "file type
-    set stl+=\ %{&ff}               "file format
-    set stl+=\ %{&enc}              "file encoding
-    set stl+=\ %r                   "readonly flag [RO]
-    set stl+=\|
-    if exists('*vundle#rc') 
-        set stl+=\ %{fugitive#statusline()}         "git current branch
+  function! FileSize()
+    let bytes = getfsize(expand('%:p'))
+    if bytes <= 0
+      return ''
     endif
-    set stl+=\ %f                   "relative path to file
-    set stl+=%=                     "right align following items
-    set stl+=%t                     "file name
-    set stl+=%{FileSize()}          "file size
-    set stl+=\ \%*
-    " if exists('*vundle#rc') 
-    "     set stl+=%#warningmsg#
-    "     set stl+=%{SyntasticStatuslineFlag()}
-    "     set stl+=%*
-    " endif
-    set stl+=%1*\ %l\/%L            "infos line number
-    set stl+=\ \|\ %p%%             "percent through file
-    set stl+=\ \%*
+    if bytes < 1024
+      return ' ' . bytes . 'B'
+    else
+      return ' ' . (bytes / 1024) . 'K'
+    endif
+  endfunction
+      
+  set statusline=
+  set stl+=\ %m                   "modified flag [+/-]
+  set stl+=\ %Y                   "file type
+  set stl+=\ %{&ff}               "file format
+  set stl+=\ %{&enc}              "file encoding
+  set stl+=\ %r                   "readonly flag [RO]
+  set stl+=\|
+  if exists('*vundle#rc') 
+    set stl+=\ %{fugitive#statusline()}         "git current branch
+  endif
+  set stl+=\ %f                   "relative path to file
+  set stl+=%=                     "right align following items
+  set stl+=%t                     "file name
+  set stl+=%{FileSize()}          "file size
+  set stl+=\ \%*
+  " if exists('*vundle#rc') 
+  "   set stl+=%#warningmsg#
+  "   set stl+=%{SyntasticStatuslineFlag()}
+  "   set stl+=%*
+  " endif
+  set stl+=%1*\ %l\/%L            "infos line number
+  set stl+=\ \|\ %p%%             "percent through file
+  set stl+=\ \%*
                                                    
 endif
 
@@ -394,14 +394,14 @@ set pastetoggle=<F9>
 
 if has('spell')
 
-    "turn on spell checking en/fr
-    nmap <F10>e :set spell spelllang=en<cr>
-    nmap <F10>f :set spell spelllang=fr<cr>
-    "turn off spell check hightlighting
-    nmap <F10>/ :set nospell<cr>
+  "turn on spell checking en/fr
+  nmap <F10>e :set spell spelllang=en<cr>
+  nmap <F10>f :set spell spelllang=fr<cr>
+  "turn off spell check hightlighting
+  nmap <F10>/ :set nospell<cr>
 
-    "spell check when writing commit logs
-    autocmd filetype svn,*commit* setlocal spell textwidth=72
+  "spell check when writing commit logs
+  autocmd filetype svn,*commit* setlocal spell textwidth=72
 
 endif
 
@@ -411,79 +411,79 @@ endif
 
 if exists('*vundle#rc')
 
-    " NERDTree
-    let g:NERDTreeWinSize=25                                "set nerdtree width
-    let NERDTreeMinimalUI=1                                 "disable the label 'Press ? for help'
-    let g:NERDTreeDirArrows=0
-    let NERDTreeMouseMode=3                                 "single click to open any node
-    " Highlight the selected entry in the tree
-    let NERDTreeHighlightCursorline=1
-    " Ignore these files extensions
-    let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
-    " Open NERDTree
-    map <leader>n :NERDTreeToggle<cr>
-    " Open directory of the current file in NERDTree
-    nmap <leader>cn :NERDTree %<cr>
-    " Open NERDTree on startup, when no file has been specified
-    autocmd VimEnter * if !argc() | NERDTree | endif
+  " NERDTree
+  let g:NERDTreeWinSize=25                                "set nerdtree width
+  let NERDTreeMinimalUI=1                                 "disable the label 'Press ? for help'
+  let g:NERDTreeDirArrows=0
+  let NERDTreeMouseMode=3                                 "single click to open any node
+  " Highlight the selected entry in the tree
+  let NERDTreeHighlightCursorline=1
+  " Ignore these files extensions
+  let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+  " Open NERDTree
+  map <leader>n :NERDTreeToggle<cr>
+  " Open directory of the current file in NERDTree
+  nmap <leader>cn :NERDTree %<cr>
+  " Open NERDTree on startup, when no file has been specified
+  autocmd VimEnter * if !argc() | NERDTree | endif
 
-    " CtrlP
-    "open CtrlP
-    nmap <leader>p :CtrlP<cr>
-    "ignore these files extensions
-    let g:ctrlp_custom_ignore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+  " CtrlP
+  "open CtrlP
+  nmap <leader>p :CtrlP<cr>
+  "ignore these files extensions
+  let g:ctrlp_custom_ignore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
 
-    " Toggle Tagbar window
-    nmap <F8> :TagbarToggle<cr>
+  " Toggle Tagbar window
+  nmap <F8> :TagbarToggle<cr>
 
-    " Nginx syntax
-    nmap <leader>gx :set syntax=nginx<cr>
+  " Nginx syntax
+  nmap <leader>gx :set syntax=nginx<cr>
 
-    " PHP
-    let g:DisableAutoPHPFolding=1
+  " PHP
+  let g:DisableAutoPHPFolding=1
 
-    " Easy align
-    vnoremap <silent> <Enter> :EasyAlign<cr>
+  " Easy align
+  vnoremap <silent> <Enter> :EasyAlign<cr>
 
-    " Vim indent guides
-    let g:indent_guides_auto_colors=0
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=234
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+  " Vim indent guides
+  let g:indent_guides_auto_colors=0
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=234
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
-    " MatchTagsAlways
-    let g:mta_use_matchparen_group=0
-    let g:mta_set_default_matchtag_color=0
-    hi MatchTag ctermfg=227 ctermbg=234
+  " MatchTagsAlways
+  let g:mta_use_matchparen_group=0
+  let g:mta_set_default_matchtag_color=0
+  hi MatchTag ctermfg=227 ctermbg=234
 
-    " Emmet
-    " Enable emmet only for html and css
-    " let g:user_emmet_install_global = 0
-    " autocmd FileType html,css EmmetInstall
-    let g:user_emmet_expandabbr_key='<Nul>'
-    " Map Emmet expand to tab key
-    " imap <expr><tab> emmet#isExpandable() ? '\<C-e>' : '\<tab>'
-    let g:use_emmet_complete_tag=1
+  " Emmet
+  " Enable emmet only for html and css
+  " let g:user_emmet_install_global = 0
+  " autocmd FileType html,css EmmetInstall
+  let g:user_emmet_expandabbr_key='<Nul>'
+  " Map Emmet expand to tab key
+  " imap <expr><tab> emmet#isExpandable() ? '\<C-e>' : '\<tab>'
+  let g:use_emmet_complete_tag=1
 
-    " Ultisnips
-    let g:UltiSnipsExpandTrigger='<Tab>'
-    let g:UltiSnipsJumpForwardTrigger='<Tab>'
-    let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
-    let g:UltiSnipsListSnippets='<C-l>'
+  " Ultisnips
+  let g:UltiSnipsExpandTrigger='<Tab>'
+  let g:UltiSnipsJumpForwardTrigger='<Tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
+  let g:UltiSnipsListSnippets='<C-l>'
 
-    let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/mysnippets'
-    let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
+  let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/mysnippets'
+  let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
 
-    " Syntastic
-    " let g:syntastic_check_on_open=1
-    " highlight link SyntasticError SpellBad
-    " highlight link SyntasticWarning SpellCap    
-    " highlight link SyntasticErrorLine SpellBad
+  " Syntastic
+  " let g:syntastic_check_on_open=1
+  " highlight link SyntasticError SpellBad
+  " highlight link SyntasticWarning SpellCap    
+  " highlight link SyntasticErrorLine SpellBad
 
-    " Markdown
-    let g:vim_markdown_folding_disabled=1
+  " Markdown
+  let g:vim_markdown_folding_disabled=1
 
-    " Goyo
-    let g:goyo_width='120'
+  " Goyo
+  let g:goyo_width='120'
 
 endif
 

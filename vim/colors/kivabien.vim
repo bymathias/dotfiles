@@ -40,7 +40,7 @@ let colors_name = "kivabien"
 
 
 " General colors
-hi Normal    ctermfg=252 ctermbg=234 cterm=none guifg=none guibg=none gui=none
+hi Normal    ctermfg=252 ctermbg=234 cterm=none
 hi Cursor	 ctermfg=234 ctermbg=227 cterm=none
 hi Visual    ctermfg=252 ctermbg=238 cterm=none
 hi VisualNOS ctermfg=252 ctermbg=238 cterm=none
@@ -62,12 +62,12 @@ hi ErrorMsg		ctermfg=255 ctermbg=197 cterm=bold
 
 " Vim >= 7.0 specific colors
 if version >= 700
-    
+
     "change statusline color to show insert or normal mode
     hi User1 ctermfg=234 ctermbg=white
-    au InsertEnter * hi StatusLine ctermfg=234 ctermbg=white cterm=none term=reverse 
+    au InsertEnter * hi StatusLine ctermfg=234 ctermbg=white cterm=none term=reverse
     au InsertEnter * hi User1 ctermfg=white ctermbg=27
-    au InsertLeave * hi StatusLine ctermfg=white ctermbg=27 cterm=none term=reverse 
+    au InsertLeave * hi StatusLine ctermfg=white ctermbg=27 cterm=none term=reverse
     au InsertLeave * hi User1 ctermfg=234 ctermbg=white
 
     hi CursorLine ctermfg=none ctermbg=235 cterm=none

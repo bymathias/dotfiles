@@ -19,8 +19,8 @@ NGINX_CONF=('*.conf' '*.types' 'fastcgi_params')
 NGINX_SITE=('sites-available' 'sites-enabled')
 
 if [ $# -lt 1 ]; then
-    echo "Version required, ex: ngxup 1.4.7"
-    exit
+  echo "Version required, ex: ngxup 1.4.7"
+  exit
 fi
 
 # if pgrep nginx > /dev/null; then
@@ -40,11 +40,11 @@ mkdir -pv $BCK_DIR
 ## -------------------------------------------------------
 
 for i in ${NGINX_CONF[@]}; do
-    sudo rsync -av $NGINX_DIR/conf/$i $BCK_DIR/conf/
+  sudo rsync -av $NGINX_DIR/conf/$i $BCK_DIR/conf/
 done
 
 for i in ${NGINX_SITE[@]}; do
-    sudo rsync -av $NGINX_DIR/$i/* $BCK_DIR/$i/
+  sudo rsync -av $NGINX_DIR/$i/* $BCK_DIR/$i/
 done
 
 ## -------------------------------------------------------
@@ -74,27 +74,27 @@ tar -zxvf nginx-$1.tar.gz
 
 cd nginx-$1
 case $SYSTEM in
-    "Darwin")
-    ./configure \
-        --prefix=/opt/nginx \
-        --with-http_ssl_module \
-        --with-ipv6 \
-        --with-http_mp4_module \
-        --with-http_flv_module \
-        --with-cc-opt="-Wno-deprecated-declarations" \
-        --add-module=/opt/nginx-modules/nginx-upload-progress-module/
-        ;;
-    *)
-    ./configure \
-        --prefix=/opt/nginx \
-        --user=www-data --group=www-data \
-        --with-http_ssl_module \
-        --with-ipv6 \
-        --with-http_mp4_module \
-        --with-http_flv_module \
-        --with-http_stub_status_module \
-        --add-module=/opt/nginx-modules/nginx-upload-progress-module/
-        ;;
+  "Darwin")
+  ./configure \
+    --prefix=/opt/nginx \
+    --with-http_ssl_module \
+    --with-ipv6 \
+    --with-http_mp4_module \
+    --with-http_flv_module \
+    --with-cc-opt="-Wno-deprecated-declarations" \
+    --add-module=/opt/nginx-modules/nginx-upload-progress-module/
+    ;;
+  *)
+  ./configure \
+    --prefix=/opt/nginx \
+    --user=www-data --group=www-data \
+    --with-http_ssl_module \
+    --with-ipv6 \
+    --with-http_mp4_module \
+    --with-http_flv_module \
+    --with-http_stub_status_module \
+    --add-module=/opt/nginx-modules/nginx-upload-progress-module/
+    ;;
 esac
 make
 sudo make install
@@ -104,15 +104,15 @@ sudo make install
 ## -------------------------------------------------------
 
 for i in ${NGINX_CONF[@]}; do
-    sudo rm -v $NGINX_DIR/conf/$i
+  sudo rm -v $NGINX_DIR/conf/$i
 done
 
 for i in ${NGINX_CONF[@]}; do
-    sudo rsync -av $BCK_DIR/conf/$i $NGINX_DIR/conf/
+  sudo rsync -av $BCK_DIR/conf/$i $NGINX_DIR/conf/
 done
 
 for i in ${NGINX_SITE[@]}; do
-    sudo rsync -av $BCK_DIR/$i/* $NGINX_DIR/$i/
+  sudo rsync -av $BCK_DIR/$i/* $NGINX_DIR/$i/
 done
 
 
