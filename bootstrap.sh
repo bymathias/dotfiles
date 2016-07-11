@@ -19,8 +19,8 @@ dep_check()
 {
 	type -p $1 &> /dev/null
 	local INS_DEP=$?
-  [[ $INS_DEP -eq 0 ]] && echo -e "$1 OK" || echo -e "$1 is required"
-  return $INS_DEP
+	[[ $INS_DEP -eq 0 ]] && echo -e "$1 OK" || echo -e "$1 is required"
+	return $INS_DEP
 }
 
 dir_temp()
