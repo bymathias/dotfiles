@@ -116,7 +116,7 @@ set tabstop=2
 set smarttab
 set smartindent
 set autoindent
-set preserveindent  
+set preserveindent
 set wrap
 set linebreak                   "do not wrap text in the middle of a word
 set nolist
@@ -163,7 +163,7 @@ set ttymouse=xterm2
 
 set clipboard=unnamed           "copy and paste friendly, require vim > 7.3
 
-if has('gui_running')  
+if has('gui_running')
 
   set guioptions-=T           "hide toolbar
   set guioptions-=m           "hide menu bar
@@ -195,7 +195,7 @@ set wildmenu                                    "better command line completion
 set wildmode=list:longest,full
 
 set wildignore+=*.jpg,*.png,*.jpeg              "ignore images..
-set wildignore+=*.ico,*.bmp,*.gif      
+set wildignore+=*.ico,*.bmp,*.gif
 set wildignore+=*.DS_Store,*.log,*.sw?          "ignore log files
 set wildignore+=*/.git/*,*/.svn/*               "ignore source control files
 
@@ -224,7 +224,7 @@ if has('persistent_undo')
   set undodir=~/.vim/undo     "set the undo directory
   set undofile                "set undo file even when closed
   set undolevels=500          "maximum number of changes that can be undone
-  set undoreload=5000 
+  set undoreload=5000
 
 endif
 
@@ -295,7 +295,7 @@ endif
 " }}}
 
 " STATUS LINE {{{
-    
+
 set laststatus=2                    "always show statusline
 
 if has('statusline')
@@ -311,7 +311,7 @@ if has('statusline')
       return ' ' . (bytes / 1024) . 'K'
     endif
   endfunction
-      
+
   set statusline=
   set stl+=\ %m                   "modified flag [+/-]
   set stl+=\ %Y                   "file type
@@ -319,7 +319,7 @@ if has('statusline')
   set stl+=\ %{&enc}              "file encoding
   set stl+=\ %r                   "readonly flag [RO]
   set stl+=\|
-  if exists('*vundle#rc') 
+  if exists('*vundle#rc')
     set stl+=\ %{fugitive#statusline()}         "git current branch
   endif
   set stl+=\ %f                   "relative path to file
@@ -327,7 +327,7 @@ if has('statusline')
   set stl+=%t                     "file name
   set stl+=%{FileSize()}          "file size
   set stl+=\ \%*
-  " if exists('*vundle#rc') 
+  " if exists('*vundle#rc')
   "   set stl+=%#warningmsg#
   "   set stl+=%{SyntasticStatuslineFlag()}
   "   set stl+=%*
@@ -335,16 +335,16 @@ if has('statusline')
   set stl+=%1*\ %l\/%L            "infos line number
   set stl+=\ \|\ %p%%             "percent through file
   set stl+=\ \%*
-                                                   
+
 endif
 
 " }}}
 
 " KEY BINDINGS {{{
 
-let mapleader = ','                 "set the leader key            
+let mapleader = ','                 "set the leader key
 
-" map 'jj' to 'exit insert mode' 
+" map 'jj' to 'exit insert mode'
 :imap jj <esc>
 
 "quickly edit/auto reload the vimrc file
@@ -353,7 +353,7 @@ nmap <leader>ev :tabedit $MYVIMRC<cr>
 "change the cwd to the directory of current file
 cmap cwd cd %:p:h
 
-"write file using sudo 
+"write file using sudo
 cmap w!! w !sudo tee % >/dev/null
 
 "commons
@@ -374,8 +374,8 @@ nmap <leader>te :tabedit<space>
 "switch between window
 nmap <leader><space> <C-w>w
 nmap <leader>h <C-w>h
-nmap <leader>j <C-w>j   
-nmap <leader>k <C-w>k   
+nmap <leader>j <C-w>j
+nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
 
 "clearing highlighted searches
@@ -388,7 +388,7 @@ nmap <leader>/ :nohlsearch<cr>
 nmap go o<esc>
 nmap gO O<esc>
 
-"toggle vim paste mode 
+"toggle vim paste mode
 "prevent auto-indenting and auto-expansion when pasting from clipboard
 set pastetoggle=<F9>
 
@@ -470,13 +470,13 @@ if exists('*vundle#rc')
   let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
   let g:UltiSnipsListSnippets='<C-l>'
 
-  let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/mysnippets'
+  let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/csnippets'
   let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
 
   " Syntastic
   " let g:syntastic_check_on_open=1
   " highlight link SyntasticError SpellBad
-  " highlight link SyntasticWarning SpellCap    
+  " highlight link SyntasticWarning SpellCap
   " highlight link SyntasticErrorLine SpellBad
 
   " Markdown
