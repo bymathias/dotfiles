@@ -82,7 +82,7 @@ bin_scripts()
   mv -v $TMP_DIR/vnu.jar_$VNU_JAR/dist/vnu.jar $VNU_JAR_BIN
 
   ## Make the files executable
-  for file in wp speedtest timebackup youtube-dl vnu.jar
+  for file in wp drush speedtest timebackup youtube-dl vnu.jar
   do
     chmod +x $DOT_BIN/$file
   done
