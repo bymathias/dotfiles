@@ -154,7 +154,7 @@ set lazyredraw                  "avoir scrolling problems
 
 " WINDOW, MOUSE {{{
 
-set title                       "window/terminal title
+"set title                       "window/terminal title
 set titlestring=%F
 set shortmess=atI               "don't show intro messages
 

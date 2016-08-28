@@ -53,9 +53,13 @@ bin_scripts()
 {
   local DOT_BIN=$DOT_DIR/bin
 
-  ## WP-CLI is set of command-line tools for managing WordPress installations
+  ## WP-CLI is a set of command-line tools for managing WordPress installations
   ## ref: http://wp-cli.org/
   get_files $DOT_BIN/wp https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+	## Drush is a command line shell and Unix scripting interface for Drupal.
+	## ref: http://www.drush.org/
+	get_files $DOT_BIN/drush https://s3.amazonaws.com/files.drush.org/drush.phar
 
   ## Command line interface for testing internet bandwidth using speedtest.net
   ## ref: https://github.com/sivel/speedtest-cli
@@ -78,7 +82,7 @@ bin_scripts()
   mv -v $TMP_DIR/vnu.jar_$VNU_JAR/dist/vnu.jar $VNU_JAR_BIN
 
   ## Make the files executable
-  for file in wp speedtest timebackup youtube-dl vnu.jar
+  for file in wp drush speedtest timebackup youtube-dl vnu.jar
   do
     chmod +x $DOT_BIN/$file
   done
