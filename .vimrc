@@ -428,6 +428,8 @@ if exists('*vundle#rc')
   nmap <leader>cn :NERDTree %<cr>
   " Open NERDTree on startup, when no file has been specified
   autocmd VimEnter * if !argc() | NERDTree | endif
+	" Disable collapsing of directory names
+	let NERDTreeCascadeSingleChildDir=1
 
   " CtrlP
   "open CtrlP
