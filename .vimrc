@@ -418,8 +418,6 @@ if exists('*vundle#rc')
   let NERDTreeMinimalUI=1                                 "disable the label 'Press ? for help'
   let g:NERDTreeDirArrows=0
   let NERDTreeMouseMode=3                                 "single click to open any node
-  " Highlight the selected entry in the tree
-  let NERDTreeHighlightCursorline=1
   " Ignore these files extensions
   let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
   " Open NERDTree
@@ -428,6 +426,12 @@ if exists('*vundle#rc')
   nmap <leader>cn :NERDTree %<cr>
   " Open NERDTree on startup, when no file has been specified
   autocmd VimEnter * if !argc() | NERDTree | endif
+	" Mirror NERDTree in tabs
+	autocmd BufWinEnter * NERDTreeMirror
+  " Highlight the selected entry in the tree
+  let NERDTreeHighlightCursorline=1
+  " Highlight the selected buffer in the tree
+	autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
 	" Disable collapsing of directory names
 	let NERDTreeCascadeSingleChildDir=1
 
