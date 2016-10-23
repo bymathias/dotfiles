@@ -54,7 +54,7 @@ case "$1" in
 		# Backup old files if any and creates all symlinks
 		for i in "${DOT_SYMLINK[@]}"
 		do
-			dot_backup "$HOME/$i"
+			file_backup "$HOME/$i"
 			if [[ $i == ".gitconfig" ]]
 			then
   			ln -sv "$DOT_DIRECTORY/git/$i" "$HOME/$i"
