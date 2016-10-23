@@ -22,6 +22,9 @@ sudo apt-get install \
 	wget \
 	xclip
 
+# Required by Vim Instant markdown plugin
+sudo apt-get install xdg-utils
+
 sudo apt-get install \
   fontforge \
   gpick \

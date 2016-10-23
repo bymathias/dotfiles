@@ -2,7 +2,7 @@
 
 
 ## If not running interactively, don't do anything
-[[ -z "$PS1" ]] && return
+[[ -z $PS1 ]] && return
 
 ## Don't put duplicate lines in the history
 export HISTCONTROL=ignoredups
@@ -32,3 +32,4 @@ export TERM=xterm-256color
 
 ## Vars
 SYSTEM=$(uname -s)
+export SYSTEM

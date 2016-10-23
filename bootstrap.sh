@@ -11,25 +11,21 @@ DIRECTORIES=(~/tmp)
 DOT_DIRECTORY=~/.dotfiles
 DOT_SYMLINK=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
 
-SYS_NAME=`uname -s`
+SYS_NAME=$(uname -s)
 EXT_BACKUP=$(date +"%Y-%m-%d").bak
 
 echo_notice() { echo -e "\n\033[4;37m$1\033[0m"; }
 
 file_backup() {
-	if [[ -h ~/$1 ]];
-	then
-		rm -v ~/$1
-	elif [[ -f ~/$1 || -d ~/$1 ]];
-	then
-		mv -v ~/$1 ~/$1.$EXT_BACKUP
-	fi
+	[[ -h $1 ]] && rm -v "$1"
+	[[ -f $1 || -d $1 ]] && mv -v "$1" "$1.$EXT_BACKUP"
 }
 
 echo_notice "Checking dependencies..."
+
 for i in "${DEPENDENCIES[@]}"
 do
-	if command -v $i &> /dev/null;
+	if command -v "$i" &> /dev/null;
 	then
 		echo "$i - ok"
 	else
@@ -39,32 +35,34 @@ do
 done
 
 echo_notice "Checking directories..."
+
 for i in "${DIRECTORIES[@]}"
 do
-	if [ ! -d $i ];
+	if [[ ! -d $i ]];
 	then
-		mkdir -p $i && echo "$i created"
+		mkdir -p "$i" && echo "$i created"
 	else
 		echo "$i already exists"
 	fi
 done
 
 echo_notice "Dotfiles $1..."
+
 case "$1" in
 	"install")
 
 		# Backup old files if any and creates all symlinks
 		for i in "${DOT_SYMLINK[@]}"
 		do
-			file_backup $i
+			dot_backup "$HOME/$i"
 			if [[ $i == ".gitconfig" ]]
 			then
-  			ln -sv $DOT_DIRECTORY/git/$i ~/$i
+  			ln -sv "$DOT_DIRECTORY/git/$i" "$HOME/$i"
 			elif [[ $i == ".vim" ]]
 			then
-  			ln -sv $DOT_DIRECTORY/vim ~/$i
+  			ln -sv "$DOT_DIRECTORY/vim" "$HOME/$i"
 			else
-  			ln -sv $DOT_DIRECTORY/$i ~/$i
+  			ln -sv "$DOT_DIRECTORY/$i" "$HOME/$i"
 			fi
 		done
 
@@ -72,8 +70,8 @@ case "$1" in
 		# Linux: Set Vim config for root user
 		if [[ $SYS_NAME == "Linux" ]];
 		then
-			sudo ln -siv $DOT_DIRECTORY/.vimrc /root/.vimrc
-			sudo ln -siv $DOT_DIRECTORY/vim /root/.vim
+			sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
+			sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
 		fi
 		# Get Vundle, Vim plugin manager and install plugins
 		git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
@@ -83,29 +81,30 @@ case "$1" in
 	"uninstall")
 
 		# Remove all symlinks
-		for i in ${DOT_SYMLINK[@]}
+		for i in "${DOT_SYMLINK[@]}"
 		do
-			rm -v ~/$i
+			rm -v "$HOME/$i"
 		done
 
 		# VIM
 		# Linux: Remove Vim config for root user
 		if [[ $DOT_SYS == "Linux" ]]; then
-  		sudo rm -iv --preserve-root /root/.vimrc
-  		sudo rm -Riv --preserve-root /root/.vim
+  		sudo rm -iv --preserve-root "/root/.vimrc"
+  		sudo rm -Riv --preserve-root "/root/.vim"
 		fi
 
 		# Backup '.dotfiles' folder
-		mv -v $DOT_DIRECTORY $DOT_DIRECTORY.$EXT_BACKUP
+		mv -v $DOT_DIRECTORY "$DOT_DIRECTORY.$EXT_BACKUP"
 
 		;;
 	*)
-		echo "-----------------------------------------------"
-		echo " Usage:"
-		echo "          ./bootstrap.sh install"
-		echo "          ./bootstrap.sh uninstall"
-		echo " "
-		echo " Doc: github.com/bymathias/dotfiles"
-		echo "-----------------------------------------------"
+
+		echo "	Usage:"
+		echo ""
+		echo "		./bootstrap.sh install"
+		echo "		./bootstrap.sh uninstall"
+		echo ""
+		echo "	Doc: github.com/bymathias/dotfiles"
+
 		;;
 esac

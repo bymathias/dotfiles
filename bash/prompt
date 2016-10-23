@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2154
 
 
 parse_git_dirty()
@@ -13,12 +14,12 @@ parse_git_branch()
 
 parse_git_tag()
 {
-  tag=`git describe --exact-match --tags HEAD 2> /dev/null`
+  tag=$(git describe --exact-match --tags HEAD 2> /dev/null)
   [ -z "$tag" ] && return 1
   echo "$tag "
 }
 
-bash_prompt() 
+bash_prompt()
 {
   local GS="${Blue}\$(parse_git_branch)${BRed}\$(parse_git_tag)"
   PS1="\n${White}[${Yellow}\h${White}-\u] ${GS}${Purple}\w${NC}\n${Purple}-> ${NC}"

@@ -60,6 +60,7 @@ if exists('*vundle#rc')
   " Version control
   Plugin 'tpope/vim-fugitive'
   " Tmux
+	Plugin 'tmux-plugins/vim-tmux'
   Plugin 'wellle/tmux-complete.vim'
   " Writing
   Plugin 'suan/vim-instant-markdown'
