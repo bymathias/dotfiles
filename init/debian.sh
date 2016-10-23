@@ -10,16 +10,17 @@ sudo apt-get update
 sudo apt-get -y dist-upgrade
 
 sudo apt-get install \
-  bash-completion \
-  curl \
-  exuberant-ctags \
-  git \
+	bash-completion \
+	curl \
+	exuberant-ctags \
+	git \
 	git-extras \
-  imagemagick \
-  mercurial \
-  python-pygments \
-  rsync \
-  wget
+	imagemagick \
+	mercurial \
+	python-pygments \
+	rsync \
+	wget \
+	xclip
 
 sudo apt-get install \
   fontforge \

@@ -2,12 +2,12 @@
 
 
 ## If not running interactively, don't do anything
-[[ -z "$PS1" ]] && return           
+[[ -z "$PS1" ]] && return
 
 ## Don't put duplicate lines in the history
 export HISTCONTROL=ignoredups
 ## Append to the history file, don't overwrite it
-shopt -s histappend 
+shopt -s histappend
 ## Set history length
 export HISTFILESIZE=2000
 export HISTSIZE=1000
@@ -31,4 +31,4 @@ export VISUAL=vim
 export TERM=xterm-256color
 
 ## Vars
-SYSTEM=$(uname -s)                  
+SYSTEM=$(uname -s)

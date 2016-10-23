@@ -19,8 +19,8 @@ done
 
 ## OS specific aliases
 case "$SYSTEM" in
-  "Linux") [[ -f $DOT_B/.aliases_nux ]] && . $DOT_B/.aliases_nux ;;
-  "Darwin") [[ -f $DOT_B/.aliases_osx ]] && . $DOT_B/.aliases_osx ;;
+  "Linux") [[ -f $DOT_B/.aliases_linux ]] && . $DOT_B/.aliases_linux ;;
+  "Darwin") [[ -f $DOT_B/.aliases_macos ]] && . $DOT_B/.aliases_macos ;;
 esac
 
 ## Completion
