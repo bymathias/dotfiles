@@ -2,10 +2,14 @@ sudo: required
 
 language: sh
 
-install:
-  - sudo apt-get install shellcheck
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - shellcheck
 
-after_install:
+before_script:
   - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
 
 script:
