@@ -3,10 +3,10 @@ sudo: required
 language: sh
 
 install:
-	- sudo apt-get install shellcheck
+  - sudo apt-get install shellcheck
 
 after_install:
-	- shellcheck bootstrap.sh .bashrc .bash_profile bash/*
+  - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
 
 script:
-	- ./bootstrap.sh install
+  - ./bootstrap.sh install
