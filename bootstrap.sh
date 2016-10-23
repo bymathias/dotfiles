@@ -17,8 +17,13 @@ EXT_BACKUP=$(date +"%Y-%m-%d").bak
 echo_notice() { echo -e "\n\033[4;37m$1\033[0m"; }
 
 file_backup() {
-	[[ -h $1 ]] && rm -v "$1"
-	[[ -f $1 || -d $1 ]] && mv -v "$1" "$1.$EXT_BACKUP"
+	if [[ -h $1 ]];
+	then
+		rm -v "$1"
+	elif [[ -f $1 || -d $1 ]];
+	then
+		mv -v "$1" "$1.$EXT_BACKUP"
+	fi
 }
 
 echo_notice "Checking dependencies..."
