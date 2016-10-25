@@ -10,17 +10,17 @@ sudo apt-get update
 sudo apt-get -y dist-upgrade
 
 sudo apt-get install \
-	bash-completion \
-	curl \
-	exuberant-ctags \
-	git \
-	git-extras \
-	imagemagick \
-	mercurial \
-	python-pygments \
-	rsync \
-	wget \
-	xclip
+  bash-completion \
+  curl \
+  exuberant-ctags \
+  git \
+  git-extras \
+  imagemagick \
+  mercurial \
+  python-pygments \
+  rsync \
+  wget \
+  xclip
 
 # Required by Vim Instant markdown plugin
 sudo apt-get install xdg-utils

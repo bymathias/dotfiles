@@ -24,7 +24,7 @@ esac
 
 if [[ "$SYSTEM" == "Darwin" ]];
 then
-	test -e "$(brew --prefix)/etc/bash_completion" && . "$(brew --prefix)/etc/bash_completion"
+  test -e "$(brew --prefix)/etc/bash_completion" && . "$(brew --prefix)/etc/bash_completion"
   test -e "$HOME/.iterm2_shell_integration.bash" && . "$HOME/.iterm2_shell_integration.bash"
 fi
 
