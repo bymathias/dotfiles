@@ -1,80 +1,124 @@
 " vim:fdm=marker:
 
+"
 " VIM configuration
 " by Mathias Brouilly
-
+"
 
 set nocompatible " Vim not vi
-filetype off     " Required !
 
-" BUNDLE {{{
+" Set the leader key
+let mapleader = ','
+let maplocalleader = ','
 
-set rtp+=~/.vim/bundle/vundle/
-silent! call vundle#rc()
+" PLUGINS {{{
 
-if exists('*vundle#rc')
+silent! if plug#begin('~/.vim/plugins')
 
-  " Let Vundle manage Vundle, required
-  Plugin 'gmarik/vundle'
-  " BUNDLES
-  " Libraries
-  Plugin 'mattn/webapi-vim'
-  " Navigation
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'kien/ctrlp.vim'
-  " Helpers
-  Plugin 'tpope/vim-surround'
-  Plugin 'terryma/vim-multiple-cursors'
-  Plugin 'tpope/vim-commentary'
-  Plugin 'Raimondi/delimitMate'
-  Plugin 'nathanaelkane/vim-indent-guides'
-  Plugin 'junegunn/vim-easy-align'
-  Plugin 'Valloric/MatchTagAlways'
-  Plugin 'editorconfig/editorconfig-vim'
-  Plugin 'terryma/vim-expand-region'
-  Plugin 'csscomb/vim-csscomb'
-  " Syntax
-  Plugin 'othree/javascript-libraries-syntax.vim'
-  Plugin 'othree/yajs.vim'
-  Plugin 'othree/es.next.syntax.vim'
-	Plugin 'leafgarland/typescript-vim'
-  Plugin 'moll/vim-node'
-  Plugin 'elzr/vim-json'
-  Plugin 'hail2u/vim-css3-syntax'
-  Plugin 'wavded/vim-stylus'
-  Plugin 'othree/html5.vim'
-  Plugin 'mustache/vim-mustache-handlebars'
-	Plugin 'digitaltoad/vim-pug'
-  Plugin 'spf13/PIV'
-  Plugin 'evanmiller/nginx-vim-syntax'
-  Plugin 'plasticboy/vim-markdown'
-  Plugin 'dsawardekar/wordpress.vim'
-  " Snippets
-  Plugin 'AutoComplPop'
-  Plugin 'mattn/emmet-vim'
-  Plugin 'SirVer/ultisnips'
-  Plugin 'honza/vim-snippets'
-  Plugin 'mattn/gist-vim'
-  " Ctags
-  Plugin 'majutsushi/tagbar'
-  " Version control
-  Plugin 'tpope/vim-fugitive'
-  " Tmux
-	Plugin 'tmux-plugins/vim-tmux'
-  Plugin 'wellle/tmux-complete.vim'
-  " Writing
-  Plugin 'suan/vim-instant-markdown'
+  " NAVIGATION
+  Plug 'scrooloose/nerdtree'
+  " `nerdtree` settings {{{
+  let NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
+  let NERDTreeMouseMode=3  " single click to open any node
+  let g:NERDTreeWinSize=25 " set nerdtree width
+  let g:NERDTreeDirArrows=0
+  " Ignore these files extensions
+  let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+  " Highlight the selected buffer in the tree
+  " autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
+  " Open NERDTree
+  map <leader>n :NERDTreeToggle<cr>
+  " Open directory of the current file in NERDTree
+  nmap <leader>cn :NERDTree %<cr>
+  " Open NERDTree on startup, when no file has been specified
+  " silent! if !empty(glob($HOME . '/.vim/plugins/nerdtree'))
+  "   autocmd VimEnter * if !argc() | NERDTree | endif
+  " endif
+  " }}}
+
+  " EDITING
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'tpope/vim-commentary'
+  Plug 'Raimondi/delimitMate'
+  Plug 'tpope/vim-surround'
+  Plug 'Valloric/MatchTagAlways'
+  " `MatchTagAlways` settings {{{
+  let g:mta_use_matchparen_group=0
+  let g:mta_set_default_matchtag_color=0
+  hi MatchTag ctermfg=227 ctermbg=234
+  " }}}
+  Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+  " `vim-easy-align` settings {{{
+  vnoremap <silent> <Enter> :EasyAlign<cr>
+  " }}}
+  Plug 'godlygeek/tabular' " Required by 'vim-markdown' for `:TableFormat`
+  Plug 'csscomb/vim-csscomb' " Require npm package
+
+  " SYNTAX
+  Plug 'othree/javascript-libraries-syntax.vim'
+  " `javascript-libraries-syntax.vim` settings {{{
+  " Setup used libraries
+  let g:used_javascript_libs = 'jquery, underscore, backbone, angularjs, react, handlebars, vue'
+  " }}}
+  Plug 'othree/yajs.vim'
+  Plug 'othree/es.next.syntax.vim'
+  Plug 'moll/vim-node'
+  Plug 'elzr/vim-json'
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'othree/html5.vim'
+  Plug 'mustache/vim-mustache-handlebars'
+  Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
+  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+  Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }
+  Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
+  Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+  " `vim-markdown` settings {{{
+  let g:vim_markdown_folding_disabled=1 " Disable folding
+  let g:vim_markdown_frontmatter=1      " Highlight YAML front matter as used by Jekyll or Hugo
+  let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
+  " }}}
+
+  " COMPLETION & SNIPPETS
+  Plug 'AutoComplPop'
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+  " `ultisnips` settings {{{
+  let g:UltiSnipsExpandTrigger='<Tab>'
+  let g:UltiSnipsJumpForwardTrigger='<Tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
+  let g:UltiSnipsListSnippets='<C-l>'
+  let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
+  let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
+  " }}}
+  Plug 'mattn/emmet-vim'
+  " `emmet-vim` settings {{{
+  let g:user_emmet_expandabbr_key='<Nul>'
+  let g:use_emmet_complete_tag=1
+  " }}}
+  Plug 'mattn/gist-vim'
+
+  " VERSION CONTROL
+  Plug 'tpope/vim-fugitive'
+
+  " WRITING
+  Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package
+
+  " Add plugins to &runtimepath
+  call plug#end()
 
 endif
 
 " }}}
 
-" GENERAL Settings
+" THEMES {{{
 
-filetype plugin indent on " Automatically detect file types, required
-syntax on
+" Kivabien
+set t_Co=256
+set background=dark
+colorscheme kivabien
 
-" UI {{{
+" }}}
+
+" USER INTERFACE {{{
 
 set number                     " Add line number
 set cursorline                 " Highlight the current line
@@ -87,7 +131,7 @@ set virtualedit=block          " Allow cursor to go anywhere in visual block mod
 
 " }}}
 
-" FOLDS {{{
+" FOLDING {{{
 
 set nofoldenable " Switch off folding
 set foldmethod=indent
@@ -127,15 +171,6 @@ set formatoptions+=cql
 
 set fileencoding=utf-8
 set fileformats=unix,mac,dos " Support all file format
-
-" }}}
-
-" THEMES {{{
-
-" Kivabien
-set t_Co=256
-set background=dark
-colorscheme kivabien
 
 " }}}
 
@@ -200,11 +235,12 @@ set wildignore+=*/.git/*,*/.svn/*      " Ignore source control files
 if has('autocmd')
 
   " Auto enable autocomplete for html, css, javascript, php..
-  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
   autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType php set omnifunc=phpcomplete#CompletePHP
   autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 endif
 
@@ -236,13 +272,13 @@ let php_sql_query=1     " Highlight sql queries
 
 if has('autocmd')
 
-  au BufNewFile,BufRead *.rss set ft=xml                                 " Treat .rss files as xml
-  au BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown              " These are markdown
-  au BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx " Nginx syntax highlighting
-  au BufNewFile,BufRead *.cson set ft=coffee
-  au BufNewFile,BufRead *.{stylus,styl} set ft=stylus.css                " CSS autocomplete for stylus
+  au BufNewFile,BufRead *.rss set ft=xml                                  " Treat .rss files as xml
+  au BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown               " These are markdown
+  au BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx  " Adjust the path to your nginx config,
+                                                                          " if it is different than /etc/nginx/
 
-  au BufNewFile,BufReadPost *.{css,stylus,styl,json,jade} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+  au BufNewFile,BufReadPost *.{css,js,json,html} setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
   " Disable automatic comment insertion
   au FileType * setl formatoptions-=c formatoptions-=r formatoptions-=o
   " Comments used to indicate folds for vim files
@@ -256,7 +292,7 @@ endif
 
 " TABS {{{
 
-"based on: github.com/mkitt/tabline.vim
+" Based on: github.com/mkitt/tabline.vim
 
 set showtabline=1
 
@@ -317,19 +353,14 @@ if has('statusline')
   set stl+=\ %{&enc}                    " File encoding
   set stl+=\ %r                         " Readonly flag [RO]
   set stl+=\|
-  if exists('*vundle#rc')
-    set stl+=\ %{fugitive#statusline()} " Git current branch
-  endif
+  " silent! if !empty(glob(g:VIM_PLUG . '/vim-fugitive'))
+  "   set stl+=\ %{fugitive#statusline()} " Git current branch
+  " endif
   set stl+=\ %f                         " Relative path to file
   set stl+=%=                           " Right align following items
   set stl+=%t                           " File name
   set stl+=%{FileSize()}                " File size
   set stl+=\ \%*
-  "if exists('*vundle#rc')
-  "  set stl+=%#warningmsg#
-  "  set stl+=%{SyntasticStatuslineFlag()}
-  "  set stl+=%*
-  "endif
   set stl+=%1*\ %l\/%L                  " Infos line number
   set stl+=\ \|\ %p%%                   " Percent through file
   set stl+=\ \%*
@@ -339,9 +370,6 @@ endif
 " }}}
 
 " KEY BINDINGS {{{
-
-" Set the leader key
-let mapleader = ','
 
 " Map 'jj' to 'exit insert mode'
 :imap jj <esc>
@@ -401,85 +429,6 @@ if has('spell')
 
   " Spell check when writing commit logs
   autocmd filetype svn,*commit* setlocal spell textwidth=72
-
-endif
-
-" }}}
-
-" PLUGINS SETUP {{{
-
-if exists('*vundle#rc')
-
-  " NERDTree
-  let g:NERDTreeWinSize=25 " set nerdtree width
-  let NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
-  let g:NERDTreeDirArrows=0
-  let NERDTreeMouseMode=3  " single click to open any node
-  " Ignore these files extensions
-  let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
-  " Open NERDTree
-  map <leader>n :NERDTreeToggle<cr>
-  " Open directory of the current file in NERDTree
-  nmap <leader>cn :NERDTree %<cr>
-  " Open NERDTree on startup, when no file has been specified
-  autocmd VimEnter * if !argc() | NERDTree | endif
-	" Mirror NERDTree in tabs
-	autocmd BufWinEnter * NERDTreeMirror
-  " Highlight the selected entry in the tree
-  " let NERDTreeHighlightCursorline=1
-  " Highlight the selected buffer in the tree
-	autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
-	" Disable collapsing of directory names
-	let NERDTreeCascadeSingleChildDir=1
-
-  " CtrlP
-  " Open CtrlP
-  nmap <leader>p :CtrlP<cr>
-  " Ignore these files extensions
-  let g:ctrlp_custom_ignore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
-
-  " Toggle Tagbar window
-  nmap <F8> :TagbarToggle<cr>
-
-  " Nginx syntax
-  nmap <leader>gx :set syntax=nginx<cr>
-
-  " PHP
-  let g:DisableAutoPHPFolding=1
-
-  " Easy align
-  vnoremap <silent> <Enter> :EasyAlign<cr>
-
-  " Vim indent guides
-  let g:indent_guides_auto_colors=0
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=234
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
-
-  " MatchTagsAlways
-  let g:mta_use_matchparen_group=0
-  let g:mta_set_default_matchtag_color=0
-  hi MatchTag ctermfg=227 ctermbg=234
-
-  " Emmet
-  " Enable emmet only for html and css
-  " let g:user_emmet_install_global = 0
-  " autocmd FileType html,css EmmetInstall
-  let g:user_emmet_expandabbr_key='<Nul>'
-  " Map Emmet expand to tab key
-  " imap <expr><tab> emmet#isExpandable() ? '\<C-e>' : '\<tab>'
-  let g:use_emmet_complete_tag=1
-
-  " Ultisnips
-  let g:UltiSnipsExpandTrigger='<Tab>'
-  let g:UltiSnipsJumpForwardTrigger='<Tab>'
-  let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
-  let g:UltiSnipsListSnippets='<C-l>'
-
-  let g:UltiSnipsSnippetsDir='~/.dotfiles/vim/csnippets'
-  let g:UltiSnipsSnippetDirectories=['UltiSnips', 'mysnippets']
-
-  " Markdown
-  let g:vim_markdown_folding_disabled=1
 
 endif
 

@@ -19,7 +19,7 @@ brew install git-extras
 brew install mercurial
 
 brew install tmux
-brew install vim --with-override-system-vi
+brew install vim --with-override-system-vi --with-lua
 
 brew install wget --with-iri
 

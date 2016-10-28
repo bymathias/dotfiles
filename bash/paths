@@ -19,7 +19,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:$PATH"
 [[ -d /opt/nginx/sbin ]] && export PATH="$PATH:/opt/nginx/sbin"
 
 ## Php
-if [[ "$SYSTEM" == "Darwin" ]];
-then
+if [[ "$SYSTEM" == "Darwin" ]]; then
   test -d "$(brew --prefix homebrew/php/php56)/bin" && PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 fi

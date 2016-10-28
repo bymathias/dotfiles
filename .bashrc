@@ -5,14 +5,12 @@
 DOT_B="$HOME/.dotfiles/bash"
 
 ## Main .bashrc
-for file in config colors prompt paths
-do
+for file in config colors prompt paths; do
   . "$DOT_B/$file"
 done
 
 ## Aliases/Functions
-for file in .aliases .functions
-do
+for file in .aliases .functions; do
   [[ -f $DOT_B/$file ]] && . "$DOT_B/$file"
 done
 
@@ -22,8 +20,7 @@ case "$SYSTEM" in
   "Darwin") [[ -f $DOT_B/.aliases_macos ]] && . "$DOT_B/.aliases_macos" ;;
 esac
 
-if [[ "$SYSTEM" == "Darwin" ]];
-then
+if [[ "$SYSTEM" == "Darwin" ]]; then
   test -e "$(brew --prefix)/etc/bash_completion" && . "$(brew --prefix)/etc/bash_completion"
   test -e "$HOME/.iterm2_shell_integration.bash" && . "$HOME/.iterm2_shell_integration.bash"
 fi

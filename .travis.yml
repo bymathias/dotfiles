@@ -7,7 +7,6 @@ addons:
     sources:
       - debian-sid
     packages:
-      - vim
       - shellcheck
 
 before_script:

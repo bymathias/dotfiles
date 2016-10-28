@@ -2,29 +2,26 @@
 # shellcheck disable=SC2154
 
 
-parse_git_dirty()
-{
+parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "! "
 }
 
-parse_git_branch()
-{
+parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1) $(parse_git_dirty)/"
 }
 
-parse_git_tag()
-{
+parse_git_tag() {
   tag=$(git describe --exact-match --tags HEAD 2> /dev/null)
   [ -z "$tag" ] && return 1
   echo "$tag "
 }
 
-bash_prompt()
-{
+bash_prompt() {
   local GS="${Blue}\$(parse_git_branch)${BRed}\$(parse_git_tag)"
   PS1="\n${White}[${Yellow}\h${White}-\u] ${GS}${Purple}\w${NC}\n${Purple}-> ${NC}"
 
   PS2="${Purple}> ${NC}"
 }
+
 bash_prompt
 unset bash_prompt

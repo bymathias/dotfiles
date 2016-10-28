@@ -12,8 +12,7 @@ mkc() { mkdir -p "$1" && cd "$1"; }
 ## Usage: new-script <filename>
 ## ============================ #
 
-new-script()
-{
+new-script() {
   [[ -e "$1" ]] && echo "'$1' already exists" && return
   echo "#!/bin/bash" > "$1" && \
   chmod a+x "$1" && \
@@ -24,8 +23,7 @@ new-script()
 ## @see http://bit.ly/IqWXtu
 ## ============================ #
 
-man() 
-{
+man() {
   env \
     LESS_TERMCAP_mb=$(printf "\033[1;31m") \
     LESS_TERMCAP_md=$(printf "\033[1;31m") \
@@ -41,10 +39,8 @@ man()
 ## Git
 ## ============================ #
 
-git-init()
-{
-  if [[ -d ".git" ]]
-  then
+git-init() {
+  if [[ -d ".git" ]]; then
     echo "Already a git repository"
     exit
   fi
@@ -57,8 +53,7 @@ git-init()
 ## List todos
 ## ============================ #
 
-list-todo()
-{
+list-todo() {
   grep \
     --exclude-dir="node_modules" \
     --exclude-dir="bower_components" \

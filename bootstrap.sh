@@ -14,57 +14,46 @@ DOT_SYMLINK=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc)
 SYS_NAME=$(uname -s)
 EXT_BACKUP=$(date +"%Y-%m-%d").bak
 
-echo_notice() { echo -e "\n\033[4;37m$1\033[0m"; }
+_title() { echo -e "\n\033[4;37m$1\033[0m"; }
+_notice() { echo -e "$1 \033[0;34m$2\033[0m"; }
+_dep_check() { command -v "$1" &> /dev/null; }
 
-file_backup() {
-  if [[ -h $1 ]];
-  then
-    rm -v "$1"
-  elif [[ -f $1 || -d $1 ]];
-  then
-    mv -v "$1" "$1.$EXT_BACKUP"
-  fi
-}
 
-echo_notice "Checking dependencies..."
+_title "Checking dependencies..."
 
-for i in "${DEPENDENCIES[@]}"
-do
-  if command -v "$i" &> /dev/null;
-  then
-    echo "$i - ok"
+for i in "${DEPENDENCIES[@]}"; do
+  if _dep_check "$i"; then
+    _notice "$i" "(ok)"
   else
-    echo "$i - required, aborting.."
+    _notice "$i" "(required)"
     exit 1
   fi
 done
 
-echo_notice "Checking directories..."
+_title "Checking directories..."
 
-for i in "${DIRECTORIES[@]}"
-do
-  if [[ ! -d $i ]];
-  then
-    mkdir -p "$i" && echo "$i created"
-  else
-    echo "$i already exists"
-  fi
+for i in "${DIRECTORIES[@]}"; do
+  [[ ! -d $i ]] && mkdir -pv "$i" || _notice "$i" "(exists)"
 done
 
-echo_notice "Dotfiles $1..."
+_title "Dotfiles $1..."
 
 case "$1" in
   "install")
 
-    # Backup old files if any and creates all symlinks
-    for i in "${DOT_SYMLINK[@]}"
-    do
-      file_backup "$HOME/$i"
-      if [[ $i == ".gitconfig" ]]
-      then
+    # Remove symlinks and backup old dotfiles
+    for i in "${DOT_SYMLINK[@]}"; do
+      if [[ -h "$HOME/$i" ]]; then
+        rm -v "$HOME/$i"
+      elif [[ -f "$HOME/$i" || -d "$HOME/$i" ]]; then
+        mv -v "$HOME/$i" "$HOME/$i.$EXT_BACKUP"
+      fi
+    done
+    # Creates all symlinks in `$HOME`
+    for i in "${DOT_SYMLINK[@]}"; do
+      if [[ $i == ".gitconfig" ]]; then
         ln -sv "$DOT_DIRECTORY/git/$i" "$HOME/$i"
-      elif [[ $i == ".vim" ]]
-      then
+      elif [[ $i == ".vim" ]]; then
         ln -sv "$DOT_DIRECTORY/vim" "$HOME/$i"
       else
         ln -sv "$DOT_DIRECTORY/$i" "$HOME/$i"
@@ -73,21 +62,22 @@ case "$1" in
 
     # VIM
     # Linux: Set Vim config for root user
-    if [[ $SYS_NAME == "Linux" ]];
-    then
+    if [[ $SYS_NAME == "Linux" ]]; then
       sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
       sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
     fi
-    # Get Vundle, Vim plugin manager and install plugins
-    git clone https://github.com/gmarik/vundle.git vim/bundle/vundle
-    vim +PluginInstall +qall 2>/dev/null
+    # Install Vim plugins using `vim-plug`
+    vim +PlugInstall +qall 2>/dev/null
+    # Install npm packages required by vim
+    if _dep_check "node"; then
+      xargs -n1 < "$HOME/.dotfiles/vim/npm.txt" npm install -g
+    fi
 
     ;;
   "uninstall")
 
     # Remove all symlinks
-    for i in "${DOT_SYMLINK[@]}"
-    do
+    for i in "${DOT_SYMLINK[@]}"; do
       rm -v "$HOME/$i"
     done
 
@@ -97,6 +87,10 @@ case "$1" in
       sudo rm -iv --preserve-root "/root/.vimrc"
       sudo rm -Riv --preserve-root "/root/.vim"
     fi
+    # Uninstall npm packages required by vim
+    if _dep_check "node"; then
+      xargs -n1 < "$HOME/.dotfiles/vim/npm.txt npm uninstall" -g
+    fi
 
     # Backup '.dotfiles' folder
     mv -v $DOT_DIRECTORY "$DOT_DIRECTORY.$EXT_BACKUP"
@@ -104,12 +98,9 @@ case "$1" in
     ;;
   *)
 
-    echo "	Usage:"
-    echo ""
-    echo "		./bootstrap.sh install"
-    echo "		./bootstrap.sh uninstall"
-    echo ""
-    echo "	Doc: github.com/bymathias/dotfiles"
+    echo -e "Usage:\n"
+    _notice "./bootstrap.sh" "[ install | uninstall ]"
+    echo -e "\nDoc: github.com/bymathias/dotfiles"
 
     ;;
 esac
