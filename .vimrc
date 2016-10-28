@@ -38,7 +38,7 @@ silent! if plug#begin('~/.vim/plugins')
 
   " EDITING
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-commentary', { 'on': '<Plug>Commentary' }
   Plug 'Raimondi/delimitMate'
   Plug 'tpope/vim-surround'
   Plug 'Valloric/MatchTagAlways'
