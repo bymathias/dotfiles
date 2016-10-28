@@ -33,7 +33,11 @@ done
 _title "Checking directories..."
 
 for i in "${DIRECTORIES[@]}"; do
-  [[ ! -d $i ]] && mkdir -pv "$i" || _notice "$i" "(exists)"
+  if [[ ! -d $i ]]; then
+    mkdir -pv "$i" && _notice "$i" "(created)"
+  else
+    _notice "$i" "(exists)"
+  fi
 done
 
 _title "Dotfiles $1..."
