@@ -62,7 +62,8 @@ alias host-start='mysql-start && php-start && nginx-start'
 alias host-stop='nginx-stop && php-stop && mysql-stop'
 
 ## Nu Html Checker
-# alias check-html='java -jar ~/.dotfiles/bin/vnu.jar'
+alias nu-html-checker='java -jar ~/.dotfiles/bin/vnu.jar'
 
 ## Get the weather for your current location using wttr.in
-alias weather='curl wttr.in'
+alias wttr='curl wttr.in'
+alias weather='wttr'

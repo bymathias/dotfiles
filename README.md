@@ -5,51 +5,64 @@
 ### Requirements
 
 ```sh
-# required: build-essential libssl-dev curl git
+# required:
+# - curl
+# - git
+# - ruby (use: rvm)
+# - brew (os: macos)
 
-# Install ruby using rvm
-curl -L https://get.rvm.io | bash -s stable --ruby
-source ~/.bash_profile
-rvm install 2.1.1
-rvm use 2.1.1 --default
-# macos: install Homebrew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew doctor
-
-# Install utilities
 # macos
-brew install vim --with-override-system-vi reattach-to-user-namespace tmux ctags
+brew install \
+  tmux \
+  vim --with-override-system-vi \
+  reattach-to-user-namespace \ # patch for macos pbpaste and pbcopy under tmux
+  ctags                        # required by vim 'tagbar' plugin
+
 # debian
-sudo apt-get install vim-nox xclip xdg-utils tmux exuberant-ctags
+sudo apt-get install \
+  tmux \
+  vim-nox \
+  xclip \         # required by vim 'gist-vim' plugin
+  xdg-utils \     # required by vim 'vim-instant-markdown' plugin
+  exuberant-ctags # required by vim 'tagbar' plugin
 
-# Install node.js using nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
-source ~/.bash_profile
-nvm install 6.9.1
-nvm alias default 6.9.1
+# optional:
+# - node (use: nvm)
 
-# Vim, npm packages required
-npm install -g csscomb instant-markdown-d
+npm install -g \
+  csscomb \          # required by vim 'csscomb' plugin
+  instant-markdown-d # required by vim 'vim-instant-markdown' plugin
 ```
 
 ### Installation
 
 ```sh
-# Clone the repository
 git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
 cd .dotfiles
 
-# Install the .dotfiles
 ./bootstrap.sh install
 # ./bootstrap.sh [ install | uninstall ]
 
-# Edit the git config
 git config --global user.name "[YOUR_NAME]"
 git config --global user.email [YOUR_EMAIL]
 git config --global github.user "[GITHUB_USERNAME]"
 
-# Install Vim plugins
 vim +PlugInstall +qall
+```
+
+### Usage
+
+#### - Local scripts: `/bin`
+
+* [Nu Html Checker](https://validator.github.io/validator/) 
+```sh
+# alias nu-html-checker='java -jar ~/.dotfiles/bin/vnu.jar'
+nu-html-checker --help
+```
+* [SpeedTest Cli](https://github.com/sivel/speedtest-cl://github.com/sivel/speedtest-cli)
+```sh
+# alias speedtest-cli
+speedtest-cli --help
 ```
 
 ### License

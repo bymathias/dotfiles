@@ -4,10 +4,6 @@
 " VIM configuration of 'Mathias Brouilly'
 " github.com/bymathias/dotfiles
 "
-" Required dependencies for full features:
-"   `npm install -g csscomb instant-markdown-d`
-"   `sudo apt-get install exuberant-ctags` or `brew install ctags`
-"
 
 set nocompatible " Vim not vi
 " filetype off
