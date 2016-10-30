@@ -17,7 +17,10 @@ if [[ -f "$1" ]]; then
     *.zip) unzip "$1" ;;
     *.Z) uncompress "$1" ;;
     *.7z) 7z x "$1" ;;
-    *) echo "'$1' cannot be unpacked..." ;;
+    *)
+      echo "'$1' cannot be unpacked..."
+      echo "File supported: .tar.bz2 .tar.gz .tar .tbz2 .tgz .rar .bz2 .gz .zip .Z .7z"
+    ;;
   esac
 else
   echo "'$1' is not a valid file"

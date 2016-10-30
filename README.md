@@ -43,28 +43,62 @@ cd .dotfiles
 ./bootstrap.sh install
 # ./bootstrap.sh [ install | uninstall ]
 
-git config --global user.name "[YOUR_NAME]"
-git config --global user.email [YOUR_EMAIL]
-git config --global github.user "[GITHUB_USERNAME]"
+git config --global user.name "<user>"
+git config --global user.email <email>
+git config --global github.user "<github-user>"
 
 vim +PlugInstall +qall
 ```
 
 ### Usage
 
-#### - Local scripts: `/bin`
-
-* [Nu Html Checker](https://validator.github.io/validator/) 
+#### - `bash` aliases
 ```sh
+# List aliases
+alias
+```
+#### - `bash` functions
+
+...
+
+#### - `bin` scripts
+```sh
+# Creates 'license.txt' MIT file in PWD
+license-mit
+
+# Unpack archive
+# File supported: .tar.bz2 .tar.gz .tar .tbz2 .tgz .rar .bz2 .gz .zip .Z .7z
+unpack <file>
+
+# Nu Html Checker
+# ref: https://validator.github.io/validator
 # alias nu-html-checker='java -jar ~/.dotfiles/bin/vnu.jar'
 nu-html-checker --help
-```
-* [SpeedTest Cli](https://github.com/sivel/speedtest-cl://github.com/sivel/speedtest-cli)
-```sh
+
+# SpeedTest Cli
+# ref: https://github.com/sivel/speedtest-cl://github.com/sivel/speedtest-cli
 # alias speedtest-cli
 speedtest-cli --help
-```
 
+# Rsync Time Backup
+# ref: https://github.com/laurent22/rsync-time-backup
+# alias rsync-time-backup
+rsync-time-backup --help
+```
+#### - `vim` setup
+
+| key            | mode        | action               |
+| ------         | ----------- | ------               |
+| `,`            | Normal      | `<leader>` key       |
+| `<leader>` `n` | Normal      | Toggle Nerdtree pane |
+| ...            |             |                      |
+
+#### - `tmux` setup
+
+| key        | mode        | action         |
+| ------     | ----------- | ------         |
+| `Ctrl` `a` | Normal      | `<prefix>` key |
+| ...        |             |                |
 ### License
 
 Licensed under the [MIT License](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md).
