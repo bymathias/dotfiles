@@ -27,4 +27,4 @@ fi
 
 [[ -r $HOME/.nvm/bash_completion ]] && . "$HOME/.nvm/bash_completion"
 
-[[ -f $HOME/.travis/travis.sh ]] && . "$HOME/.travis/travis.sh"
+# [[ -f $HOME/.travis/travis.sh ]] && . "$HOME/.travis/travis.sh"

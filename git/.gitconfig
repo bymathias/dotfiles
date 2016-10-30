@@ -21,6 +21,6 @@
 [diff]
   tool = Kaleidoscope
 [github]
-  user = bymathias
+	user = bymathias
 [alias]
   undo = reset --soft HEAD^

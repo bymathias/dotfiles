@@ -16,13 +16,12 @@ EXT_BACKUP=$(date +"%Y-%m-%d").bak
 
 _title() { echo -e "\n\033[4;37m$1\033[0m"; }
 _notice() { echo -e "$1 \033[0;34m$2\033[0m"; }
-_dep_check() { command -v "$1" &> /dev/null; }
 
 
 _title "Checking dependencies..."
 
 for i in "${DEPENDENCIES[@]}"; do
-  if _dep_check "$i"; then
+  if command -v "$i" &> /dev/null; then
     _notice "$i" "(ok)"
   else
     _notice "$i" "(required)"
@@ -40,7 +39,7 @@ for i in "${DIRECTORIES[@]}"; do
   fi
 done
 
-_title "Dotfiles $1..."
+[[ $1 -eq 1 ]] && _title "Dotfiles $1..."
 
 case "$1" in
   "install")
@@ -70,12 +69,6 @@ case "$1" in
       sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
       sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
     fi
-    # Install Vim plugins using `vim-plug`
-    vim +PlugInstall +qall 2>/dev/null
-    # Install npm packages required by vim
-    if _dep_check "node"; then
-      xargs -n1 < "$HOME/.dotfiles/vim/npm.txt" npm install -g
-    fi
 
     ;;
   "uninstall")
@@ -91,20 +84,13 @@ case "$1" in
       sudo rm -iv --preserve-root "/root/.vimrc"
       sudo rm -Riv --preserve-root "/root/.vim"
     fi
-    # Uninstall npm packages required by vim
-    if _dep_check "node"; then
-      xargs -n1 < "$HOME/.dotfiles/vim/npm.txt npm uninstall" -g
-    fi
 
     # Backup '.dotfiles' folder
     mv -v $DOT_DIRECTORY "$DOT_DIRECTORY.$EXT_BACKUP"
 
     ;;
   *)
-
-    echo -e "Usage:\n"
+    _title "Usage..."
     _notice "./bootstrap.sh" "[ install | uninstall ]"
-    echo -e "\nDoc: github.com/bymathias/dotfiles"
-
     ;;
 esac

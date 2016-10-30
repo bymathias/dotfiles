@@ -11,7 +11,7 @@ parse_git_branch() {
 }
 
 parse_git_tag() {
-  tag=$(git describe --exact-match --tags HEAD 2> /dev/null)
+  tag=`git describe --exact-match --tags HEAD 2> /dev/null`
   [ -z "$tag" ] && return 1
   echo "$tag "
 }
