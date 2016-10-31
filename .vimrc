@@ -130,11 +130,16 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'tpope/vim-fugitive'
   Plug 'Xuyuanp/nerdtree-git-plugin'
 
-  " WRITING
-  Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'
-
   " TMUX
   Plug 'tmux-plugins/vim-tmux'
+
+  " WRITING
+  Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'
+  Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+  " (goyo.vim settings) {{{
+  let g:goyo_width='120'
+  nnoremap <Leader>G :Goyo<cr>
+  " }}}
 
   " Add plugins to &runtimepath
   call plug#end()

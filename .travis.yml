@@ -1,14 +1,15 @@
 language: sh
-sudo: required
-os:
-  - linux
 
-addons:
-  apt:
-    sources:
-      - debian-sid
-    packages:
-      - shellcheck
+sudo: false
+
+os:
+  - osx
+
+osx_image: xcode8
+
+before_install:
+  - brew update
+  - brew outdated shellcheck || brew upgrade shellcheck
 
 before_script:
   - shellcheck bootstrap.sh .bashrc .bash_profile bash/*

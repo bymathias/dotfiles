@@ -1,134 +1,122 @@
 #!/bin/bash
 
-## Install, uninstall and update .dotfiles
-## https://github.com/bymathias/dotfiles
+# Install, uninstall and update .dotfiles
+# https://github.com/bymathias/dotfiles
 
 set -e
 
-OS=$(uname -s)
-BAK=$(date +"%Y-%m-%d").bak
+SYSTEM=$(uname -s)
+TODAY=$(date +"%Y-%m-%d")
 
-TMP=(~/tmp)
-DOT=~/.dotfiles
-SYM=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc)
+TMP_DIRECTORY=~/tmp
+DOT_DIRECTORY=~/.dotfiles
+DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc)
+DOT_DEPENDENCIES=(curl git ruby)
 
-DEPS=(curl git ruby)
+_file_remove() {
+  local FILE="$HOME/$1"
+  if [[ -h "$FILE" ]]; then
+    rm -v "$FILE"
+  elif [[ -f "$FILE" || -d "$FILE" ]]; then
+    mv -v "$FILE" "$FILE.$TODAY.bak"
+  fi
+}
 
-_title() { echo -e "\n\033[4;37m$1\033[0m"; }
-_notice() { echo -e "$1 \033[0;34m$2\033[0m"; }
-
-_title "Checking dependencies..."
-
-for i in "${DEPS[@]}"; do
-  if command -v "$i" &> /dev/null; then
-    _notice "$i" "(ok)"
+_file_symlink() {
+  local FILE="$HOME/$1"
+  if [[ $1 == ".gitconfig" ]]; then
+    ln -sv "$DOT_DIRECTORY/git/$1" "$FILE"
+  elif [[ $1 == ".vim" ]]; then
+    ln -sv "$DOT_DIRECTORY/vim" "$FILE"
   else
-    _notice "$i" "(required)"
+    ln -sv "$DOT_DIRECTORY/$1" "$FILE"
+  fi
+}
+
+_script_make() {
+  [[ -f $1 ]] && rm $1
+  if [[ $2 =~ ^http.* ]]; then
+    curl -L# -o $1 $2
+  else
+    mv $2 $1
+  fi
+  chmod -v +x $1
+}
+
+echo "===== check dependencies..."
+
+for i in "${DOT_DEPENDENCIES[@]}"; do
+  if command -v "$i" &> /dev/null; then
+    echo "$i"
+  else
+    echo "$i required, aborting.."
     exit 1
   fi
 done
 
-_title "Checking directories..."
+mkdir -pv "$TMP_DIRECTORY"
 
-for i in "${TMP[@]}"; do
-  if [[ ! -d $i ]]; then
-    mkdir -pv "$i" && _notice "$i" "(created)"
-  else
-    _notice "$i" "(exists)"
-  fi
-done
-
-[[ $1 -eq 0 ]] && _title "Dotfiles $1..."
+echo "===== $1 dotfiles..."
 
 case "$1" in
   "install")
 
-    # Remove symlinks and backup old dotfiles
-    for i in "${SYM[@]}"; do
-      if [[ -h "$HOME/$i" ]]; then
-        rm -v "$HOME/$i"
-      elif [[ -f "$HOME/$i" || -d "$HOME/$i" ]]; then
-        mv -v "$HOME/$i" "$HOME/$i.$BAK"
-      fi
-    done
-    # Creates all symlinks in `$HOME`
-    for i in "${SYM[@]}"; do
-      if [[ $i == ".gitconfig" ]]; then
-        ln -sv "$DOT/git/$i" "$HOME/$i"
-      elif [[ $i == ".vim" ]]; then
-        ln -sv "$DOT/vim" "$HOME/$i"
-      else
-        ln -sv "$DOT/$i" "$HOME/$i"
-      fi
+    # Remove/backup and install the dotfiles
+    for i in "${DOT_SYMLINKS[@]}"; do
+      _file_remove $i
+      _file_symlink $i
     done
 
     # VIM
-    # Linux: Set Vim config for root user
-    if [[ $OS == "Linux" ]]; then
-      sudo ln -siv "$DOT/.vimrc" "/root/.vimrc"
-      sudo ln -siv "$DOT/vim" "/root/.vim"
+    # debian: Set Vim config for root user
+    if [[ $SYSTEM == "Linux" ]]; then
+      sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
+      sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
     fi
 
     ;;
   "uninstall")
 
-    # Remove all symlinks
-    for i in "${SYM[@]}"; do
-      if [[ -h "$HOME/$i" ]]; then
-        rm -v "$HOME/$i"
-      fi
+    # Remove/backup the dotfiles
+    for i in "${DOT_SYMLINKS[@]}"; do
+      _file_remove $i
     done
 
     # VIM
-    # Linux: Remove Vim config for root user
-    if [[ $OS == "Linux" ]]; then
+    # debian: Remove Vim config for root user
+    if [[ $SYSTEM == "Linux" ]]; then
       sudo rm -iv --preserve-root "/root/.vimrc"
       sudo rm -Riv --preserve-root "/root/.vim"
     fi
 
-    # Backup '.dotfiles' folder
-    mv -v $DOT "$DOT.$BAK"
+    # Backup .dotfiles directory
+    mv -v $DOT_DIRECTORY "$DOT_DIRECTORY.$TODAY.bak"
 
     ;;
   "update")
 
+    # LOCAL BIN
   	# The Nu Html Checker
   	# ref: https://github.com/validator/validator
-  	VJ="16.6.29"
-  	VJ_BIN=$DOT/bin/vnu.jar
-    echo "Nu Html Checker..."
-  	[[ -f $VJ_BIN ]] && rm $VJ_BIN
-  	curl -L# -o $TMP/vnu.jar_$VJ.zip https://github.com/validator/validator/releases/download/$VJ/vnu.jar_$VJ.zip
-  	unzip -d $TMP/vnu.jar_$VJ -o $TMP/vnu.jar_$VJ.zip
-  	mv $TMP/vnu.jar_$VJ/dist/vnu.jar $VJ_BIN
-		chmod +x $VJ_BIN
-    _notice $VJ_BIN "(ok)"
-    unset VJ_BIN
-    unset VJ
+  	VJV="16.6.29"
+  	curl -L# -o $TMP_DIRECTORY/vnu.jar_$VJV.zip \
+      https://github.com/validator/validator/releases/download/$VJV/vnu.jar_$VJV.zip
+  	unzip -d $TMP_DIRECTORY/vnu.jar_$VJV -o $TMP_DIRECTORY/vnu.jar_$VJV.zip
+    _script_make $DOT_DIRECTORY/bin/vnu.jar $TMP_DIRECTORY/vnu.jar_$VJV/dist/vnu.jar
+    unset VJV
 
     # Command line interface for testing internet bandwidth using speedtest.net
     # ref: https://github.com/sivel/speedtest-cli
-    ST_BIN=$DOT/bin/speedtest-cli
-    echo "Speedtest cli ..."
-  	[[ -f $ST_BIN ]] && rm $ST_BIN
-    curl -L# -o $ST_BIN https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
-		chmod +x $ST_BIN
-    _notice $ST_BIN "(ok)"
-    unset ST_BIN
+    _script_make $DOT_DIRECTORY/bin/speedtest-cli \
+      https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
 
 		# Time Machine-style backup using rsync
 		# ref: https://github.com/laurent22/rsync-time-backup
-    RTM_BIN=$DOT/bin/rsync-time-backup
-    echo "Rsync time backup..."
-  	[[ -f $RTM_BIN ]] && rm $RTM_BIN
-    curl -L# -o $RTM_BIN https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
-		chmod +x $RTM_BIN
-    _notice $RTM_BIN "(ok)"
-    unset RTM_BIN
+    _script_make $DOT_DIRECTORY/bin/rsync-time-backup \
+      https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
 
     ;;
-  *)
-    _title "Usage..."
-    _notice "./bootstrap.sh" "[ install | uninstall ]"
-    ;;
+  *|"help") echo "Usage: ./bootstrap.sh [ install | uninstall | update | help ]" ;;
 esac
+
+echo "===== done !"

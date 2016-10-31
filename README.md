@@ -97,16 +97,29 @@ rsync-time-backup --help
 
 | key            | mode        | action               |
 | ------         | ----------- | ------               |
-| `,`            | Normal      | `<leader>` key       |
+| `,`            | Normal      | Set `<leader>` key   |
 | `<leader>` `n` | Normal      | Toggle Nerdtree pane |
 | ...            |             |                      |
 
 #### - `tmux` setup
 
-| key        | mode        | action         |
-| ------     | ----------- | ------         |
-| `Ctrl` `a` | Normal      | `<prefix>` key |
-| ...        |             |                |
+| key        | mode        | action             |
+| ------     | ----------- | ------             |
+| `Ctrl` `a` | Normal      | Set `<prefix>` key |
+| ...        |             |                    |
+
+### Extras
+
+```sh
+# macos
+sh ~/.dotfiles/init/brew.sh
+
+# debian
+sh ~/.dotfiles/init/debian.sh
+```
+
+* [Git Extras](https://github.com/tj/git-extras): Little git extras
+
 ### License
 
 Licensed under the [MIT License](https://github.com/bymathias/dotfiles/blob/master/LICENSE.md).
