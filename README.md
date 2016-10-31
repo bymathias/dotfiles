@@ -49,7 +49,15 @@ git config --global github.user "<github-user>"
 
 vim +PlugInstall +qall
 ```
+### Terminal
+```sh
+# macos: iTem2
+open ~/.dotfiles/init/iTerm/Kivabien.itermcolors
 
+# debian: Terminator
+# mv ~/.config/terminator/config ~/.config/terminator/config-default.bak
+# ln -sv ~/.dotfiles/init/terminator/Kivabien.config ~/.config/terminator/config
+```
 ### Usage
 
 #### - `bash` aliases
