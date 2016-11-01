@@ -24,9 +24,9 @@ _dot_remove() {
 
 _dot_symlink() {
   local FILE="$HOME/$1"
-  if [[ $1 == ".gitconfig" ]]; then
+  if [[ "$1" == ".gitconfig" ]]; then
     ln -sv "$DOT_DIRECTORY/git/$1" "$FILE"
-  elif [[ $1 == ".vim" ]]; then
+  elif [[ "$1" == ".vim" ]]; then
     ln -sv "$DOT_DIRECTORY/vim" "$FILE"
   else
     ln -sv "$DOT_DIRECTORY/$1" "$FILE"
@@ -35,13 +35,13 @@ _dot_symlink() {
 
 _bin_get() {
   local FILE="$DOT_DIRECTORY/bin/$1"
-  [[ -f $FILE ]] && rm $FILE
-  if [[ $2 =~ ^http.* ]]; then
-    curl -L# -o $FILE $2
+  [[ -f "$FILE" ]] && rm "$FILE"
+  if [[ "$2" =~ ^http.* ]]; then
+    curl -L# -o "$FILE" "$2"
   else
-    mv $2 $FILE
+    mv "$2" "$FILE"
   fi
-  chmod -v +x $FILE
+  chmod -v +x "$FILE"
 }
 
 echo "===== check dependencies... ====="
@@ -64,13 +64,13 @@ case "$1" in
 
     # Remove/backup and install the dotfiles
     for i in "${DOT_SYMLINKS[@]}"; do
-      _dot_remove $i
-      _dot_symlink $i
+      _dot_remove "$i"
+      _dot_symlink "$i"
     done
 
     # VIM
     # debian: Set Vim config for root user
-    if [[ $SYSTEM == "Linux" ]]; then
+    if [[ "$SYSTEM" == "Linux" ]]; then
       sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
       sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
     fi
@@ -82,18 +82,18 @@ case "$1" in
 
     # Remove/backup the dotfiles
     for i in "${DOT_SYMLINKS[@]}"; do
-      _dot_remove $i
+      _dot_remove "$i"
     done
 
     # VIM
     # debian: Remove Vim config for root user
-    if [[ $SYSTEM == "Linux" ]]; then
+    if [[ "$SYSTEM" == "Linux" ]]; then
       sudo rm -iv --preserve-root "/root/.vimrc"
       sudo rm -Riv --preserve-root "/root/.vim"
     fi
 
     # Backup .dotfiles directory
-    mv -v $DOT_DIRECTORY "$DOT_DIRECTORY.$TODAY.bak"
+    mv -v "$DOT_DIRECTORY" "$DOT_DIRECTORY.$TODAY.bak"
 
     ;;
   "update")
