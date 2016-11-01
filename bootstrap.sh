@@ -3,12 +3,12 @@
 # Install, uninstall and update .dotfiles
 # https://github.com/bymathias/dotfiles
 
-set -e
+set -eo pipefail
 
 SYSTEM=$(uname -s)
 TODAY=$(date +"%Y-%m-%d")
-
 TMP_DIRECTORY=~/tmp
+
 DOT_DIRECTORY=~/.dotfiles
 DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc)
 DOT_DEPENDENCIES=(curl git ruby)

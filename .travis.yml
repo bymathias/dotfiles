@@ -17,7 +17,7 @@ before_script:
 
 script:
   - git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
-  - cd .dotfiles
+  - cd ~/.dotfiles
   - ./bootstrap.sh install
 
 notifications:
