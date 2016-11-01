@@ -9,8 +9,8 @@ set nocompatible " Vim not vi
 " filetype off
 
 " Set the leader key
-let mapleader=','
-let maplocalleader=','
+let g:mapleader=','
+let g:maplocalleader=','
 
 " PLUGINS {{{
 
@@ -19,12 +19,12 @@ silent! if plug#begin('~/.vim/plugins')
   " NAVIGATION
   Plug 'scrooloose/nerdtree'
   " (nerdtree settings) {{{
-  let NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
-  let NERDTreeMouseMode=3  " single click to open any node
+  let g:NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
+  let g:NERDTreeMouseMode=3  " single click to open any node
   let g:NERDTreeWinSize=25 " set nerdtree width
   let g:NERDTreeDirArrows=0
   " Ignore these files extensions
-  let NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
   " Open NERDTree
   map <leader>n :NERDTreeToggle<cr>
   " Open directory of the current file in NERDTree
@@ -339,8 +339,8 @@ endif
 
 " FILE HANDLING {{{
 
-let php_htmlInStrings=1 " Highlight html syntax within strings
-let php_sql_query=1     " Highlight sql queries
+let g:php_htmlInStrings=1 " Highlight html syntax within strings
+let g:php_sql_query=1     " Highlight sql queries
 "let php_folding=1     " Enable folding for classes and functions
 
 if has('autocmd')
