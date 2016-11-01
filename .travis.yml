@@ -17,9 +17,9 @@ addons:
       - shellcheck
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl -O http://ftp.us.debian.org/debian/pool/main/v/vim/vim-nox_7.4.488-7_amd64.deb; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then dpkg -i vim-nox_7.4.488-7_amd64.deb; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+
+install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install vim --with-override-system-vi; fi
 
