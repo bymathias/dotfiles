@@ -15,10 +15,12 @@ addons:
       - debian-sid
     packages:
       - shellcheck
+      - vim-nox
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install vim --with-override-system-vi; fi
 
 before_script:
   - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
