@@ -22,13 +22,16 @@ before_install:
 install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install vim --with-override-system-vi; fi
+  - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
+  - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
 
 before_script:
   - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
+  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
 
 script:
   - ./bootstrap.sh install
-  - vim +PlugInstall +qall
+  - vim --cmd PlugInstall --cmd quit
 
 notifications:
   email: true
