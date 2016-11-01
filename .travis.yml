@@ -26,11 +26,11 @@ install:
 script:
   - git clone https://bymathias@github.com/bymathias/dotfiles.git .dotfiles
   - ./.dotfiles/bootstrap.sh install
-  - source ~/.bashrc
+  - source .bashrc
   - vim -u .vimrc --cmd PlugInstall --cmd quit
 
 after_script:
-  - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
+  - shellcheck .bashrc .bash_profile bash/* .dotfiles/bootstrap.sh
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
   - /tmp/vim-profiler/vim-profiler.py vim
 
