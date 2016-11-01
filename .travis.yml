@@ -1,18 +1,25 @@
-language: sh
+language: generic
 
-sudo: false
+sudo: required
 
-os:
-  - osx
-
-osx_image: xcode8
+matrix:
+  include:
+    - os: linux
+      dist: jessie
+    - os: osx
+      osx_image: xcode8
 
 before_install:
-  - brew update
-  - brew outdated shellcheck || brew upgrade shellcheck
+  - ./test/env-travis.sh
 
 before_script:
   - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
 
 script:
+  - git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
+  - cd .dotfiles
   - ./bootstrap.sh install
+
+notifications:
+  email: true
+  irc: false

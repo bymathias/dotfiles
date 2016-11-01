@@ -132,6 +132,13 @@ case "$1" in
     _bin_get youtube-dl https://yt-dl.org/downloads/latest/youtube-dl
 
     ;;
+
+  "test")
+
+    echo "test..."
+
+    ;;
+
   *|"help") echo "Usage: ./bootstrap.sh [ install | uninstall | update | help ]" ;;
 esac
 
