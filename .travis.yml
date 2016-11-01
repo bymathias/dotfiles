@@ -30,6 +30,8 @@ before_script:
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
 
 script:
+  - git clone https://bymathias@github.com/bymathias/dotfiles.git .dotfiles
+  - cd .dotfiles
   - ./bootstrap.sh install
   - vim --cmd PlugInstall --cmd quit
 
