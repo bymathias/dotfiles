@@ -11,7 +11,7 @@ TMP_DIRECTORY=~/tmp
 
 DOT_DIRECTORY=~/.dotfiles
 DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc)
-DOT_DEPENDENCIES=(curl git ruby)
+DOT_DEPENDENCIES=(curl git ruby vim)
 
 _dot_remove() {
   local FILE="$HOME/$1"
