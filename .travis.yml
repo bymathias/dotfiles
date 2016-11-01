@@ -4,9 +4,20 @@ sudo: required
 
 matrix:
   include:
-    - os: linux
+    - env: ENV=debian
+      os: linux
       dist: jessie
-    - os: osx
+      addons:
+        apt:
+          sources:
+            - debian-sid
+          packages:
+            - shellcheck
+        apt:
+          packages:
+            - vim-nox
+    - env: ENV=macos
+      os: osx
       osx_image: xcode8
 
 addons:
