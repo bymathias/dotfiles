@@ -10,11 +10,11 @@ matrix:
       osx_image: xcode8
 
 addons:
-	apt:
-		sources:
-			- debian-sid
-		packages:
-			- shellcheck
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - shellcheck
 
 before_install:
 	- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
