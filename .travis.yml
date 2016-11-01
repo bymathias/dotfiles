@@ -7,15 +7,6 @@ matrix:
     - env: ENV=debian
       os: linux
       dist: jessie
-      addons:
-        apt:
-          sources:
-            - debian-sid
-          packages:
-            - shellcheck
-        apt:
-          packages:
-            - vim-nox
     - env: ENV=macos
       os: osx
       osx_image: xcode8
@@ -26,6 +17,9 @@ addons:
       - debian-sid
     packages:
       - shellcheck
+  apt:
+    packages:
+      - vim-nox
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
