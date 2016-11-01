@@ -74,8 +74,6 @@ case "$1" in
       sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
       sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
     fi
-    # Install vim plugin using vim-plug
-    vim +PlugInstall +qall && echo "vim plugins"
 
     ;;
   "uninstall")
@@ -97,10 +95,6 @@ case "$1" in
 
     ;;
   "update")
-
-    # VIM
-    # Update vim-plug and other plugins
-    vim +PlugUpgrade +PlugUpdate +qall && echo "vim plugins"
 
     # LOCAL BIN
   	# The Nu Html Checker
