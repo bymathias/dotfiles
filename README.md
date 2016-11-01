@@ -78,6 +78,11 @@ license-mit
 # File supported: .tar.bz2 .tar.gz .tar .tbz2 .tgz .rar .bz2 .gz .zip .Z .7z
 unpack <file>
 
+# Markdown.pl
+# ref: http://daringfireball.net/projects/markdown
+# alias markdown-to-html='perl ~/.dotfiles/bin/Markdown.pl --html4tags'
+markdown-to-html <input> > <output>
+
 # Nu Html Checker
 # ref: https://validator.github.io/validator
 # alias nu-html-checker='java -jar ~/.dotfiles/bin/vnu.jar'

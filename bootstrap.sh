@@ -13,7 +13,7 @@ DOT_DIRECTORY=~/.dotfiles
 DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc)
 DOT_DEPENDENCIES=(curl git ruby)
 
-_file_remove() {
+_dot_remove() {
   local FILE="$HOME/$1"
   if [[ -h "$FILE" ]]; then
     rm -v "$FILE"
@@ -22,7 +22,7 @@ _file_remove() {
   fi
 }
 
-_file_symlink() {
+_dot_symlink() {
   local FILE="$HOME/$1"
   if [[ $1 == ".gitconfig" ]]; then
     ln -sv "$DOT_DIRECTORY/git/$1" "$FILE"
@@ -33,17 +33,18 @@ _file_symlink() {
   fi
 }
 
-_script_make() {
-  [[ -f $1 ]] && rm $1
+_bin_get() {
+  local FILE="$DOT_DIRECTORY/bin/$1"
+  [[ -f $FILE ]] && rm $FILE
   if [[ $2 =~ ^http.* ]]; then
-    curl -L# -o $1 $2
+    curl -L# -o $FILE $2
   else
-    mv $2 $1
+    mv $2 $FILE
   fi
-  chmod -v +x $1
+  chmod -v +x $FILE
 }
 
-echo "===== check dependencies..."
+echo "===== check dependencies... ====="
 
 for i in "${DOT_DEPENDENCIES[@]}"; do
   if command -v "$i" &> /dev/null; then
@@ -56,15 +57,15 @@ done
 
 mkdir -pv "$TMP_DIRECTORY"
 
-echo "===== $1 dotfiles..."
+echo "===== $1 dotfiles... ====="
 
 case "$1" in
   "install")
 
     # Remove/backup and install the dotfiles
     for i in "${DOT_SYMLINKS[@]}"; do
-      _file_remove $i
-      _file_symlink $i
+      _dot_remove $i
+      _dot_symlink $i
     done
 
     # VIM
@@ -73,13 +74,15 @@ case "$1" in
       sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
       sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
     fi
+    # Install vim plugin using vim-plug
+    vim +PlugInstall +qall && echo "vim plugins"
 
     ;;
   "uninstall")
 
     # Remove/backup the dotfiles
     for i in "${DOT_SYMLINKS[@]}"; do
-      _file_remove $i
+      _dot_remove $i
     done
 
     # VIM
@@ -95,28 +98,41 @@ case "$1" in
     ;;
   "update")
 
+    # VIM
+    # Update vim-plug and other plugins
+    vim +PlugUpgrade +PlugUpdate +qall && echo "vim plugins"
+
     # LOCAL BIN
   	# The Nu Html Checker
   	# ref: https://github.com/validator/validator
-  	VJV="16.6.29"
-  	curl -L# -o $TMP_DIRECTORY/vnu.jar_$VJV.zip \
-      https://github.com/validator/validator/releases/download/$VJV/vnu.jar_$VJV.zip
-  	unzip -d $TMP_DIRECTORY/vnu.jar_$VJV -o $TMP_DIRECTORY/vnu.jar_$VJV.zip
-    _script_make $DOT_DIRECTORY/bin/vnu.jar $TMP_DIRECTORY/vnu.jar_$VJV/dist/vnu.jar
-    unset VJV
+  	VNU="16.6.29"
+    TMP_VNU=$TMP_DIRECTORY/vnu.jar_$VNU
+  	curl -L# -o $TMP_VNU.zip https://github.com/validator/validator/releases/download/$VNU/vnu.jar_$VNU.zip
+  	unzip -d $TMP_VNU -o $TMP_VNU.zip
+    _bin_get vnu.jar $TMP_VNU/dist/vnu.jar
 
-    # Command line interface for testing internet bandwidth using speedtest.net
-    # ref: https://github.com/sivel/speedtest-cli
-    _script_make $DOT_DIRECTORY/bin/speedtest-cli \
-      https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+    # Markdown is a text-to-HTML conversion tool
+    # https://daringfireball.net/projects/markdown
+    MKD="1.0.1"
+    TMP_MKD=$TMP_DIRECTORY/markdown_$MKD
+    curl -L# -o $TMP_MKD.zip http://daringfireball.net/projects/downloads/Markdown_$MKD.zip
+    unzip -d $TMP_MKD -o $TMP_MKD.zip
+    _bin_get Markdown.pl $TMP_MKD/Markdown_$MKD/Markdown.pl
 
 		# Time Machine-style backup using rsync
 		# ref: https://github.com/laurent22/rsync-time-backup
-    _script_make $DOT_DIRECTORY/bin/rsync-time-backup \
-      https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
+    _bin_get rsync-time-backup https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh
+
+    # Command line interface for testing internet bandwidth using speedtest.net
+    # ref: https://github.com/sivel/speedtest-cli
+    _bin_get speedtest-cli https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+
+    # Command-line program to download videos from YouTube.com and other video sites
+    # ref: https://github.com/rg3/youtube-dl
+    _bin_get youtube-dl https://yt-dl.org/downloads/latest/youtube-dl
 
     ;;
   *|"help") echo "Usage: ./bootstrap.sh [ install | uninstall | update | help ]" ;;
 esac
 
-echo "===== done !"
+echo "===== done ! ====="
