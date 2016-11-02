@@ -274,10 +274,21 @@ set showfulltag                        " Show the full tag when completing
 set wildmenu                           " Better command line completion
 set wildmode=list:longest,full
 
-set wildignore+=*.jpg,*.png,*.jpeg     " Ignore images..
+" Ignore files
+set wildignore+=*.png,*.jpeg,*.jpg,*.tiff
 set wildignore+=*.ico,*.bmp,*.gif
-set wildignore+=*.DS_Store,*.log,*.sw? " Ignore log files
-set wildignore+=*/.git/*,*/.svn/*      " Ignore source control files
+" set wildignore+=*.sqlite3,*.db
+" set wildignore+=*.zip,*.tar,*.tar.gz
+set wildignore+=*.doc,*.docx,*.xls,*.xlsx,*.ppt,*.pptx,*.gsheet
+set wildignore+=*.pages
+" set wildignore+=*.pdf
+set wildignore+=*.mp4,*.mov,*.m4v,*.mp3
+set wildignore+=*.dmg
+set wildignore+=*.sw?
+set wildignore+=*.DS_Store,Icon
+set wildignore+=*/.git/*,*/.svn/*,*/.hg/*
+set wildignore+=*/node_modules/**
+set wildignore+=*/bower_components/**
 
 if has('autocmd')
 
@@ -528,6 +539,22 @@ if has('spell')
   augroup END
 
 endif
+
+" Escape/Unescape of HTML entities
+function! HtmlEscape()
+  silent s/&/\&amp;/eg
+  silent s/</\&lt;/eg
+  silent s/>/\&gt;/eg
+endfunction
+
+function! HtmlUnEscape()
+  silent s/&lt;/</eg
+  silent s/&gt;/>/eg
+  silent s/&amp;/\&/eg
+endfunction
+
+noremap <leader>he :call HtmlEscape()<cr>
+noremap <leader>hue :call HtmlUnEscape()<cr>
 
 " }}}
 
