@@ -12,6 +12,7 @@ npm install -g csscomb
 npm install -g instant-markdown-d
 
 # Useful web dev tools
+npm install -g js-beautify
 npm install -g conventional-changelog-cli
 npm install -g docco
 # npm install -g jsdoc

@@ -12,7 +12,7 @@ sudo apt-get -y dist-upgrade
 # -------------------------------------------
 
 # Install build tools libraries reauired
-sudo apt-get install -y build-essential libssl-dev libpcre3-dev
+sudo apt-get install -y build-essential libssl-dev cmake libpcre3-dev
 
 # Data transfer tools
 sudo apt-get install -y curl wget rsync
@@ -31,6 +31,8 @@ sudo apt-get install -y xclip
 sudo apt-get install -y xdg-utils
 # Exuberant Ctags, required by vim 'tagbar'  plugin
 sudo apt-get install -y exuberant-ctags
+# EditorConfig, required by editorconfig-vim
+sudo apt-get install -y editorconfig
 
 # Install Tmux
 sudo apt-get install -y tmux

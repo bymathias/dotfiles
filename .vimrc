@@ -40,7 +40,6 @@ silent! if plug#begin('~/.vim/plugins')
   " }}}
 
   " EDITING
-  Plug 'editorconfig/editorconfig-vim'
   Plug 'tpope/vim-commentary'
   " (vim-commentary settings) {{{
   " If the filetype is not supported, fallback to '#'
@@ -61,7 +60,8 @@ silent! if plug#begin('~/.vim/plugins')
   " }}}
   Plug 'terryma/vim-expand-region'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'csscomb/vim-csscomb' " Require npm package 'csscomb'
+  Plug 'editorconfig/editorconfig-vim' " Require EditorConfig core
+  Plug 'csscomb/vim-csscomb'           " Require npm package 'csscomb'
 
   " SYNTAX
   Plug 'othree/yajs.vim'
@@ -136,6 +136,10 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'Yggdroot/indentLine'
   " indentLine settings {{{
   let g:indentLine_color_term = 232
+  let g:indentLine_concealcursor = 'nvc'  " Cursor lines behavior
+  let g:indentLine_leadingSpaceChar = '·' " Character to show for leading spaces
+  let g:indentLine_faster=1               " Better performance
+  " Toggle IndentLines key
   nmap <leader>il :IndentLinesToggle<cr>
   " }}}
 

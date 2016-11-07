@@ -10,7 +10,7 @@ NOW=$(date +"%Y-%m-%d")
 TMP_DIRECTORY=~/tmp
 DOT_DEPENDENCIES=(curl git vim)
 DOT_DIRECTORY=~/.dotfiles
-DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc)
+DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig)
 GIT_INFOS=(user.name user.email github.user)
 
 __dot_remove()

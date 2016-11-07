@@ -32,6 +32,8 @@ brew install bash-completion
 brew install vim --with-override-system-vi
 # Exuberant Ctags, required by vim 'tagbar'  plugin
 brew install ctags
+# EditorConfig, required by editorconfig-vim
+brew install editorconfig
 
 # Terminal multiplexer
 brew install tmux
@@ -39,7 +41,10 @@ brew install tmux
 # see: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard/issues/8#issuecomment-9576743
 brew install reattach-to-user-namespace
 
+# Building tools
+# brew install cmake
 # brew install pcre
+
 # brew install openssl
 
 # brew install imagemagick --with-webp
