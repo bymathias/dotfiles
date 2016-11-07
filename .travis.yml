@@ -21,9 +21,13 @@ install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
 
-script:
-  - shellcheck bootstrap.sh .bashrc .bash_profile bash/*
+after_install:
+  - shellcheck *.sh .bash* bash/* init/*
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
+
+script:
+  - ./bootstrap.sh install
+  - ./bootstrap.sh update
 
 notifications:
   email: true

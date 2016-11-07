@@ -1,0 +1,152 @@
+#!/usr/bin/env ruby -rubygems
+# -*- coding: utf-8 -*-
+
+def usage
+  puts 'Configuration:'
+  puts '  cloudapp config [USERNAME] [PASSWORD]'
+  puts
+  puts 'Example usage:'
+  puts '  cloudapp list'
+  puts '  cloudapp stats'
+  puts '  cloudapp upload [-p] FILE...'
+  puts '  cloudapp download SLUG...'
+  puts '  cloudapp delete SLUG...'
+  puts '  cloudapp recover SLUG...'
+  puts '  cloudapp rename SLUG NAME'
+  puts '  cloudapp private [SLUG...]'
+  puts '  cloudapp public [SLUG...]'
+  puts '  cloudapp home'
+  puts '  cloudapp help'
+  puts
+  exit 0
+end
+
+CONFIG_FILE = ENV['HOME'] + '/.cloudapp-cli'
+
+def load_config
+  require 'yaml'
+  YAML.load_file(CONFIG_FILE) rescue abort 'Please set up your user account first.'
+end
+
+def save_config(config)
+  require 'yaml'
+  File.open(CONFIG_FILE, 'w+') do |f|
+    f.write(YAML.dump(config))
+  end
+end
+
+case ARGV.first
+when 'help', nil
+  usage
+when 'home'
+  exec 'open', 'http://my.cl.ly/'
+when 'config'
+  if ARGV[1] and ARGV[2]
+    save_config(:username => ARGV[1], :password => ARGV[2])
+    puts 'User account set.'
+  else
+    load_config.each do |k, v|
+      puts "#{k}: #{v}"
+    end
+  end
+  exit 0
+end
+
+config = load_config
+
+
+require 'cloudapp_api'
+
+@client = CloudApp::Client.new
+@client.authenticate config[:username], config[:password]
+begin
+  CloudApp::Account.find
+rescue SocketError
+  abort 'Wooops, an error occured, check your network settings.'
+rescue CloudApp::GenericError
+  abort 'Wooops, an error occured, check your credentials.'
+end
+
+def slug(drop)
+  drop.url.split(/\//).last if drop
+end
+
+def args?(n=2)
+  usage if ARGV.length < n
+end
+
+
+begin
+  case ARGV.first
+  when 'list'
+    CloudApp::Drop.all.each do |drop|
+      puts "#{slug(drop)}\t#{drop.content_url}"
+    end
+  when 'stats'
+    CloudApp::Account.stats.each do |key, value|
+      puts "#{key}\t#{value}"
+    end
+  when 'upload'
+    p = ARGV.delete('-p')
+    args?
+    ARGV[1..-1].each do |file|
+      drop = @client.upload file, :private => (not p.nil?)
+      puts "uploaded #{file} as #{slug(drop)}"
+    end
+  when 'private'
+    if ARGV[1]
+      ARGV[1..-1].each do |slug|
+        drop = @client.privacy slug, true
+        puts "#{drop.content_url} changed to private"
+      end
+    else
+      CloudApp::Account.update :private_items => true
+      puts 'all drops changed to private'
+    end
+  when 'public'
+    if ARGV[1]
+      ARGV[1..-1].each do |slug|
+        drop = @client.privacy slug, false
+        puts "#{drop.content_url} changed to public"
+      end
+    else
+      CloudApp::Account.update :private_items => false
+      puts 'all drops changed to public'
+    end
+  when 'delete'
+    args?
+    ARGV[1..-1].each do |slug|
+      drop = @client.delete slug
+      puts "deleted #{drop.content_url}"
+    end
+  when 'recover'
+    args?
+    ARGV[1..-1].each do |slug|
+      drop = @client.recover slug
+      puts "recovered #{drop.content_url}"
+    end
+  when 'rename'
+    args? 3
+    drop = @client.rename ARGV[1], ARGV[2]
+    puts "#{ARGV[1]} renamed to #{ARGV[2]}"
+  when 'download'
+    require 'httparty'
+    args?
+    ARGV[1..-1].each do |slug|
+      drop = @client.drop slug
+      File.open(drop.name, 'w') do |f|
+        f << HTTParty.get("#{drop.url}/#{drop.name}")
+      end
+      puts "downloaded #{drop.name}"
+    end
+  else
+    puts "unable to execute #{ARGV.first}\n\n"
+    usage
+  end
+rescue SocketError
+  abort 'Wooops, an error occured, check your network settings.'
+rescue CloudApp::ResponseError
+  abort "Not possble to execute #{ARGV.first} on #{ARGV[1]}."
+rescue => e
+  abort "Report this as a bug:\n" + e.to_s
+end

@@ -1,18 +1,22 @@
 #!/bin/bash
-# shellcheck source=/dev/null
+
+__export_d()
+{
+  [ -d "$1" ] && export PATH="$PATH:$1"
+}
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:$PATH"
 
 # Custom bin scripts
-[[ -d $HOME/.dotfiles/bin ]] && export PATH="$PATH:$HOME/.dotfiles/bin"
+__export_d "$HOME/.dotfiles/bin"
 
 # Add RVM to PATH for scripting
-[[ -d $HOME/.rvm/bin ]] && export PATH="$PATH:$HOME/.rvm/bin"
+__export_d "$HOME/.rvm/bin"
 
 # Nginx
-[[ -d /opt/nginx/sbin ]] && export PATH="$PATH:/opt/nginx/sbin"
+__export_d "/opt/nginx/sbin"
 
 # Php
-if [[ "$SYSTEM" == "Darwin" ]]; then
-  test -d "$(brew --prefix homebrew/php/php56)/bin" && PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+if which brew &> /dev/null; then
+  __export_d "$(brew --prefix homebrew/php/php56)/bin"
 fi

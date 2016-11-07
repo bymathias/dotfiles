@@ -1,12 +1,10 @@
 " vim:fdm=marker:
 
-"
-" VIM configuration of 'Mathias Brouilly'
-" github.com/bymathias/dotfiles
-"
+" VIM configuration of Mathias Brouilly
+" see: github.com/bymathias/dotfiles
 
 set nocompatible " Vim not vi
-" filetype off
+" filetype off     " Required
 
 " Set the leader key
 let g:mapleader=','
@@ -29,7 +27,7 @@ silent! if plug#begin('~/.vim/plugins')
   map <leader>n :NERDTreeToggle<cr>
   " Open directory of the current file in NERDTree
   nmap <leader>cn :NERDTree %<cr>
-
+  " If nerdtree is installed
   silent! if isdirectory(glob(g:plug_home . '/nerdtree'))
     augroup nerdtree_config
       autocmd!
@@ -66,13 +64,13 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'csscomb/vim-csscomb' " Require npm package 'csscomb'
 
   " SYNTAX
+  Plug 'othree/yajs.vim'
+  Plug 'othree/es.next.syntax.vim'
   Plug 'othree/javascript-libraries-syntax.vim'
   " (javascript-libraries-syntax.vim settings) {{{
   " Setup used libraries
   let g:used_javascript_libs = 'jquery, underscore, backbone, angularjs, react, handlebars, vue'
   " }}}
-  Plug 'othree/yajs.vim'
-  Plug 'othree/es.next.syntax.vim'
   Plug 'moll/vim-node'
   Plug 'elzr/vim-json', { 'for': 'json'}
   Plug 'hail2u/vim-css3-syntax'
@@ -91,26 +89,33 @@ silent! if plug#begin('~/.vim/plugins')
   " }}}
 
   " COMPLETION & SNIPPETS
+  Plug 'mattn/webapi-vim' " Required by 'gist-vim' and 'emmet-vim'
   Plug 'AutoComplPop'
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   " (ultisnips settings) {{{
   let g:UltiSnipsExpandTrigger='<Tab>'
   let g:UltiSnipsJumpForwardTrigger='<Tab>'
-  let g:UltiSnipsJumpBackwardTrigger='<C-Tab>'
-  let g:UltiSnipsListSnippets='<C-l>'
+  let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
+  let g:UltiSnipsListSnippets='<C-L>'
   let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
   let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
   " }}}
   Plug 'mattn/emmet-vim'
   " (emmet-vim settings) {{{
-  let g:user_emmet_expandabbr_key='<Nul>'
+  let g:user_emmet_leader_key='<C-e>'
+  let g:user_emmet_expandabbr_key='<C-Tab>'
   let g:use_emmet_complete_tag=1
+  " Enable just for html/css
+  let g:user_emmet_install_global=0
+  augroup emmet_config
+    autocmd!
+    autocmd FileType html,hbs,css EmmetInstall
+  augroup END
   " }}}
-  Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
+  Plug 'mattn/gist-vim'
   " (gist-vim settings) {{{
   " Open browser after the post
   let g:gist_open_browser_after_post=1
-
   " Copy the gist code
   if has('mac')
     let g:gist_clip_command='pbcopy'
@@ -118,6 +123,7 @@ silent! if plug#begin('~/.vim/plugins')
     let g:gist_clip_command='xclip -selection clipboard'
   endif
   " }}}
+  Plug 'heavenshell/vim-jsdoc'
 
   " CTAGS
   Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
@@ -126,12 +132,16 @@ silent! if plug#begin('~/.vim/plugins')
   nmap <F8> :TagbarToggle<cr>
   " }}}
 
+  " UI
+  Plug 'Yggdroot/indentLine'
+  " indentLine settings {{{
+  let g:indentLine_color_term = 232
+  nmap <leader>il :IndentLinesToggle<cr>
+  " }}}
+
   " VERSION CONTROL
   Plug 'tpope/vim-fugitive'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-
-  " TMUX
-  Plug 'tmux-plugins/vim-tmux'
 
   " WRITING
   Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'
@@ -140,6 +150,9 @@ silent! if plug#begin('~/.vim/plugins')
   let g:goyo_width='120'
   nnoremap <Leader>G :Goyo<cr>
   " }}}
+
+  " TMUX
+  Plug 'tmux-plugins/vim-tmux'
 
   " Add plugins to &runtimepath
   call plug#end()
@@ -153,10 +166,10 @@ endif
 
 " THEMES {{{
 
-" Kivabien
+" Default
 set t_Co=256
 set background=dark
-colorscheme kivabien
+colorscheme default
 
 " }}}
 
@@ -514,7 +527,7 @@ nmap <leader>l <C-w>l
 nmap <leader>/ :nohlsearch<cr>
 
 " Autocomplete with Ctrl + Space
-" inoremap <Nul> <C-x><C-o>
+inoremap <Nul> <C-x><C-o>
 
 " Insert blank lines without going into insert mode
 nmap go o<esc>

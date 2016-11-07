@@ -9,8 +9,6 @@ brew update
 brew upgrade
 
 # -------------------------------------------
-# Common packages
-# -------------------------------------------
 
 # Install GNU core utilities
 # Add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`
@@ -27,6 +25,9 @@ brew install mercurial
 brew install git
 brew install git-extras
 
+# Shell
+brew install bash-completion
+
 # Text Editor
 brew install vim --with-override-system-vi
 # Exuberant Ctags, required by vim 'tagbar'  plugin
@@ -38,9 +39,6 @@ brew install tmux
 # see: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard/issues/8#issuecomment-9576743
 brew install reattach-to-user-namespace
 
-
-# brew install coreutils
-
 # brew install pcre
 # brew install openssl
 
@@ -51,44 +49,21 @@ brew install reattach-to-user-namespace
 # brew install htop-osx
 # brew install tree
 # brew install shellcheck
-# brew install speedtest_cli
-# brew install youtube-dl
 
-# brew install mysql
-# brew install mongodb
+# Database
+# Install MySql
+brew install mysql
+# mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+# mysql.server start
+# /usr/local/Cellar/mysql/5.7.16/bin/mysql_secure_installation
 
-# # Install php
-# brew tap homebrew/dupes
-# brew tap homebrew/versions
-# brew tap homebrew/homebrew-php
-# brew install php56 --with-mysql --with-fpm --with-homebrew-openssl
+# Php
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
+brew install php56 --with-mysql --with-fpm --with-homebrew-openssl
 
-# # -------------------------------------------
-# # macOS applications
-# # -------------------------------------------
-
-# brew cask install firefox
-# brew cask install google-chrome-canary
-
-# brew cask install iterm2
-# brew cask install atom
-
-# brew cask install imagealpha
-# brew cask install imageoptim
-# brew cask install colorschemer-studio
-
-# brew cask install dropbox
-# brew cask install keepassx
-# brew cask install the-unarchiver
-# brew cask install transmission
-# brew cask install transmit
-# brew cask install virtualbox
-# brew cask install vlc
-
-# brew cask install appcleaner
-# brew cask install clamxav
-# brew cask install onyx
-
+# -------------------------------------------
 
 # Remove outdated versions from the cellar
 brew cleanup

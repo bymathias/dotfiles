@@ -1,6 +1,3 @@
-[user]
-  name = Mathias Brouilly
-  email = bymathias@gmail.com
 [core]
   editor = vim
   excludesfile = "~/.dotfiles/git/.gitignore_global"
@@ -20,7 +17,10 @@
   cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
 [diff]
   tool = Kaleidoscope
-[github]
-	user = bymathias
 [alias]
   undo = reset --soft HEAD^
+[user]
+	name = Mathias Brouilly
+	email = bymathias@gmail.com
+[github]
+	user = bymathias

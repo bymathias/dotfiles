@@ -10,17 +10,18 @@ sudo apt-get update
 sudo apt-get -y dist-upgrade
 
 # -------------------------------------------
-# Common packages
-# -------------------------------------------
 
 # Install build tools libraries reauired
-sudo apt-get install -y build-essential libssl-dev
+sudo apt-get install -y build-essential libssl-dev libpcre3-dev
 
 # Data transfer tools
-sudo apt-get install -y curl wget
+sudo apt-get install -y curl wget rsync
 
 # Version control tools
 sudo apt-get install -y mercurial git git-extras
+
+# Shell
+sudo apt-get install -y bash-completion
 
 # Install Vim and dependencies
 sudo apt-get install -y vim-nox
@@ -34,28 +35,22 @@ sudo apt-get install -y exuberant-ctags
 # Install Tmux
 sudo apt-get install -y tmux
 
+# sudo apt-get install imagemagick
+# sudo apt-get install python-pygments
 
-# sudo apt-get install \
-#   bash-completion \
-#   imagemagick \
-#   python-pygments \
-#   rsync
+# Database
+sudo apt-get install -y mysql-server
+# Install MySql
+# mysql_secure_installation
+# Disable MySql autostart
+# sudo update-rc.d -f mysql disable
 
+# Php
+sudo apt-get install -y php5-cli php5-cgi php5-fpm php5-mysql php5-gd
+# For local development, replace
+# sed -i 's/listen = /var/run/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 
-# sudo apt-get install \
-#   fontforge \
-#   gpick \
-#   iceweasel \
-#   keepassx \
-#   scribus \
-#   tmux \
-#   trimage \
-#   vim-nox
-
-# ## Fonts
-# sudo apt-get install \
-#   fonts-inconsolata \
-#   fonts-droid
+# -------------------------------------------
 
 ## Final upgrade and clean up
 sudo apt-get upgrade

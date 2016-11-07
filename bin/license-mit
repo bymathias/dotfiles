@@ -1,14 +1,14 @@
 #!/bin/bash
 
-## Create MIT License file
-## Usage: `license-mit`
+# Create MIT License file
+# usage: `license-mit`
 
 FILENAME="LICENSE.txt"
 
 echo -n "Author Name: "
 read NAME
 echo -n "Author Url: "
-read -n 1 URL
+read URL
 
 if [ -f $FILENAME ]; then
   echo "'$FILENAME' already exists"
