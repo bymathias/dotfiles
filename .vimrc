@@ -15,8 +15,7 @@ let g:maplocalleader=','
 silent! if plug#begin('~/.vim/plugins')
 
   " NAVIGATION
-  Plug 'scrooloose/nerdtree'
-  " (nerdtree settings) {{{
+  Plug 'scrooloose/nerdtree' " {{{
   let g:NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
   let g:NERDTreeMouseMode=3  " single click to open any node
   let g:NERDTreeWinSize=25 " set nerdtree width
@@ -40,8 +39,7 @@ silent! if plug#begin('~/.vim/plugins')
   " }}}
 
   " EDITING
-  Plug 'tpope/vim-commentary'
-  " (vim-commentary settings) {{{
+  Plug 'tpope/vim-commentary' " {{{
   " If the filetype is not supported, fallback to '#'
   silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
   " }}}
@@ -54,8 +52,7 @@ silent! if plug#begin('~/.vim/plugins')
   " Colors match 'kivabien' theme
   hi MatchTag ctermfg=227 ctermbg=234
   " }}}
-  Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-  " (vim-easy-align settings) {{{
+  Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " {{{
   vnoremap <silent> <Enter> :EasyAlign<cr>
   " }}}
   Plug 'terryma/vim-expand-region'
@@ -66,8 +63,7 @@ silent! if plug#begin('~/.vim/plugins')
   " SYNTAX
   Plug 'othree/yajs.vim'
   Plug 'othree/es.next.syntax.vim'
-  Plug 'othree/javascript-libraries-syntax.vim'
-  " (javascript-libraries-syntax.vim settings) {{{
+  Plug 'othree/javascript-libraries-syntax.vim' " {{{
   " Setup used libraries
   let g:used_javascript_libs = 'jquery, underscore, backbone, angularjs, react, handlebars, vue'
   " }}}
@@ -80,8 +76,7 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }
   Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
-  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  " (vim-markdown settings) {{{
+  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } " {{{
   let g:vim_markdown_folding_disabled=1 " Disable folding
   let g:vim_markdown_frontmatter=1      " Highlight YAML front matter as used by Jekyll or Hugo
   let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
@@ -91,8 +86,7 @@ silent! if plug#begin('~/.vim/plugins')
   " COMPLETION & SNIPPETS
   Plug 'mattn/webapi-vim' " Required by 'gist-vim' and 'emmet-vim'
   Plug 'AutoComplPop'
-  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-  " (ultisnips settings) {{{
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " {{{
   let g:UltiSnipsExpandTrigger='<Tab>'
   let g:UltiSnipsJumpForwardTrigger='<Tab>'
   let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
@@ -100,8 +94,7 @@ silent! if plug#begin('~/.vim/plugins')
   let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
   let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
   " }}}
-  Plug 'mattn/emmet-vim'
-  " (emmet-vim settings) {{{
+  Plug 'mattn/emmet-vim' " {{{
   let g:user_emmet_leader_key='<C-e>'
   let g:user_emmet_expandabbr_key='<C-Tab>'
   let g:use_emmet_complete_tag=1
@@ -112,8 +105,7 @@ silent! if plug#begin('~/.vim/plugins')
     autocmd FileType html,hbs,css EmmetInstall
   augroup END
   " }}}
-  Plug 'mattn/gist-vim'
-  " (gist-vim settings) {{{
+  Plug 'mattn/gist-vim' " {{{
   " Open browser after the post
   let g:gist_open_browser_after_post=1
   " Copy the gist code
@@ -126,15 +118,13 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'heavenshell/vim-jsdoc'
 
   " CTAGS
-  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-  " (tagbar settings) {{{
+  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " {{{
   " Toggle Tagbar window
   nmap <F8> :TagbarToggle<cr>
   " }}}
 
   " UI
-  Plug 'Yggdroot/indentLine'
-  " indentLine settings {{{
+  Plug 'Yggdroot/indentLine' " {{{
   let g:indentLine_color_term = 232
   let g:indentLine_concealcursor = 'nvc'  " Cursor lines behavior
   let g:indentLine_leadingSpaceChar = '·' " Character to show for leading spaces
@@ -149,8 +139,7 @@ silent! if plug#begin('~/.vim/plugins')
 
   " WRITING
   Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'
-  Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-  " (goyo.vim settings) {{{
+  Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " {{{
   let g:goyo_width='120'
   nnoremap <Leader>G :Goyo<cr>
   " }}}
