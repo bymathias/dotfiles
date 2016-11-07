@@ -52,7 +52,7 @@ __git_info()
 
     # Get annotated tags if any
 		releaseTag+="$(git describe --exact-match --tags HEAD 2> /dev/null)"
-    [ -n "${tag}" ] && tag=" v${tag}"
+    [ -n "${releaseTag}" ] && releaseTag=" v${releaseTag}"
 
 		printf "%s" "${1}${branchName}${2}${s}${3}${releaseTag} "
 	else
