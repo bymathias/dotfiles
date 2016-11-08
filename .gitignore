@@ -1,2 +1,4 @@
 vim/plugins/*
 vim/autoload/plug.vim.old
+
+DOCUMENTATION.md
