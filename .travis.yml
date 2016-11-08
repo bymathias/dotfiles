@@ -15,6 +15,9 @@ matrix:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - git config --global user.name "Travis CI"
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global github.user "travis"
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
@@ -27,7 +30,6 @@ after_install:
 
 script:
   - ./bootstrap.sh install
-  - ./bootstrap.sh update
 
 notifications:
   email: true
