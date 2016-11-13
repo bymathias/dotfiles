@@ -62,7 +62,7 @@ __git_info()
 
 PS1="\[\033]0;\w\007\]"  # Set the terminal title to the current working directory
 PS1+="\n"
-PS1+="\[\[${yellow}\]\h" # Host
+PS1+="\[${yellow}\]\h" # Host
 PS1+="\[${cyan}\]:"
 PS1+="\[${green}\]\u "   # Username
 PS1+="\$(__git_info \"\[$cyan\]on \[${blue}\]\" \"\[${red}\]\" \"\[${green}\]\")"

@@ -4,17 +4,16 @@
 # Install, uninstall and update .dotfiles
 # https://github.com/bymathias/dotfiles
 
-OS=$(uname -s)
-NOW=$(date +"%Y-%m-%d")
+OS=$( uname -s )
+NOW=$( date +"%Y-%m-%d" )
 
-TMP_DIRECTORY=~/tmp
-DOT_DEPENDENCIES=(curl git vim)
-DOT_DIRECTORY=~/.dotfiles
-DOT_SYMLINKS=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig)
-GIT_INFOS=(user.name user.email github.user)
+TMP_DIRECTORY="$HOME/tmp"
+DOT_DIRECTORY="$HOME/.dotfiles"
+DOT_DEPENDENCIES=( curl git vim )
+DOT_SYMLINKS=( .bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig )
+GIT_INFOS=( user.name user.email github.user )
 
-__dot_remove()
-{
+__dot_remove() {
   local FILE="$HOME/$1"
   if [ -h "$FILE" ]; then
     rm -v "$FILE"
@@ -23,8 +22,7 @@ __dot_remove()
   fi
 }
 
-__dot_symlink()
-{
+__dot_symlink() {
   local FILE="$HOME/$1"
   if [ "$1" == ".gitconfig" ]; then
     ln -sv "$DOT_DIRECTORY/git/$1" "$FILE"
@@ -35,8 +33,7 @@ __dot_symlink()
   fi
 }
 
-__git_config()
-{
+__git_config() {
   local INFO
   INFO=$(git config --global --get "$1")
   if [ -z "$INFO" ]; then
@@ -49,8 +46,7 @@ __git_config()
   git config --file "$DOT_DIRECTORY/git/.gitconfig" --replace-all "$1" "$INFO"
 }
 
-__get_script()
-{
+__get_script() {
   local FILE="$DOT_DIRECTORY/$1"
   local TEMP="$TMP_DIRECTORY/$TODAY/$1"
   [ -f "$FILE" ] && rm "$FILE"
@@ -64,8 +60,7 @@ __get_script()
   chmod +x "$FILE" && echo "$1"
 }
 
-__bootstrap()
-{
+__bootstrap() {
   if [ $# -ne 1 ]; then
     __bootstrap help
     return
@@ -108,7 +103,7 @@ __bootstrap()
       fi
 
       echo "backup .dotfiles directory..."
-      mv -v "$DOT_DIRECTORY" "$DOT_DIRECTORY.$NOW.bak"
+      __dot_remove "$DOT_DIRECTORY"
 
       ;;
     "update")

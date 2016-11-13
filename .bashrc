@@ -3,8 +3,7 @@
 
 DOT_BASH="$HOME/.dotfiles/bash"
 
-__source_e()
-{
+__source_e() {
   [ -r "$1" ] && [ -f "$1" ] && . "$1";
 }
 
@@ -25,14 +24,16 @@ case "$(uname -s)" in
 esac
 
 # Bash completions
-if which brew &> /dev/null; then
+if command -v brew > /dev/null 2>&1; then
   __source_e "$(brew --prefix)/etc/bash_completion"
 else
   __source_e "/etc/bash_completion"
 fi
 
 # iTerm2
-__source_e "$HOME/.dotfiles/term/iTerm/.iterm2_shell_integration.bash"
+if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
+  __source_e "$HOME/.dotfiles/term/iTerm/.iterm2_shell_integration.bash"
+fi
 
 # Node Version Manager
 __source_e "$HOME/.nvm/nvm.sh"

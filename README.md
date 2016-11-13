@@ -15,7 +15,7 @@ git clone https://bymathias@github.com/bymathias/dotfiles.git ~/.dotfiles
 cd .dotfiles
 
 # Install these dotfiles
-./bootstrap.sh install
+./bootstrap install
 
 # Reload
 source ~/.bash_profile
