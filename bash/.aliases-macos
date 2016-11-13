@@ -19,3 +19,9 @@ alias php-stop='launchctl unload -w /usr/local/Cellar/php56/5.6.23/homebrew.mxcl
 # Mysql
 alias mysql-start='mysql.server start'
 alias mysql-stop='mysql.server stop'
+
+# Lock screen
+alias lock-screen='sleep 2 && /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
+
+# iOS Simulator
+alias ios-simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'

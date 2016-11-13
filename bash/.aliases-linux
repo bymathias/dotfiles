@@ -21,3 +21,6 @@ alias php-stop='sudo /etc/init.d/php5-fpm stop'
 alias mysql-start='sudo /etc/init.d/mysql start'
 alias mysql-restart='sudo /etc/init.d/mysql restart'
 alias mysql-stop='sudo /etc/init.d/mysql stop'
+
+# Lock Screen
+alias lock-screen='sleep 2 && xscreensaver-command -lock'

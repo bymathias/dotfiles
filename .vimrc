@@ -134,8 +134,30 @@ silent! if plug#begin('~/.vim/plugins')
   " }}}
 
   " VERSION CONTROL
-  Plug 'tpope/vim-fugitive'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'tpope/vim-fugitive' " {{{
+    " nnoremap <silent> <Leader>gs :Gstatus<CR>
+    " nnoremap <silent> <Leader>gd :Gdiff<CR>
+    " nnoremap <silent> <Leader>gc :Gcommit<CR>
+    " nnoremap <silent> <Leader>gb :Gblame<CR>
+    " nnoremap <silent> <Leader>gl :Glog<CR>
+    " nnoremap <silent> <Leader>gp :Git push<CR>
+    " nnoremap <silent> <Leader>gw :Gwrite<CR>
+    " nnoremap <silent> <Leader>gr :Gremove<CR>
+    " autocmd BufReadPost fugitive://* set bufhidden=delete
+  " }}}
+  Plug 'Xuyuanp/nerdtree-git-plugin' " {{{
+	" let g:NERDTreeIndicatorMapCustom = {
+	" 	\ 'Modified'  : '✹',
+  	" \ 'Staged'    : '✚',
+  	" \ 'Untracked' : '✭',
+  	" \ 'Renamed'   : '➜',
+  	" \ 'Unmerged'  : '═',
+  	" \ 'Deleted'   : '✖',
+  	" \ 'Dirty'     : '✗',
+  	" \ 'Clean'     : '✔︎',
+  	" \ 'Unknown'   : '?'
+  	" \ }
+  " }}}
 
   " WRITING
   Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'

@@ -38,7 +38,6 @@ alias gh='git push'
 alias gl='git pull'
 alias ghom='git push origin master'
 alias glom='git pull origin master'
-alias gb='git branch'
 alias gt='git checkout'
 alias ge='git clone'
 

@@ -7,7 +7,7 @@ __export_d()
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:$PATH"
 
-# Custom bin scripts
+# Local bin scripts
 __export_d "$HOME/.dotfiles/bin"
 
 # Add RVM to PATH for scripting
@@ -17,6 +17,6 @@ __export_d "$HOME/.rvm/bin"
 __export_d "/opt/nginx/sbin"
 
 # Php
-if which brew &> /dev/null; then
+if command -v brew &> /dev/null; then
   __export_d "$(brew --prefix homebrew/php/php56)/bin"
 fi
