@@ -2,7 +2,7 @@
 
 set -e
 
-(npm ls -gp --depth=0 | awk -F/ '/node_modules/ && !/\/npm$/ {print $NF}' | xargs npm -g rmv)
+# (npm ls -gp --depth=0 | awk -F/ '/node_modules/ && !/\/npm$/ {print $NF}' | xargs npm -g rmv)
 
 # Update npm
 npm install -g npm

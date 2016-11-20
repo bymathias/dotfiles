@@ -1,63 +1,76 @@
 #!/bin/bash
 # shellcheck source=/dev/null
 
+#
 # Install, uninstall and update .dotfiles
 # https://github.com/bymathias/dotfiles
+#
 
-OS=$( uname -s )
-NOW=$( date +"%Y-%m-%d" )
+readonly ostype=$(uname -s)
+readonly tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 
-TMP_DIRECTORY="$HOME/tmp"
-DOT_DIRECTORY="$HOME/.dotfiles"
-DOT_DEPENDENCIES=( curl git vim )
-DOT_SYMLINKS=( .bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig )
-GIT_INFOS=( user.name user.email github.user )
+readonly dotfiles="$HOME/.dotfiles"
+readonly dependencies=(curl git vim)
+readonly symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig)
+readonly gitinfos=(user.name user.email github.user)
 
 __dot_remove() {
-  local FILE="$HOME/$1"
-  if [ -h "$FILE" ]; then
-    rm -v "$FILE"
-  elif [ -f "$FILE" ] || [ -d "$FILE" ]; then
-    mv -v "$FILE" "$FILE.$NOW.bak"
+  local file="$HOME/$1"
+  if [ -h "$file" ]; then
+    rm -v "$file"
+  elif [ -f "$file" ] || [ -d "$file" ]; then
+    mv -v "$file" "$file.$(date + '%Y-%m-%d').bak"
   fi
 }
 
 __dot_symlink() {
-  local FILE="$HOME/$1"
+  local file="$HOME/$1"
   if [ "$1" == ".gitconfig" ]; then
-    ln -sv "$DOT_DIRECTORY/git/$1" "$FILE"
+    ln -sv "$dotfiles/git/$1" "$file"
   elif [ "$1" == ".vim" ]; then
-    ln -sv "$DOT_DIRECTORY/vim" "$FILE"
+    ln -sv "$dotfiles/vim" "$file"
   else
-    ln -sv "$DOT_DIRECTORY/$1" "$FILE"
+    ln -sv "$dotfiles/$1" "$file"
   fi
 }
 
 __git_config() {
-  local INFO
-  INFO=$(git config --global --get "$1")
-  if [ -z "$INFO" ]; then
+  local info
+  info=$(git config --global --get "$1")
+  if [ -z "$info" ]; then
     echo "Enter your git '$1':"
-    read -r ANS
-    INFO=$ANS
+    read -r ans
+    info=$ans
   else
-    echo "Git '$1' edited to '$INFO'"
+    echo "Git '$1' edited to '$info'"
   fi
-  git config --file "$DOT_DIRECTORY/git/.gitconfig" --replace-all "$1" "$INFO"
+  git config --file "$dotfiles/git/.gitconfig" --replace-all "$1" "$info"
 }
 
 __get_script() {
-  local FILE="$DOT_DIRECTORY/$1"
-  local TEMP="$TMP_DIRECTORY/$TODAY/$1"
-  [ -f "$FILE" ] && rm "$FILE"
+  local file="$dotfiles/$1"
+  local temp="$tmpdir/$1"
+  [ -f "$file" ] && rm "$file"
   if [ -z "$3" ]; then
-    curl -L# --create-dirs -o "$FILE" "$2"
+    curl -L# --create-dirs -o "$file" "$2"
   else
-    curl -L# --create-dirs -o "$TEMP.zip" "$2"
-    unzip -d "$TEMP" -qo "$TEMP.zip"
-    mv "$TEMP/$3" "$FILE"
+    curl -L# --create-dirs -o "$temp.zip" "$2"
+    unzip -d "$temp" -qo "$temp.zip"
+    mv "$temp/$3" "$file"
   fi
-  chmod +x "$FILE" && echo "$1"
+  chmod +x "$file" && echo "$1"
+}
+
+__dep_check() {
+  echo "===== check dependencies... ====="
+  for i in "$@"; do
+ 	  if command -v "$i" &> /dev/null; then
+      echo "$i"
+    else
+      echo "$i required, aborting.."
+      exit 1
+    fi
+  done
 }
 
 __bootstrap() {
@@ -65,24 +78,25 @@ __bootstrap() {
     __bootstrap help
     return
   fi
+  echo "===== $1 dotfiles... ====="
   case "$1" in
     "install")
 
       echo "edit git user details..."
-      for i in "${GIT_INFOS[@]}"; do
+      for i in "${gitinfos[@]}"; do
         __git_config "$i"
       done
 
       echo "backup/remove config and install the dotfiles..."
-      for i in "${DOT_SYMLINKS[@]}"; do
+      for i in "${symlinks[@]}"; do
         __dot_remove "$i"
         __dot_symlink "$i"
       done
 
-      if [ "$OS" == "Linux" ]; then
+      if [ "$ostype" == "Linux" ]; then
         echo "set Vim config for root user..."
-        sudo ln -siv "$DOT_DIRECTORY/.vimrc" "/root/.vimrc"
-        sudo ln -siv "$DOT_DIRECTORY/vim" "/root/.vim"
+        sudo ln -siv "$dotfiles/.vimrc" "/root/.vimrc"
+        sudo ln -siv "$dotfiles/vim" "/root/.vim"
       fi
 
 			# Run update task
@@ -92,18 +106,18 @@ __bootstrap() {
     "uninstall")
 
       echo "backup/remove the dotfiles..."
-      for i in "${DOT_SYMLINKS[@]}"; do
+      for i in "${symlinks[@]}"; do
         __dot_remove "$i"
       done
 
-      if [ "$OS" == "Linux" ]; then
+      if [ "$ostype" == "Linux" ]; then
         echo "remove Vim config for root user..."
         sudo rm -iv --preserve-root "/root/.vimrc"
         sudo rm -Riv --preserve-root "/root/.vim"
       fi
 
       echo "backup .dotfiles directory..."
-      __dot_remove "$DOT_DIRECTORY"
+      __dot_remove "$dotfiles"
 
       ;;
     "update")
@@ -112,14 +126,14 @@ __bootstrap() {
       vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
 
       echo "update local bin scripts..."
-      VNU_JAR_VERSION="16.6.29"
+      nu_html_version="16.6.29"
       __get_script "bin/vnu.jar" \
-        "https://github.com/validator/validator/releases/download/$VNU_JAR_VERSION/vnu.jar_$VNU_JAR_VERSION.zip" \
+        "https://github.com/validator/validator/releases/download/$nu_html_version/vnu.jar_${nu_html_version}.zip" \
         "dist/vnu.jar"
-      MARKDOWN_VERSION="1.0.1"
+      markdown_version="1.0.1"
       __get_script "bin/Markdown.pl" \
-        "http://daringfireball.net/projects/downloads/Markdown_$MARKDOWN_VERSION.zip" \
-        "Markdown_$MARKDOWN_VERSION/Markdown.pl"
+        "http://daringfireball.net/projects/downloads/Markdown_$markdown_version.zip" \
+        "Markdown_${markdown_version}/Markdown.pl"
       __get_script "bin/rsync-tmbackup" \
         "https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh"
       __get_script "bin/speedtest" \
@@ -129,9 +143,18 @@ __bootstrap() {
       __get_script "bin/wp" \
         "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
 
+      echo "update bash completions..."
+      __get_script "bash/completions/wp-completion.bash" \
+        "https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash"
+      if command -v npm > /dev/null 2>&1; then
+        npm_comp_path="bash/completions/npm-completion.bash"
+        npm completion > "$dotfiles/$npm_comp_path"
+        echo $npm_comp_path
+      fi
+
       echo "update .iterm2_shell_integration..."
-      SHELL_NAME=$(basename "$SHELL")
-      __get_script "term/iTerm/.iterm2_shell_integration.$SHELL_NAME" "https://iterm2.com/misc/${SHELL_NAME}_startup.in"
+      readonly shell_name=$(basename "$SHELL")
+      __get_script "term/iTerm/.iterm2_shell_integration.$shell_name" "https://iterm2.com/misc/${shell_name}_startup.in"
 
       ;;
 
@@ -141,19 +164,9 @@ __bootstrap() {
   esac
 }
 
-echo "===== check dependencies... ====="
-
-for i in "${DOT_DEPENDENCIES[@]}"; do
- 	if command -v "$i" &> /dev/null; then
-    echo "$i"
-  else
-    echo "$i required, aborting.."
-    exit 1
-  fi
-done
-
-echo "===== $1 dotfiles... ====="
-
-__bootstrap "$@"
+time {
+  __dep_check "${dependencies[@]}";
+  __bootstrap "$@";
+}
 
 echo "===== done ====="

@@ -8,12 +8,16 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade
 
+# Tap
+brew tap caskroom/versions
+
 # -------------------------------------------
 
 brew cask install iterm2
 brew cask install atom
 
 brew cask install firefox
+brew cask install firefoxnightly
 brew cask install google-chrome
 brew cask install google-chrome-canary
 
@@ -30,7 +34,11 @@ brew cask install poedit
 brew cask install virtualbox
 brew cask install transmit
 
+brew cask install skype
+brew cask install telegram
+
 brew cask install transmission
+brew cask install handbrake
 brew cask install vlc
 
 brew cask install appcleaner

@@ -1,6 +1,8 @@
-> work in progress..
+work in progress..
 
-# [.dotfiles](https://github.com/bymathias/dotfiles) documentation
+# Mathias's [dotfiles](https://github.com/bymathias/dotfiles)
+
+> Config files to setup a system (macOS/Debian) the way I want it.
 
 #### Table of contents
 
@@ -12,13 +14,15 @@
 
 [![Build Status](http://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square)](https://travis-ci.org/bymathias/dotfiles) <sup>Tested on **macOS _Sierra_**  and **Debian _Jessie_**</sup>
 
----
-
 ## Requirements
 
-- Install/manage [Ruby]() version using [rvm]()
+- [git](https://git-scm.com/)
+- [curl](https://curl.haxx.se/)
+- macos: [XCode]()
+
+
+- Install/manage Ruby version using rvm
 ```sh
-# Install:
 curl -L https://get.rvm.io | bash -s stable
 # list known rubies
 rvm list known
@@ -32,22 +36,17 @@ rvm use 2.3.0 --default
 ruby -v
 which ruby
 ```
-- [macos]: Install [Homebrew]() package manager
+- macos: Install [Homebrew]() package manager
 ```sh
-# Install:
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # check this worked correctly
 brew doctor
 brew -v
 which brew
 ```
-- Install/manage [node.js]() version using [nvm]()
+- Install/manage node.js version using nvm
 ```sh
-# Install: (manual)
-git clone https://github.com/creationix/nvm.git ~/.nvm
-cd ~/.nvm
-git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
-source ~/.nvm/nvm.sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 # list available node.js versions
 nvm ls-remote
 # install a version of node.js
@@ -167,3 +166,5 @@ cd .dotfiles
 ## Changelog
 
 ## License
+
+The code is available under the [MIT License](https://github.com/bymathias/dotfiles/blob/master/LICENSE.txt).
