@@ -46,6 +46,8 @@ brew cask install clamxav
 brew cask install onyx
 brew cask install oversight
 
+brew cask install fliqlo
+
 # -------------------------------------------
 
 # Remove outdated versions from the cellar
