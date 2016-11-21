@@ -2,11 +2,6 @@ language: generic
 
 sudo: required
 
-branches:
-  except:
-    - master-linux
-    - master-osx
-
 matrix:
   include:
     - env: ENV=debian

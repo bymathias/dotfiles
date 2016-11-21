@@ -17,9 +17,9 @@ silent! if plug#begin('~/.vim/plugins')
 
   " NAVIGATION
   Plug 'scrooloose/nerdtree' " {{{
-  let g:NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
-  let g:NERDTreeMouseMode=3  " single click to open any node
-  let g:NERDTreeWinSize=25 " set nerdtree width
+  let g:NERDTreeMinimalUI=1 " disable the label 'Press ? for help'
+  let g:NERDTreeMouseMode=3 " single click to open any node
+  let g:NERDTreeWinSize=25  " set nerdtree width
   let g:NERDTreeDirArrows=0
   " Ignore these files extensions
   let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
@@ -46,8 +46,7 @@ silent! if plug#begin('~/.vim/plugins')
   " }}}
   Plug 'Raimondi/delimitMate'
   Plug 'tpope/vim-surround'
-  Plug 'Valloric/MatchTagAlways'
-  " (MatchTagAlways settings) {{{
+  Plug 'Valloric/MatchTagAlways' " {{{
   let g:mta_use_matchparen_group=0
   let g:mta_set_default_matchtag_color=0
   " Colors match 'kivabien' theme
