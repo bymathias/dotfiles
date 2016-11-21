@@ -1,7 +1,5 @@
-#!/bin/bash
 # shellcheck disable=SC2154
-
-# Shell prompt
+#
 # Screenshot: https://cl.ly/i10q
 # Based on https://github.com/necolas/dotfiles
 

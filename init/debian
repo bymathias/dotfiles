@@ -37,18 +37,19 @@ sudo apt-get install -y editorconfig
 # Install Tmux
 sudo apt-get install -y tmux
 
-# sudo apt-get install imagemagick
+sudo apt-get install imagemagick
 # sudo apt-get install python-pygments
 
+
 # Database
-sudo apt-get install -y mysql-server
+# sudo apt-get install -y mysql-server
 # Install MySql
 # mysql_secure_installation
 # Disable MySql autostart
 # sudo update-rc.d -f mysql disable
 
 # Php
-sudo apt-get install -y php5-cli php5-cgi php5-fpm php5-mysql php5-gd
+# sudo apt-get install -y php5-cli php5-cgi php5-fpm php5-mysql php5-gd
 # For local development, replace
 # sed -i 's/listen = /var/run/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 

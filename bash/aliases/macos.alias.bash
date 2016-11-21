@@ -1,9 +1,8 @@
-#!/bin/bash
-
 # Basic
 alias ls='ls -G'
 alias o='open -a Finder'
 alias ff='open -a firefox'
+alias reload='source ~/.bash_profile'
 
 # Nginx
 alias nginx-start='sudo nginx'
@@ -22,6 +21,3 @@ alias mysql-stop='mysql.server stop'
 
 # Lock screen
 alias lock-screen='sleep 2 && /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
-
-# iOS Simulator
-alias ios-simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'

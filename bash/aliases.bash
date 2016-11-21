@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -12,8 +10,11 @@ alias ld='ls -l | grep "^d"'
 alias h='history'
 alias c='clear'
 alias q='exit'
+
 alias now='date +"%d-%m-%Y %T"'
-alias reload='source ~/.bash_profile'
+alias week='date +%V'
+
+alias path='echo -e ${PATH//:/\\n}'
 
 # Editor
 alias v='vim'

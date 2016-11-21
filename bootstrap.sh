@@ -1,19 +1,34 @@
 #!/bin/bash
 # shellcheck source=/dev/null
-
 #
-# Install, uninstall and update .dotfiles
-# https://github.com/bymathias/dotfiles
+# ./bootstrap.sh
 #
+# Install, uninstall and update the .dotfiles
+# see: https://github.com/bymathias/dotfiles
 
-readonly ostype=$(uname -s)
-readonly tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+set -eo pipefail
 
-readonly dotfiles="$HOME/.dotfiles"
-readonly dependencies=(curl git vim)
-readonly symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig)
-readonly gitinfos=(user.name user.email github.user)
+dependencies=(curl git vim)
+dotfiles="$HOME/.dotfiles"
+symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig)
+gitinfos=(user.name user.email github.user)
+tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 
+# Prompt for git user infos if none found
+__git_config() {
+  local info
+  info=$(git config --global --get "$1" || echo "")
+  if [ -z "$info" ]; then
+    echo "Enter your git '$1':"
+    read -r ans
+    info=$ans
+  else
+    echo "Git '$1' edited to '$info'"
+  fi
+  git config --file "$dotfiles/git/.gitconfig" --replace-all "$1" "$info"
+}
+
+# Remove symlinks and backup files/directories
 __dot_remove() {
   local file="$HOME/$1"
   if [ -h "$file" ]; then
@@ -23,6 +38,7 @@ __dot_remove() {
   fi
 }
 
+# Symlink dotfiles in $HOME
 __dot_symlink() {
   local file="$HOME/$1"
   if [ "$1" == ".gitconfig" ]; then
@@ -34,19 +50,7 @@ __dot_symlink() {
   fi
 }
 
-__git_config() {
-  local info
-  info=$(git config --global --get "$1")
-  if [ -z "$info" ]; then
-    echo "Enter your git '$1':"
-    read -r ans
-    info=$ans
-  else
-    echo "Git '$1' edited to '$info'"
-  fi
-  git config --file "$dotfiles/git/.gitconfig" --replace-all "$1" "$info"
-}
-
+# Download external scripts
 __get_script() {
   local file="$dotfiles/$1"
   local temp="$tmpdir/$1"
@@ -61,10 +65,11 @@ __get_script() {
   chmod +x "$file" && echo "$1"
 }
 
-__dep_check() {
-  echo "===== check dependencies... ====="
+# Check requirements
+__requirement() {
+  echo "===== check requirements =====";
   for i in "$@"; do
- 	  if command -v "$i" &> /dev/null; then
+ 	  if command -v "$i" > /dev/null 2>&1; then
       echo "$i"
     else
       echo "$i required, aborting.."
@@ -73,12 +78,13 @@ __dep_check() {
   done
 }
 
+# Main function
 __bootstrap() {
   if [ $# -ne 1 ]; then
     __bootstrap help
     return
   fi
-  echo "===== $1 dotfiles... ====="
+  echo "===== $1 dotfiles =====";
   case "$1" in
     "install")
 
@@ -93,13 +99,13 @@ __bootstrap() {
         __dot_symlink "$i"
       done
 
-      if [ "$ostype" == "Linux" ]; then
-        echo "set Vim config for root user..."
+      if [[ "$OSTYPE" == "Linux"* ]]; then
+        echo "symlink Vim config for root user..."
         sudo ln -siv "$dotfiles/.vimrc" "/root/.vimrc"
         sudo ln -siv "$dotfiles/vim" "/root/.vim"
       fi
 
-			# Run update task
+			echo "...run update task"
 			__bootstrap "update"
 
       ;;
@@ -110,20 +116,20 @@ __bootstrap() {
         __dot_remove "$i"
       done
 
-      if [ "$ostype" == "Linux" ]; then
+      echo "backup/remove .dotfiles directory..."
+      __dot_remove "$dotfiles"
+
+      if [[ "$OSTYPE" == "linux"* ]]; then
         echo "remove Vim config for root user..."
         sudo rm -iv --preserve-root "/root/.vimrc"
         sudo rm -Riv --preserve-root "/root/.vim"
       fi
 
-      echo "backup .dotfiles directory..."
-      __dot_remove "$dotfiles"
-
       ;;
     "update")
 
       echo "install/update Vim plugins..."
-      vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
+      vim -c "PlugClean! | PlugUpgrade | PlugUpdate | qall" > /dev/tty
 
       echo "update local bin scripts..."
       nu_html_version="16.6.29"
@@ -137,24 +143,25 @@ __bootstrap() {
       __get_script "bin/rsync-tmbackup" \
         "https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh"
       __get_script "bin/speedtest" \
-        "https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py"
+        "https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py"
       __get_script "bin/cloudapp" \
         "https://raw.github.com/bonifaido/cloudapp-cli/master/cloudapp"
       __get_script "bin/wp" \
         "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
 
       echo "update bash completions..."
-      __get_script "bash/completions/wp-completion.bash" \
+      __get_script "bash/completions/wp_completion.bash" \
         "https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash"
       if command -v npm > /dev/null 2>&1; then
-        npm_comp_path="bash/completions/npm-completion.bash"
+        npm_comp_path="bash/completions/npm_completion.bash"
         npm completion > "$dotfiles/$npm_comp_path"
         echo $npm_comp_path
       fi
 
       echo "update .iterm2_shell_integration..."
-      readonly shell_name=$(basename "$SHELL")
-      __get_script "term/iTerm/.iterm2_shell_integration.$shell_name" "https://iterm2.com/misc/${shell_name}_startup.in"
+      shell_name=$(basename "$SHELL")
+      __get_script "term/iTerm/.iterm2_shell_integration.$shell_name" \
+        "https://iterm2.com/misc/${shell_name}_startup.in"
 
       ;;
 
@@ -164,9 +171,8 @@ __bootstrap() {
   esac
 }
 
+# Run it !
 time {
-  __dep_check "${dependencies[@]}";
+  __requirement "${dependencies[@]}";
   __bootstrap "$@";
 }
-
-echo "===== done ====="

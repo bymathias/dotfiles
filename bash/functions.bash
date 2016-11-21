@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Enter a directory and list files
 # usage: `cdl <dirname>`
 cdl() {

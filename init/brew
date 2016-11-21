@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # Install tools using Homebrew
 # see: http://brew.sh/
 
@@ -19,6 +19,14 @@ brew tap homebrew/versions
 brew install coreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
 brew install findutils
+
+brew install htop-osx
+brew install tree
+
+# Building tools libraries
+brew install cmake
+brew install pcre
+brew install openssl
 
 # Data transfer
 brew install curl
@@ -45,19 +53,12 @@ brew install tmux
 # see: https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard/issues/8#issuecomment-9576743
 brew install reattach-to-user-namespace
 
-# Building tools
-brew install cmake
-brew install pcre
-
-brew install openssl
-
-# brew install imagemagick --with-webp
+brew install imagemagick --with-webp
 # brew install phantomjs
 # brew install webkit2png
 
-brew install htop-osx
-brew install tree
-brew install shellcheck
+# brew install shellcheck
+
 
 # Database
 # Install MySql
@@ -67,11 +68,12 @@ brew install shellcheck
 # mysql_secure_installation
 
 # Php
-brew tap homebrew/homebrew-php
-brew install php56 --with-mysql --with-fpm --with-homebrew-openssl
+# brew tap homebrew/homebrew-php
+# brew install php56 --with-mysql --with-fpm --with-homebrew-openssl
 
 # Syncthing
 # brew install syncthing
+# Auto start syncthing
 # brew services start syncthing
 
 # -------------------------------------------

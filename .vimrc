@@ -1,5 +1,6 @@
 " vim:fdm=marker:
-
+" ~/.vimrc
+"
 " VIM configuration of Mathias Brouilly
 " see: github.com/bymathias/dotfiles
 

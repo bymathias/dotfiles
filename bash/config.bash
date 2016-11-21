@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -28,3 +26,6 @@ export VISUAL=vim
 
 # Set 256color
 export TERM=xterm-256color
+
+# Don't check mail when opening terminal
+unset MAILCHECK
