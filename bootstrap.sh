@@ -99,7 +99,7 @@ __bootstrap() {
         __dot_symlink "$i"
       done
 
-      if [[ "$OSTYPE" == "Linux"* ]]; then
+      if [[ "$OSTYPE" == "linux"* ]]; then
         echo "symlink Vim config for root user..."
         sudo ln -siv "$dotfiles/.vimrc" "/root/.vimrc"
         sudo ln -siv "$dotfiles/vim" "/root/.vim"
