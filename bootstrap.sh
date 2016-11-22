@@ -6,7 +6,7 @@
 # Install, uninstall and update the .dotfiles
 # see: https://github.com/bymathias/dotfiles
 
-set -eo pipefail
+# set -eo pipefail
 
 dependencies=(curl git vim)
 dotfiles="$HOME/.dotfiles"
