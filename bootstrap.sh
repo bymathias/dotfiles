@@ -129,7 +129,7 @@ __bootstrap() {
     "update")
 
       echo "install/update Vim plugins..."
-      vim -c "PlugClean! | PlugUpgrade | PlugUpdate | qall" > /dev/tty
+      vim -c "PlugClean! | PlugUpgrade | PlugUpdate | qall"
 
       echo "update local bin scripts..."
       nu_html_version="16.6.29"
