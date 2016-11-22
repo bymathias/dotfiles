@@ -1,0 +1,110 @@
+#!/bin/bash
+
+set -e
+
+ngx_dir="/opt/nginx"
+ngx_conf=(*.conf *.types fastcgi_params)
+ngx_site=(sites-available)
+
+tmpdir=$(mktemp -dq ~/tmp/nginx.XXXXXX)
+
+__nginx_cli() {
+  if [ $# -ne 2 ]; then
+    __nginx_cli help
+    return
+  fi
+  case "$1" in
+    "install")
+
+      if [ -d "$ngx_dir" ]; then
+        echo "'$ngx_dir' exists, aborting.."
+        exit
+      fi
+
+      # Nginx directories
+      sudo mkdir -pv "$ngx_dir"
+      sudo mkdir -pv "${ngx_dir}-modules"
+
+      # Download Nginx modules
+      sudo git clone "https://github.com/masterzen/nginx-upload-progress-module.git" \
+        "${ngx_dir}-modules/nginx-upload-progress-module"
+
+      # Download Nginx
+      curl -l# --create-dirs -o "$tmpdir/nginx-${2}.tar.gz" "http://nginx.org/download/nginx-${2}.tar.gz"
+      tar -zxvf "$tmpdir/nginx-${2}.tar.gz" -C "$tmpdir"
+
+      # Install Nginx from sources
+      cd "$tmpdir/nginx-${2}"
+			case "$OSTYPE" in
+    		"darwin"*)
+    		  ./configure \
+        	  --prefix="/opt/nginx" \
+        		--with-http_ssl_module \
+            # Fix: use the brew openssl
+	          --with-ld-opt="-L/usr/local/opt/openssl/lib" \
+	          --with-cc-opt="-I/usr/local/opt/openssl/include" \
+        		--with-ipv6 \
+        		--with-http_mp4_module \
+        		--with-http_flv_module \
+        		--add-module="/opt/nginx-modules/nginx-upload-progress-module/"
+        	;;
+    		*)
+    		  ./configure \
+        		--prefix="/opt/nginx" \
+        		--user="www-data" --group="www-data" \
+        		--with-http_ssl_module \
+        		--with-ipv6 \
+        		--with-http_mp4_module \
+        		--with-http_flv_module \
+        		--with-http_stub_status_module \
+        		--add-module="/opt/nginx-modules/nginx-upload-progress-module/"
+        	;;
+			esac
+			make
+			sudo make install
+
+      ;;
+    "update")
+
+      if [ ! -d "$ngx_dir" ]; then
+        echo "'$ngx_dir' doesn't exists, aborting.."
+        exit
+      fi
+
+      # Backup Nginx config
+      for i in "${ngx_conf[@]}"; do
+        sudo rsync -av "$ngx_dir/conf/$i" "$tmpdir/conf/"
+      done
+
+      for i in "${ngx_site[@]}"; do
+        sudo rsync -av "$ngx_dir/$i/*" "$tmpdir/$i/"
+      done
+
+      # Remove Nginx
+      sudo rm -rfv "$ngx_dir"
+      sudo rm -rfv "${ngx_dir}-modules"
+
+      # Install latest Nginx
+      __nginx_cli "install" "$2"
+
+      # Restore Nginx config
+			for i in "${ngx_conf[@]}"; do
+				sudo rm -v "$ngx_dir/conf/$i"
+			done
+
+			for i in "${ngx_conf[@]}"; do
+        sudo rsync -av "$tmpdir/conf/$i" "$ngx_dir/conf/"
+			done
+
+			for i in "${ngx_site[@]}"; do
+        sudo rsync -av "$tmpdir/$i/*" "$ngx_dir/$i/"
+			done
+
+      ;;
+    "help"|*)
+      echo "Usage: nginx-cli [ install | update | help ] <version>"
+      ;;
+  esac
+}
+
+__nginx_cli "$@" && echo "Nginx '$@' successful !"
