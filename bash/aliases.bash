@@ -15,6 +15,7 @@ alias now='date +"%d-%m-%Y %T"'
 alias week='date +%V'
 
 alias path='echo -e ${PATH//:/\\n}'
+alias reload='source ~/.bash_profile'
 
 # Editor
 alias v='vim'

@@ -10,7 +10,7 @@
 
 dependencies=(curl git vim)
 dotfiles="$HOME/.dotfiles"
-symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig)
+symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig .czrc)
 gitinfos=(user.name user.email github.user)
 tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 

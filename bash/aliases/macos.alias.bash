@@ -2,7 +2,6 @@
 alias ls='ls -G'
 alias o='open -a Finder'
 alias ff='open -a firefox'
-alias reload='source ~/.bash_profile'
 
 # Nginx
 alias nginx-start='sudo nginx'

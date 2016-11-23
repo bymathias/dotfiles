@@ -2,7 +2,6 @@
 alias ls='ls --color=auto --group-directories-first'
 alias o='thunar &'
 alias ff='/usr/bin/firefox &'
-alias reload='source ~/.bashrc'
 
 # Nginx
 alias nginx-start='sudo /etc/init.d/nginx start'
