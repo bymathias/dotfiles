@@ -1,31 +1,36 @@
 # Enter a directory and list files
 # usage: `cdl <dirname>`
-cdl() {
+cdl()
+{
   cd "$1" && ls -al;
 }
 
 # Change working directory to the top-most 'Finder' window location
 # usage: `cdf`
 # TODO: with thunar for Debian
-cdf() {
+cdf()
+{
   cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
 
 # Create a new directory and enter it
 # usage: `mkc <dirname>`
-mkc() {
+mkc()
+{
   mkdir -p "$1" && cd "$1";
 }
 
 # Copy w/ progress
 # usage: `cpp <inpout> <output>`
-cpp() {
+cpp()
+{
   rsync -WavP --human-readable --progress $1 $2
 }
 
 # New script
 # usage: `new_script <filename>`
-new_script() {
+new_script()
+{
   [[ -e "$1" ]] && echo "'$1' already exists" && return
   echo "#!/bin/bash" > "$1" && \
   chmod a+x "$1" && \
@@ -34,7 +39,8 @@ new_script() {
 
 # List todos in PWD recursively
 # usage: `list-todo <dirname>`
-ls_todo() {
+ls_todo()
+{
   grep \
     --exclude-dir="node_modules" \
     --exclude-dir="bower_components" \
@@ -45,7 +51,8 @@ ls_todo() {
 # Colored man pages with less command
 # see: http://bit.ly/IqWXtu
 # usage: `man <cmd>`
-man() {
+man()
+{
   env \
     LESS_TERMCAP_mb=$(printf "\033[1;31m") \
     LESS_TERMCAP_md=$(printf "\033[1;31m") \

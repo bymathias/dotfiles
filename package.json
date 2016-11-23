@@ -1,0 +1,27 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "Config files to setup a system (macOS/Debian) the way I want it.",
+  "author": "Mathias Brouilly",
+  "license": "MIT",
+  "homepage": "https://github.com/bymathias/dotfiles#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bymathias@github.com/bymathias/dotfiles.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bymathias/dotfiles/issues"
+  },
+  "scripts": {
+    "release": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^1.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

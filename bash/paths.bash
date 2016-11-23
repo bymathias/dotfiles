@@ -1,4 +1,5 @@
-__export_d() {
+__export_d()
+{
   [ -d "$1" ] && export PATH="$PATH:$1"
 }
 

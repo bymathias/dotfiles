@@ -15,7 +15,8 @@ gitinfos=(user.name user.email github.user)
 tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 
 # Prompt for git user infos if none found
-__git_config() {
+__git_config()
+{
   local info
   info=$(git config --global --get "$1" || echo "")
   if [ -z "$info" ]; then
@@ -29,7 +30,8 @@ __git_config() {
 }
 
 # Remove symlinks and backup files/directories
-__dot_remove() {
+__dot_remove()
+{
   local file="$HOME/$1"
   if [ -h "$file" ]; then
     rm -v "$file"
@@ -39,7 +41,8 @@ __dot_remove() {
 }
 
 # Symlink dotfiles in $HOME
-__dot_symlink() {
+__dot_symlink()
+{
   local file="$HOME/$1"
   if [ "$1" == ".gitconfig" ]; then
     ln -sv "$dotfiles/git/$1" "$file"
@@ -51,7 +54,8 @@ __dot_symlink() {
 }
 
 # Download external scripts
-__get_script() {
+__get_script()
+{
   local file="$dotfiles/$1"
   local temp="$tmpdir/$1"
   [ -f "$file" ] && rm "$file"
@@ -66,7 +70,8 @@ __get_script() {
 }
 
 # Check requirements
-__requirement() {
+__requirement()
+{
   echo "===== check requirements =====";
   for i in "$@"; do
  	  if command -v "$i" > /dev/null 2>&1; then
@@ -79,7 +84,8 @@ __requirement() {
 }
 
 # Main function
-__bootstrap() {
+__bootstrap()
+{
   if [ $# -ne 1 ]; then
     __bootstrap help
     return

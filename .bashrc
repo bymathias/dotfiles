@@ -5,7 +5,8 @@
 
 DOT_BASH="$HOME/.dotfiles/bash"
 
-__source_e() {
+__source_e()
+{
   [ -r "$1" ] && [ -f "$1" ] && . "$1";
 }
 
