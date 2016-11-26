@@ -50,7 +50,7 @@ __git_info()
 
     # Get annotated tags if any
 		releaseTag+="$(git describe --exact-match --tags HEAD 2> /dev/null)"
-    [ -n "${releaseTag}" ] && releaseTag=" v${releaseTag}"
+    [ -n "${releaseTag}" ] && releaseTag=" ${releaseTag}"
 
 		printf "%s" "${1}${branchName}${2}${s}${3}${releaseTag} "
 	else
@@ -58,6 +58,7 @@ __git_info()
 	fi
 }
 
+# Prompt string
 PS1="\[\033]0;\w\007\]"  # Set the terminal title to the current working directory
 PS1+="\n"
 PS1+="\[${yellow}\]\h" # Host

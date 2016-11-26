@@ -64,7 +64,7 @@ brew install shellcheck
 
 # Database
 # Install MySql
-brew install mysql
+# brew install mysql
 # Start MySql
 #mysql.server start
 # Secure MySql installation
@@ -73,11 +73,11 @@ brew install mysql
 #brew services start mysql
 
 # Php
-brew tap homebrew/homebrew-php
-brew install php56 --with-mysql --with-fpm --with-homebrew-openssl
+# brew tap homebrew/homebrew-php
+# brew install php56 --with-mysql --with-fpm --with-homebrew-openssl
 
 # Syncthing
-brew install syncthing
+# brew install syncthing
 # Auto start syncthing
 #brew services start syncthing
 

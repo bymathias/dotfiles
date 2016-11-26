@@ -1,6 +1,7 @@
 {
   "name": "dotfiles",
   "version": "0.2.0",
+  "private": true,
   "description": "Config files to setup a system (macOS/Debian) the way I want it.",
   "author": "Mathias Brouilly",
   "license": "MIT",
@@ -13,9 +14,7 @@
     "url": "https://github.com/bymathias/dotfiles/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
     "release": "npm version -m 'chore(release): v%s'",
-    "preversion": "npm test",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add --all",
     "postversion": "git push && git push --tags"
   },

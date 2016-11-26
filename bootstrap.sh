@@ -12,7 +12,12 @@ dependencies=(curl git vim)
 dotfiles="$HOME/.dotfiles"
 symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig .czrc)
 gitinfos=(user.name user.email github.user)
+gitrepos="https://github.com/bymathias/dotfiles.git"
 tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+
+# ======================================================== #
+# Helper functions
+# ======================================================== #
 
 # Prompt for git user infos if none found
 __git_config()
@@ -69,6 +74,10 @@ __get_script()
   chmod +x "$file" && echo "$1"
 }
 
+# ======================================================== #
+# Main functions
+# ======================================================== #
+
 # Check requirements
 __requirement()
 {
@@ -94,6 +103,11 @@ __bootstrap()
   case "$1" in
     "install")
 
+      if [ ! -d "$dotfiles" ]; then
+        echo "cloning repository..."
+        git clone "$gitrepos" "$dotfiles";
+      fi
+
       echo "edit git user details..."
       for i in "${gitinfos[@]}"; do
         __git_config "$i"
@@ -111,7 +125,7 @@ __bootstrap()
         sudo ln -siv "$dotfiles/vim" "/root/.vim"
       fi
 
-			echo "...run update task"
+			echo "...run update task..."
 			__bootstrap "update"
 
       ;;
@@ -170,15 +184,25 @@ __bootstrap()
         "https://iterm2.com/misc/${shell_name}_startup.in"
 
       ;;
-
     "help"|*)
-      echo "Usage: ./bootstrap.sh [ install | uninstall | update | help ]"
+
+      echo "Usage:"
+      echo ""
+      echo "  ./bootstrap.sh [ install | uninstall | update | help ]"
+      echo ""
+
       ;;
   esac
 }
 
+# ======================================================== #
 # Run it !
+# ======================================================== #
+
 time {
   __requirement "${dependencies[@]}";
   __bootstrap "$@";
 }
+
+# Reload config
+source ~/.bash_profile
