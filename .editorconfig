@@ -1,4 +1,7 @@
-# http://editorconfig.org/
+# ~/.editorconfig
+#
+# Help make the world a better place
+# ref: http://editorconfig.org/
 
 # top-most EditorConfig file
 root = true

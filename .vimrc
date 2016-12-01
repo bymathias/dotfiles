@@ -1,72 +1,38 @@
 " vim:fdm=marker:
+" ~/.vimrc
+"
+" VIM configuration
+" Maintainer: Mathias Brouilly
+" Repository: github.com/bymathias/dotfiles
 
-" VIM configuration of Mathias Brouilly
-" see: github.com/bymathias/dotfiles
 
 set nocompatible " Vim not vi
 " filetype off     " Required
-
-" Set the leader key
-let g:mapleader=','
-let g:maplocalleader=','
 
 " PLUGINS {{{
 
 silent! if plug#begin('~/.vim/plugins')
 
   " NAVIGATION
-  Plug 'scrooloose/nerdtree' " {{{
-  let g:NERDTreeMinimalUI=1  " disable the label 'Press ? for help'
-  let g:NERDTreeMouseMode=3  " single click to open any node
-  let g:NERDTreeWinSize=25 " set nerdtree width
-  let g:NERDTreeDirArrows=0
-  " Ignore these files extensions
-  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
-  " Open NERDTree
-  map <leader>n :NERDTreeToggle<cr>
-  " Open directory of the current file in NERDTree
-  nmap <leader>cn :NERDTree %<cr>
-  " If nerdtree is installed
-  silent! if isdirectory(glob(g:plug_home . '/nerdtree'))
-    augroup nerdtree_config
-      autocmd!
-      " Open NERDTree on startup, when no file has been specified
-      autocmd VimEnter * if !argc() | NERDTree | endif
-      " Highlight the selected buffer in the tree
-      " autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
-    augroup END
-  endif
-  " }}}
+  Plug 'scrooloose/nerdtree'
 
   " EDITING
-  Plug 'tpope/vim-commentary' " {{{
-  " If the filetype is not supported, fallback to '#'
-  silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
-  " }}}
+  Plug 'tpope/vim-commentary'
   Plug 'Raimondi/delimitMate'
   Plug 'tpope/vim-surround'
   Plug 'Valloric/MatchTagAlways'
-  " (MatchTagAlways settings) {{{
-  let g:mta_use_matchparen_group=0
-  let g:mta_set_default_matchtag_color=0
-  " Colors match 'kivabien' theme
-  hi MatchTag ctermfg=227 ctermbg=234
-  " }}}
-  Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " {{{
-  vnoremap <silent> <Enter> :EasyAlign<cr>
-  " }}}
+  Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'terryma/vim-expand-region'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'editorconfig/editorconfig-vim' " Require EditorConfig core
-  Plug 'csscomb/vim-csscomb'           " Require npm package 'csscomb'
+  if executable('npm')
+    Plug 'csscomb/vim-csscomb'         " Require npm package 'csscomb'
+  endif
 
   " SYNTAX
   Plug 'othree/yajs.vim'
   Plug 'othree/es.next.syntax.vim'
-  Plug 'othree/javascript-libraries-syntax.vim' " {{{
-  " Setup used libraries
-  let g:used_javascript_libs = 'jquery, underscore, backbone, angularjs, react, handlebars, vue'
-  " }}}
+  Plug 'othree/javascript-libraries-syntax.vim'
   Plug 'moll/vim-node'
   Plug 'elzr/vim-json', { 'for': 'json'}
   Plug 'hail2u/vim-css3-syntax'
@@ -76,113 +42,59 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }
   Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
-  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } " {{{
-  let g:vim_markdown_folding_disabled=1 " Disable folding
-  let g:vim_markdown_frontmatter=1      " Highlight YAML front matter as used by Jekyll or Hugo
-  let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
-  set conceallevel=2                    " Enable Vim's standard conceal configuration
-  " }}}
+  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
   " COMPLETION & SNIPPETS
   Plug 'mattn/webapi-vim' " Required by 'gist-vim' and 'emmet-vim'
   Plug 'AutoComplPop'
-  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " {{{
-  let g:UltiSnipsExpandTrigger='<Tab>'
-  let g:UltiSnipsJumpForwardTrigger='<Tab>'
-  let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
-  let g:UltiSnipsListSnippets='<C-L>'
-  let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
-  let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
-  " }}}
-  Plug 'mattn/emmet-vim' " {{{
-  let g:user_emmet_leader_key='<C-e>'
-  let g:user_emmet_expandabbr_key='<C-Tab>'
-  let g:use_emmet_complete_tag=1
-  " Enable just for html/css
-  let g:user_emmet_install_global=0
-  augroup emmet_config
-    autocmd!
-    autocmd FileType html,hbs,css EmmetInstall
-  augroup END
-  " }}}
-  Plug 'mattn/gist-vim' " {{{
-  " Open browser after the post
-  let g:gist_open_browser_after_post=1
-  " Copy the gist code
-  if has('mac')
-    let g:gist_clip_command='pbcopy'
-  elseif has('unix')
-    let g:gist_clip_command='xclip -selection clipboard'
-  endif
-  " }}}
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+  Plug 'mattn/emmet-vim'
+  Plug 'mattn/gist-vim'
   Plug 'heavenshell/vim-jsdoc'
 
   " CTAGS
-  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " {{{
-  " Toggle Tagbar window
-  nmap <F8> :TagbarToggle<cr>
-  " }}}
+  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
   " UI
-  Plug 'Yggdroot/indentLine' " {{{
-  let g:indentLine_color_term = 232
-  let g:indentLine_concealcursor = 'nvc'  " Cursor lines behavior
-  let g:indentLine_leadingSpaceChar = '·' " Character to show for leading spaces
-  let g:indentLine_faster=1               " Better performance
-  " Toggle IndentLines key
-  nmap <leader>il :IndentLinesToggle<cr>
-  " }}}
+  Plug 'Yggdroot/indentLine'
 
   " VERSION CONTROL
-  Plug 'tpope/vim-fugitive' " {{{
-    " nnoremap <silent> <Leader>gs :Gstatus<CR>
-    " nnoremap <silent> <Leader>gd :Gdiff<CR>
-    " nnoremap <silent> <Leader>gc :Gcommit<CR>
-    " nnoremap <silent> <Leader>gb :Gblame<CR>
-    " nnoremap <silent> <Leader>gl :Glog<CR>
-    " nnoremap <silent> <Leader>gp :Git push<CR>
-    " nnoremap <silent> <Leader>gw :Gwrite<CR>
-    " nnoremap <silent> <Leader>gr :Gremove<CR>
-    " autocmd BufReadPost fugitive://* set bufhidden=delete
-  " }}}
-  Plug 'Xuyuanp/nerdtree-git-plugin' " {{{
-	" let g:NERDTreeIndicatorMapCustom = {
-	" 	\ 'Modified'  : '✹',
-  	" \ 'Staged'    : '✚',
-  	" \ 'Untracked' : '✭',
-  	" \ 'Renamed'   : '➜',
-  	" \ 'Unmerged'  : '═',
-  	" \ 'Deleted'   : '✖',
-  	" \ 'Dirty'     : '✗',
-  	" \ 'Clean'     : '✔︎',
-  	" \ 'Unknown'   : '?'
-  	" \ }
-  " }}}
+  Plug 'tpope/vim-fugitive'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " WRITING
-  Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'
-  Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " {{{
-  let g:goyo_width='120'
-  nnoremap <Leader>G :Goyo<cr>
-  " }}}
+  if executable('npm')
+    Plug 'suan/vim-instant-markdown', { 'for': 'markdown' } " Require npm package 'instant-markdown-d'
+  endif
+  Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 
   " TMUX
   Plug 'tmux-plugins/vim-tmux'
 
+  " ------------------------------------
   " Add plugins to &runtimepath
   call plug#end()
 
 endif
+
+" Helper, load plugin settings if it exists
+function! PlugLoaded(name)
+  return isdirectory(glob(g:plug_home . '/' . a:name))
+endfunction
 
 " }}}
 
 " filetype plugin indent on " Automatically detect file types, required
 " syntax on
 
-" THEMES {{{
+" Color Scheme {{{
 
-" Default
-set t_Co=256
+if !has('gui_running')
+  " Enable full-color support
+  set t_Co=256
+endif
+
+" Use default colorscheme
 set background=dark
 colorscheme default
 
@@ -244,6 +156,7 @@ set formatoptions+=cql
 
 " FILE ENCODING {{{
 
+" scriptencoding utf-8
 set fileencoding=utf-8
 set fileformats=unix,mac,dos " Support all file format
 
@@ -390,9 +303,15 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.rss set ft=xml
   augroup END
 
+  augroup filetype_txt
+    autocmd!
+    " These should be .txt file
+    autocmd BufNewFile,BufRead *.{txt,log},README,LICENSE set ft=text
+  augroup END
+
   augroup filetype_markdown
     autocmd!
-    " These are markdown
+    " These are markdown file
     autocmd BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown
   augroup END
 
@@ -487,7 +406,7 @@ if has('statusline')
   set stl+=\|
   set stl+=\ %f                         " Relative path to file
   set stl+=%=                           " Right align following items
-  silent! if isdirectory(glob(g:plug_home . '/vim-fugitive'))
+  silent! if PlugLoaded('vim-fugitive')
     set stl+=\ %{fugitive#statusline()} " Git current branch
   endif
   set stl+=\ \%*
@@ -504,10 +423,14 @@ endif
 
 " KEY BINDINGS {{{
 
+" Set the leader key
+let g:mapleader=','
+let g:maplocalleader=','
+
 " Map 'jj' to 'exit insert mode'
 :imap jj <esc>
 
-" Quickly edit/auto reload the vimrc file
+" Quickly edit the .vimrc file in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<cr>
 
 " Change the cwd to the directory of current file
@@ -537,6 +460,9 @@ nmap <leader>h <C-w>h
 nmap <leader>j <C-w>j
 nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
+
+" Search and replace the word under the cursor
+nmap <leader>* :%s/\<<C-r><C-w>\>//<Left>
 
 " Clearing highlighted searches
 nmap <leader>/ :nohlsearch<cr>
@@ -597,5 +523,220 @@ if has('autocmd')
   augroup END
 
 endif
+
+" }}}
+
+" PLUGINS SETTINGS {{{
+
+" NAVIGATION
+" ---------------------------------- "
+
+" nerdtree {{{
+silent! if PlugLoaded('nerdtree')
+
+  let g:NERDTreeMinimalUI=1 " disable the label 'Press ? for help'
+  let g:NERDTreeMouseMode=3 " single click to open any node
+  let g:NERDTreeWinSize=25  " set nerdtree width
+  let g:NERDTreeDirArrows=0
+  " Ignore these files extensions
+  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+  " Open NERDTree
+  map <leader>n :NERDTreeToggle<cr>
+  " Open directory of the current file in NERDTree
+  nmap <leader>cn :NERDTree %<cr>
+  " If nerdtree is installed
+  augroup nerdtree_config
+    autocmd!
+    " Open NERDTree on startup, when no file has been specified
+    autocmd VimEnter * if !argc() | NERDTree | endif
+    " Highlight the selected buffer in the tree
+    " autocmd BufEnter * if &modifiable | NERDTreeFind | wincmd p | endif
+  augroup END
+
+endif
+
+" }}}
+
+" EDITING
+" ---------------------------------- "
+
+" vim-commentary {{{
+silent! if PlugLoaded('vim-commentary')
+
+  " If the filetype is not supported, fallback to '#'
+  silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
+
+endif
+" }}}
+
+" MatchTagAlways {{{
+silent! if PlugLoaded('MatchTagAlways')
+
+  let g:mta_use_matchparen_group=0
+  let g:mta_set_default_matchtag_color=0
+  " Colors match 'kivabien' theme
+  hi MatchTag ctermfg=227 ctermbg=234
+
+endif
+" }}}
+
+" vim-easy-align {{{
+silent! if PlugLoaded('vim-easy-align')
+
+  vnoremap <silent> <Enter> :EasyAlign<cr>
+
+endif
+" }}}
+
+" SYNTAX
+" ---------------------------------- "
+
+" javascript-libraries-syntax.vim {{{
+silent! if PlugLoaded('javascript-libraries-syntax.vim')
+
+  " Setup used libraries
+  let g:used_javascript_libs = 'jquery, underscore, backbone, angularjs, react, handlebars, vue'
+
+endif
+" }}}
+
+" vim-markdown {{{
+silent! if PlugLoaded('vim-markdown')
+
+  let g:vim_markdown_folding_disabled=1 " Disable folding
+  let g:vim_markdown_frontmatter=1      " Highlight YAML front matter as used by Jekyll or Hugo
+  let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
+  set conceallevel=2                    " Enable Vim's standard conceal configuration
+
+endif
+
+" }}}
+
+" COMPLETION & SNIPPETS
+" ---------------------------------- "
+
+" Ultisnips {{{
+silent! if PlugLoaded('ultisnips')
+
+  let g:UltiSnipsExpandTrigger='<Tab>'
+  let g:UltiSnipsJumpForwardTrigger='<Tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
+  let g:UltiSnipsListSnippets='<C-L>'
+  let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
+  let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
+
+endif
+
+" }}}
+
+" emmet-vim {{{
+silent! if PlugLoaded('emmet-vim')
+
+  let g:user_emmet_leader_key='<C-e>'
+  let g:user_emmet_expandabbr_key='<C-Tab>'
+  let g:use_emmet_complete_tag=1
+  " Enable just for html/hbs/css
+  let g:user_emmet_install_global=0
+  augroup emmet_config
+    autocmd!
+    autocmd FileType html,hbs,css EmmetInstall
+  augroup END
+
+endif
+" }}}
+
+" gist-vim {{{
+silent! if PlugLoaded('gist-vim')
+
+  " Open browser after the post
+  let g:gist_open_browser_after_post=1
+  " Copy the gist code
+  if has('mac')
+    let g:gist_clip_command='pbcopy'
+  elseif has('unix')
+    let g:gist_clip_command='xclip -selection clipboard'
+  endif
+
+endif
+" }}}
+
+" CTAGS
+" ---------------------------------- "
+
+" tagbar {{{
+silent! if PlugLoaded('tagbar')
+
+  " Toggle Tagbar window
+  nmap <F8> :TagbarToggle<cr>
+
+endif
+
+" }}}
+
+" UI
+" ---------------------------------- "
+
+" indentLine {{{
+silent! if PlugLoaded('indentLine')
+
+  let g:indentLine_color_term = 232
+  let g:indentLine_concealcursor = 'nvc'  " Cursor lines behavior
+  let g:indentLine_leadingSpaceChar = '·' " Character to show for leading spaces
+  let g:indentLine_faster=1               " Better performance
+  " Toggle IndentLines key
+  nmap <leader>il :IndentLinesToggle<cr>
+
+endif
+" }}}
+
+" VERSION CONTROL
+" ---------------------------------- "
+
+" vim-fugitive {{{
+" silent! if PlugLoaded('vim-fugitive')
+
+"   nnoremap <silent> <Leader>gs :Gstatus<CR>
+"   nnoremap <silent> <Leader>gd :Gdiff<CR>
+"   nnoremap <silent> <Leader>gc :Gcommit<CR>
+"   nnoremap <silent> <Leader>gb :Gblame<CR>
+"   nnoremap <silent> <Leader>gl :Glog<CR>
+"   nnoremap <silent> <Leader>gp :Git push<CR>
+"   nnoremap <silent> <Leader>gw :Gwrite<CR>
+"   nnoremap <silent> <Leader>gr :Gremove<CR>
+"   autocmd BufReadPost fugitive://* set bufhidden=delete
+
+" endif
+" }}}
+
+" nerdtree-git-plugin {{{
+" silent! if PlugLoaded('nerdtree-git-plugin')
+
+" 	let g:NERDTreeIndicatorMapCustom = {
+" 		\ 'Modified'  : '✹',
+"   	\ 'Staged'    : '✚',
+"   	\ 'Untracked' : '✭',
+"   	\ 'Renamed'   : '➜',
+"   	\ 'Unmerged'  : '═',
+"   	\ 'Deleted'   : '✖',
+"   	\ 'Dirty'     : '✗',
+"   	\ 'Clean'     : '✔︎',
+"   	\ 'Unknown'   : '?'
+"   	\ }
+
+" endif
+" }}}
+
+" WRITING
+" ---------------------------------- "
+
+" goyo.vim {{{
+silent! if PlugLoaded('goyo.vim')
+
+  let g:goyo_width='120'
+  nnoremap <Leader>G :Goyo<cr>
+
+endif
+
+" }}}
 
 " }}}
