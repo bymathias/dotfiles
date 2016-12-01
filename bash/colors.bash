@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # shellcheck disable=SC2034
 
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then

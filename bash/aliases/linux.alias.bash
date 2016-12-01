@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Basic
 alias ls='ls --color=auto --group-directories-first'
 alias o='thunar &'

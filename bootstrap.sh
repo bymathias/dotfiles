@@ -6,24 +6,28 @@
 # Install, uninstall and update the .dotfiles
 # see: https://github.com/bymathias/dotfiles
 
-# set -eo pipefail
+# set -euo pipefail
 
-dependencies=(curl git vim)
-dotfiles="$HOME/.dotfiles"
-symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig .czrc)
-gitinfos=(user.name user.email github.user)
-gitrepos="https://github.com/bymathias/dotfiles.git"
-tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+declare dot_directory="$HOME/.dotfiles"
+declare dot_symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig .czrc)
+declare dot_gitinfos=(user.name user.email github.user)
+declare dot_gitrepos="https://github.com/bymathias/dotfiles.git"
 
-# ======================================================== #
+declare dot_tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+
+# ========================================================
 # Helper functions
-# ======================================================== #
+# ========================================================
+
+__cmd_exists() {
+  command -v "$1" > /dev/null 2>&1
+}
 
 # Prompt for git user infos if none found
-__git_config()
-{
+__edit_gitconfig() {
   local info
   info=$(git config --global --get "$1" || echo "")
+
   if [ -z "$info" ]; then
     echo "Enter your git '$1':"
     read -r ans
@@ -31,13 +35,14 @@ __git_config()
   else
     echo "Git '$1' edited to '$info'"
   fi
-  git config --file "$dotfiles/git/.gitconfig" --replace-all "$1" "$info"
+
+  git config --file "$dot_directory/git/.gitconfig" --replace-all "$1" "$info"
 }
 
 # Remove symlinks and backup files/directories
-__dot_remove()
-{
+__file_remove() {
   local file="$HOME/$1"
+
   if [ -h "$file" ]; then
     rm -v "$file"
   elif [ -f "$file" ] || [ -d "$file" ]; then
@@ -46,51 +51,58 @@ __dot_remove()
 }
 
 # Symlink dotfiles in $HOME
-__dot_symlink()
-{
+__file_symlink() {
   local file="$HOME/$1"
+
   if [ "$1" == ".gitconfig" ]; then
-    ln -sv "$dotfiles/git/$1" "$file"
+    ln -sv "$dot_directory/git/$1" "$file"
   elif [ "$1" == ".vim" ]; then
-    ln -sv "$dotfiles/vim" "$file"
+    ln -sv "$dot_directory/vim" "$file"
   else
-    ln -sv "$dotfiles/$1" "$file"
+    ln -sv "$dot_directory/$1" "$file"
   fi
+}
+
+# Use curl or wget
+__download() {
+  local url="$1"
+  local out="$2"
+
+  if __cmd_exists "curl"; then
+    curl -Lo "$out" "$url" --create-dirs &> /dev/null
+    return $?
+  elif __cmd_exists "wget"; then
+    mkdir -p "$(dirname $out)"
+    wget -O "$out" "$url" &> /dev/null
+    return $?
+  fi
+
+  return 1
 }
 
 # Download external scripts
-__get_script()
-{
-  local file="$dotfiles/$1"
-  local temp="$tmpdir/$1"
+__download_script() {
+  local arr=("$@")
+  local out=${@: -1}
+  local file="$dot_directory/$out"
+  local temp="$dot_tmpdir/$out"
+
   [ -f "$file" ] && rm "$file"
-  if [ -z "$3" ]; then
-    curl -L# --create-dirs -o "$file" "$2"
+
+  if [ ${#arr[@]} -lt 3 ]; then
+    __download "$1" "$file"
   else
-    curl -L# --create-dirs -o "$temp.zip" "$2"
+    __download "$1" "$temp.zip"
     unzip -d "$temp" -qo "$temp.zip"
-    mv "$temp/$3" "$file"
+    mv "$temp/$2" "$file"
   fi
-  chmod +x "$file" && echo "$1"
+
+  chmod +x "$file" && echo "$(basename $file)"
 }
 
-# ======================================================== #
+# ========================================================
 # Main functions
-# ======================================================== #
-
-# Check requirements
-__requirement()
-{
-  echo "===== check requirements =====";
-  for i in "$@"; do
- 	  if command -v "$i" > /dev/null 2>&1; then
-      echo "$i"
-    else
-      echo "$i required, aborting.."
-      exit 1
-    fi
-  done
-}
+# ========================================================
 
 # Main function
 __bootstrap()
@@ -99,89 +111,103 @@ __bootstrap()
     __bootstrap help
     return
   fi
-  echo "===== $1 dotfiles =====";
   case "$1" in
     "install")
 
-      if [ ! -d "$dotfiles" ]; then
-        echo "cloning repository..."
-        git clone "$gitrepos" "$dotfiles";
+      if [[ ! -d "$dot_directory" ]]; then
+        if __cmd_exists "git"; then
+          git clone "$dot_gitrepos" "$dot_directory"
+        else
+          __download "$dot_gitrepos" "$dot_directory"
+        fi
       fi
 
-      echo "edit git user details..."
-      for i in "${gitinfos[@]}"; do
-        __git_config "$i"
-      done
-
-      echo "backup/remove config and install the dotfiles..."
-      for i in "${symlinks[@]}"; do
-        __dot_remove "$i"
-        __dot_symlink "$i"
-      done
-
-      if [[ "$OSTYPE" == "linux"* ]]; then
-        echo "symlink Vim config for root user..."
-        sudo ln -siv "$dotfiles/.vimrc" "/root/.vimrc"
-        sudo ln -siv "$dotfiles/vim" "/root/.vim"
+      if __cmd_exists "git"; then
+        for i in "${dot_gitinfos[@]}"; do
+          __edit_gitconfig "$i"
+        done
       fi
 
-			echo "...run update task..."
+      for i in "${dot_symlinks[@]}"; do
+        __file_remove "$i"
+        __file_symlink "$i"
+      done
+
 			__bootstrap "update"
 
       ;;
     "uninstall")
 
-      echo "backup/remove the dotfiles..."
-      for i in "${symlinks[@]}"; do
-        __dot_remove "$i"
+      for i in "${dot_symlinks[@]}"; do
+        __file_remove "$i"
       done
 
-      echo "backup/remove .dotfiles directory..."
-      __dot_remove "$dotfiles"
-
-      if [[ "$OSTYPE" == "linux"* ]]; then
-        echo "remove Vim config for root user..."
-        sudo rm -iv --preserve-root "/root/.vimrc"
-        sudo rm -Riv --preserve-root "/root/.vim"
-      fi
+      __file_remove "$dot_directory"
 
       ;;
     "update")
 
-      echo "install/update Vim plugins..."
+      # Vim plugins with vim-plug
+      # - Remove unused directories (bang version will clean without prompt)
+      # - Upgrade vim-plug itself
+      # - Install or update plugins
       vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
 
-      echo "update local bin scripts..."
-      nu_html_version="16.6.29"
-      __get_script "bin/vnu.jar" \
+      # The Nu Html Checker
+      # ref: http://validator.github.io/validator
+      local nu_html_version="16.6.29"
+      __download_script \
         "https://github.com/validator/validator/releases/download/$nu_html_version/vnu.jar_${nu_html_version}.zip" \
-        "dist/vnu.jar"
-      markdown_version="1.0.1"
-      __get_script "bin/Markdown.pl" \
-        "http://daringfireball.net/projects/downloads/Markdown_$markdown_version.zip" \
-        "Markdown_${markdown_version}/Markdown.pl"
-      __get_script "bin/rsync-tmbackup" \
-        "https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh"
-      __get_script "bin/speedtest" \
-        "https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py"
-      __get_script "bin/cloudapp" \
-        "https://raw.github.com/bonifaido/cloudapp-cli/master/cloudapp"
-      __get_script "bin/wp" \
-        "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+        "dist/vnu.jar" \
+        "bin/vnu.jar"
 
-      echo "update bash completions..."
-      __get_script "bash/completions/wp_completion.bash" \
-        "https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash"
-      if command -v npm > /dev/null 2>&1; then
-        npm_comp_path="bash/completions/npm_completion.bash"
-        npm completion > "$dotfiles/$npm_comp_path"
-        echo $npm_comp_path
+      # Markdown is a text-to-HTML conversion tool
+      # ref: http://daringfireball.net/projects/markdown
+      local markdown_version="1.0.1"
+      __download_script \
+        "http://daringfireball.net/projects/downloads/Markdown_$markdown_version.zip" \
+        "Markdown_${markdown_version}/Markdown.pl" \
+        "bin/Markdown.pl"
+
+      # Time Machine-style backup using rsync
+      # ref: https://github.com/laurent22/rsync-time-backup
+      __download_script \
+        "https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh" \
+        "bin/rsync-tmbackup"
+
+      # Command line interface for testing internet bandwidth using speedtest.net
+      # ref: https://github.com/sivel/speedtest-cli
+      __download_script \
+        "https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py" \
+        "bin/speedtest"
+
+      # A simple cli for CloudApp written in Ruby
+      # ref: https://github.com/bonifaido/cloudapp-cli
+      __download_script \
+        "https://raw.github.com/bonifaido/cloudapp-cli/master/cloudapp" \
+        "bin/cloudapp"
+
+      # WP-CLI is a set of command-line tools for managing WordPress installations
+      # ref: http://wp-cli.org
+      __download_script \
+        "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" \
+        "bin/wp"
+      __download_script \
+        "https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash" \
+        "bash/completions/wp_completion.bash"
+
+      # Node package manager completion
+      if __cmd_exists "npm"; then
+        local npm_comp_path="bash/completions/npm_completion.bash"
+        npm completion > "$dot_directory/$npm_comp_path"
+        echo "$(basename $npm_comp_path)"
       fi
 
-      echo "update .iterm2_shell_integration..."
-      shell_name=$(basename "$SHELL")
-      __get_script "term/iTerm/.iterm2_shell_integration.$shell_name" \
-        "https://iterm2.com/misc/${shell_name}_startup.in"
+      # iTerm2 shell integration
+      # local shell_name=$(basename "$SHELL")
+      # __download_script \
+      #   "https://iterm2.com/misc/${shell_name}_startup.in" \
+      #   "config/iTerm/.iterm2_shell_integration.$shell_name"
 
       ;;
     "help"|*)
@@ -195,14 +221,5 @@ __bootstrap()
   esac
 }
 
-# ======================================================== #
-# Run it !
-# ======================================================== #
-
-time {
-  __requirement "${dependencies[@]}";
-  __bootstrap "$@";
-}
-
-# Reload config
-source ~/.bash_profile
+# run it
+time { __bootstrap "$@"; }

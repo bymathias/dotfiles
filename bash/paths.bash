@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 __export_d()
 {
   [ -d "$1" ] && export PATH="$PATH:$1"

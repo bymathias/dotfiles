@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Basic
 alias ls='ls -G'
 alias o='open -a Finder'

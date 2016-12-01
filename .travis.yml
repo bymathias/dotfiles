@@ -26,7 +26,7 @@ install:
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
 
 before_script:
-  - shellcheck *.sh .bash* bash/* init/*
+  - shellcheck *.sh .bash* bash/*.bash bash/aliases/* init/*
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
 
 script:

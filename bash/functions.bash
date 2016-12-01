@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2164
+
 # Enter a directory and list files
 # usage: `cdl <dirname>`
 cdl()
@@ -24,7 +27,7 @@ mkc()
 # usage: `cpp <inpout> <output>`
 cpp()
 {
-  rsync -WavP --human-readable --progress $1 $2
+  rsync -WavP --human-readable --progress "$1" "$2"
 }
 
 # New script
@@ -32,7 +35,7 @@ cpp()
 new_script()
 {
   [[ -e "$1" ]] && echo "'$1' already exists" && return
-  echo "#!/bin/bash" > "$1" && \
+  echo "#!/usr/bin/env bash" > "$1" && \
   chmod a+x "$1" && \
     vim "$1"
 }
@@ -54,12 +57,12 @@ ls_todo()
 man()
 {
   env \
-    LESS_TERMCAP_mb=$(printf "\033[1;31m") \
-    LESS_TERMCAP_md=$(printf "\033[1;31m") \
-    LESS_TERMCAP_me=$(printf "\033[0m") \
-    LESS_TERMCAP_se=$(printf "\033[0m") \
-    LESS_TERMCAP_so=$(printf "\033[1;44;33m") \
-    LESS_TERMCAP_ue=$(printf "\033[0m") \
-    LESS_TERMCAP_us=$(printf "\033[1;32m") \
+    LESS_TERMCAP_mb="$(printf '\033[1;31m')" \
+    LESS_TERMCAP_md="$(printf '\033[1;31m')" \
+    LESS_TERMCAP_me="$(printf '\033[0m')" \
+    LESS_TERMCAP_se="$(printf '\033[0m')" \
+    LESS_TERMCAP_so="$(printf '\033[1;44;33m')" \
+    LESS_TERMCAP_ue="$(printf '\033[0m')" \
+    LESS_TERMCAP_us="$(printf '\033[1;32m')" \
   man "$@"
 }

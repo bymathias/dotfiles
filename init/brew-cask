@@ -48,6 +48,14 @@ brew cask install oversight
 
 brew cask install fliqlo
 
+# Fonts
+brew tap caskroom/fonts
+brew cask install font-inconsolata
+brew cask install font-hack
+brew cask install font-camingocode
+brew cask install font-ubuntu
+brew cask install font-droid-sans-mono
+
 # -------------------------------------------
 
 # Remove outdated versions from the cellar

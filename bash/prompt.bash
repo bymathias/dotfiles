@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # shellcheck disable=SC2154
 #
 # Screenshot: https://cl.ly/i10q

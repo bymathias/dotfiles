@@ -36,9 +36,8 @@ sudo apt-get install -y vlc
 # sudo apt-get install -y gufw
 
 # # Fonts
-# sudo apt-get install \
-#   fonts-inconsolata \
-#   fonts-droid
+sudo apt-get install fonts-inconsolata
+sudo apt-get install fonts-droid
 
 # -------------------------------------------
 

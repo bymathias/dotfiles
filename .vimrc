@@ -1,15 +1,13 @@
 " vim:fdm=marker:
 " ~/.vimrc
 "
-" VIM configuration of Mathias Brouilly
-" see: github.com/bymathias/dotfiles
+" VIM configuration
+" Maintainer: Mathias Brouilly
+" Repository: github.com/bymathias/dotfiles
+
 
 set nocompatible " Vim not vi
 " filetype off     " Required
-
-" Set the leader key
-let g:mapleader=','
-let g:maplocalleader=','
 
 " PLUGINS {{{
 
@@ -89,10 +87,14 @@ endfunction
 " filetype plugin indent on " Automatically detect file types, required
 " syntax on
 
-" THEMES {{{
+" Color Scheme {{{
 
-" Default
-set t_Co=256
+if !has('gui_running')
+  " Enable full-color support
+  set t_Co=256
+endif
+
+" Use default colorscheme
 set background=dark
 colorscheme default
 
@@ -301,9 +303,15 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.rss set ft=xml
   augroup END
 
+  augroup filetype_txt
+    autocmd!
+    " These should be .txt file
+    autocmd BufNewFile,BufRead *.{txt,log},README,LICENSE set ft=text
+  augroup END
+
   augroup filetype_markdown
     autocmd!
-    " These are markdown
+    " These are markdown file
     autocmd BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown
   augroup END
 
@@ -415,10 +423,14 @@ endif
 
 " KEY BINDINGS {{{
 
+" Set the leader key
+let g:mapleader=','
+let g:maplocalleader=','
+
 " Map 'jj' to 'exit insert mode'
 :imap jj <esc>
 
-" Quickly edit/auto reload the vimrc file
+" Quickly edit the .vimrc file in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<cr>
 
 " Change the cwd to the directory of current file
@@ -448,6 +460,9 @@ nmap <leader>h <C-w>h
 nmap <leader>j <C-w>j
 nmap <leader>k <C-w>k
 nmap <leader>l <C-w>l
+
+" Search and replace the word under the cursor
+nmap <leader>* :%s/\<<C-r><C-w>\>//<Left>
 
 " Clearing highlighted searches
 nmap <leader>/ :nohlsearch<cr>
@@ -514,6 +529,8 @@ endif
 " PLUGINS SETTINGS {{{
 
 " NAVIGATION
+" ---------------------------------- "
+
 " nerdtree {{{
 silent! if PlugLoaded('nerdtree')
 
@@ -537,9 +554,12 @@ silent! if PlugLoaded('nerdtree')
   augroup END
 
 endif
+
 " }}}
 
 " EDITING
+" ---------------------------------- "
+
 " vim-commentary {{{
 silent! if PlugLoaded('vim-commentary')
 
@@ -548,6 +568,7 @@ silent! if PlugLoaded('vim-commentary')
 
 endif
 " }}}
+
 " MatchTagAlways {{{
 silent! if PlugLoaded('MatchTagAlways')
 
@@ -558,6 +579,7 @@ silent! if PlugLoaded('MatchTagAlways')
 
 endif
 " }}}
+
 " vim-easy-align {{{
 silent! if PlugLoaded('vim-easy-align')
 
@@ -567,6 +589,8 @@ endif
 " }}}
 
 " SYNTAX
+" ---------------------------------- "
+
 " javascript-libraries-syntax.vim {{{
 silent! if PlugLoaded('javascript-libraries-syntax.vim')
 
@@ -575,6 +599,7 @@ silent! if PlugLoaded('javascript-libraries-syntax.vim')
 
 endif
 " }}}
+
 " vim-markdown {{{
 silent! if PlugLoaded('vim-markdown')
 
@@ -584,9 +609,12 @@ silent! if PlugLoaded('vim-markdown')
   set conceallevel=2                    " Enable Vim's standard conceal configuration
 
 endif
+
 " }}}
 
 " COMPLETION & SNIPPETS
+" ---------------------------------- "
+
 " Ultisnips {{{
 silent! if PlugLoaded('ultisnips')
 
@@ -598,7 +626,9 @@ silent! if PlugLoaded('ultisnips')
   let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
 
 endif
+
 " }}}
+
 " emmet-vim {{{
 silent! if PlugLoaded('emmet-vim')
 
@@ -614,6 +644,7 @@ silent! if PlugLoaded('emmet-vim')
 
 endif
 " }}}
+
 " gist-vim {{{
 silent! if PlugLoaded('gist-vim')
 
@@ -630,6 +661,8 @@ endif
 " }}}
 
 " CTAGS
+" ---------------------------------- "
+
 " tagbar {{{
 silent! if PlugLoaded('tagbar')
 
@@ -637,9 +670,12 @@ silent! if PlugLoaded('tagbar')
   nmap <F8> :TagbarToggle<cr>
 
 endif
+
 " }}}
 
 " UI
+" ---------------------------------- "
+
 " indentLine {{{
 silent! if PlugLoaded('indentLine')
 
@@ -654,6 +690,8 @@ endif
 " }}}
 
 " VERSION CONTROL
+" ---------------------------------- "
+
 " vim-fugitive {{{
 " silent! if PlugLoaded('vim-fugitive')
 
@@ -669,6 +707,7 @@ endif
 
 " endif
 " }}}
+
 " nerdtree-git-plugin {{{
 " silent! if PlugLoaded('nerdtree-git-plugin')
 
@@ -688,6 +727,8 @@ endif
 " }}}
 
 " WRITING
+" ---------------------------------- "
+
 " goyo.vim {{{
 silent! if PlugLoaded('goyo.vim')
 
@@ -695,6 +736,7 @@ silent! if PlugLoaded('goyo.vim')
   nnoremap <Leader>G :Goyo<cr>
 
 endif
+
 " }}}
 
 " }}}
