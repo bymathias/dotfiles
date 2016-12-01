@@ -42,7 +42,7 @@ __source_e "$DOT_BASH/completions/wp_completion.bash"
 
 # iTerm2
 if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-  __source_e "$HOME/.dotfiles/term/iTerm/.iterm2_shell_integration.bash"
+  __source_e "$HOME/.iterm2_shell_integration.bash"
 fi
 
 # (last) Load RVM into a shell session *as a function*

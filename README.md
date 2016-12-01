@@ -6,7 +6,7 @@
 - [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/)
 - [vim](http://www.vim.org/)
 
-## Quick Start
+## Installation
 
 Run the `bootstrap.sh` script with the following one-liner
 ```sh
@@ -18,7 +18,6 @@ Reload the configuration
 ```sh
 source ~/.bash_profile
 ```
-For detailed [installation instructions]() and [usage](), have a look at the [wiki]() folder.
 
 ## Change Log
 

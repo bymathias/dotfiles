@@ -203,12 +203,6 @@ __bootstrap()
         echo "$(basename $npm_comp_path)"
       fi
 
-      # iTerm2 shell integration
-      # local shell_name=$(basename "$SHELL")
-      # __download_script \
-      #   "https://iterm2.com/misc/${shell_name}_startup.in" \
-      #   "config/iTerm/.iterm2_shell_integration.$shell_name"
-
       ;;
     "help"|*)
 
