@@ -1,3 +1,8 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/bymathias/dotfiles/compare/v0.2.0...v0.3.0) (2016-12-01)
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/bymathias/dotfiles/compare/0.1.0...v0.2.0) (2016-11-23)
 
