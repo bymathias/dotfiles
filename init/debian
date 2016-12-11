@@ -37,11 +37,13 @@ sudo apt-get install -y editorconfig
 # Install Tmux
 sudo apt-get install -y tmux
 
-sudo apt-get install imagemagick
-# sudo apt-get install python-pygments
+# Image optimisation
+sudo apt-get install -y imagemagick
 
 # exFAT support
-sudo apt-get install exfat-utils exfat-fuse
+sudo apt-get install -y exfat-utils exfat-fuse
+
+# sudo apt-get install python-pygments
 
 # Database
 # sudo apt-get install -y mysql-server

@@ -11,33 +11,44 @@ sudo apt-get -y dist-upgrade
 
 # -------------------------------------------
 
+# Terminal and text editor
 sudo apt-get install -y terminator
 sudo apt-get install -y geany
 
+# Web browsers
 sudo apt-get install -y iceweasel
 sudo apt-get install -y chromium
 
+# Office tools
 sudo apt-get install -y keepassx
 sudo apt-get install -y claws-mail
 sudo apt-get install -y libreoffice
 sudo apt-get install -y scribus
 sudo apt-get install -y atril
 
+# Graphic tools
 sudo apt-get install -y inkscape
 sudo apt-get install -y gimp
-sudo apt-get install -y trimage
 sudo apt-get install -y gpick
-sudo apt-get install -y fontforge
-sudo apt-get install -y filezilla
+# Image optimisation
+sudo apt-get install -y trimage
 
+# Web development tools
+sudo apt-get install -y fontforge
+
+# Data transfer
+sudo apt-get install -y filezilla
 sudo apt-get install -y transmission-gtk
+
+# Video and editing
 sudo apt-get install -y vlc
 
-# sudo apt-get install -y gufw
+# Security
+sudo apt-get install -y gufw
 
-# # Fonts
-sudo apt-get install fonts-inconsolata
-sudo apt-get install fonts-droid
+# Custom fonts
+sudo apt-get install -y fonts-inconsolata
+sudo apt-get install -y fonts-droid
 
 # -------------------------------------------
 

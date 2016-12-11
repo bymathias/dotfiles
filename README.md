@@ -18,7 +18,6 @@ Reload the configuration
 ```sh
 source ~/.bash_profile
 ```
-
 ## Change Log
 
 All notable changes to this project will be documented in the [CHANGELOG.md](https://github.com/bymathias/dotfiles/blob/master/CHANGELOG.md).
