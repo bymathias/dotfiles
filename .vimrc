@@ -43,6 +43,7 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }
   Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
   Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+  Plug 'markcornick/vim-bats'
 
   " COMPLETION & SNIPPETS
   Plug 'mattn/webapi-vim' " Required by 'gist-vim' and 'emmet-vim'
@@ -61,6 +62,7 @@ silent! if plug#begin('~/.vim/plugins')
   " VERSION CONTROL
   Plug 'tpope/vim-fugitive'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'airblade/vim-gitgutter'
 
   " WRITING
   if executable('npm')
@@ -77,8 +79,8 @@ silent! if plug#begin('~/.vim/plugins')
 
 endif
 
-" Helper, load plugin settings if it exists
-function! PlugLoaded(name)
+" Check if plugin directory exists
+function! HasPlugDirectory(name)
   return isdirectory(glob(g:plug_home . '/' . a:name))
 endfunction
 
@@ -406,7 +408,7 @@ if has('statusline')
   set stl+=\|
   set stl+=\ %f                         " Relative path to file
   set stl+=%=                           " Right align following items
-  silent! if PlugLoaded('vim-fugitive')
+  silent! if HasPlugDirectory('vim-fugitive')
     set stl+=\ %{fugitive#statusline()} " Git current branch
   endif
   set stl+=\ \%*
@@ -532,7 +534,7 @@ endif
 " ---------------------------------- "
 
 " nerdtree {{{
-silent! if PlugLoaded('nerdtree')
+silent! if HasPlugDirectory('nerdtree')
 
   let g:NERDTreeMinimalUI=1 " disable the label 'Press ? for help'
   let g:NERDTreeMouseMode=3 " single click to open any node
@@ -540,11 +542,12 @@ silent! if PlugLoaded('nerdtree')
   let g:NERDTreeDirArrows=0
   " Ignore these files extensions
   let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+
   " Open NERDTree
   map <leader>n :NERDTreeToggle<cr>
   " Open directory of the current file in NERDTree
   nmap <leader>cn :NERDTree %<cr>
-  " If nerdtree is installed
+
   augroup nerdtree_config
     autocmd!
     " Open NERDTree on startup, when no file has been specified
@@ -554,14 +557,13 @@ silent! if PlugLoaded('nerdtree')
   augroup END
 
 endif
-
 " }}}
 
 " EDITING
 " ---------------------------------- "
 
 " vim-commentary {{{
-silent! if PlugLoaded('vim-commentary')
+silent! if HasPlugDirectory('vim-commentary')
 
   " If the filetype is not supported, fallback to '#'
   silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
@@ -570,10 +572,11 @@ endif
 " }}}
 
 " MatchTagAlways {{{
-silent! if PlugLoaded('MatchTagAlways')
+silent! if HasPlugDirectory('MatchTagAlways')
 
   let g:mta_use_matchparen_group=0
   let g:mta_set_default_matchtag_color=0
+
   " Colors match 'kivabien' theme
   hi MatchTag ctermfg=227 ctermbg=234
 
@@ -581,7 +584,7 @@ endif
 " }}}
 
 " vim-easy-align {{{
-silent! if PlugLoaded('vim-easy-align')
+silent! if HasPlugDirectory('vim-easy-align')
 
   vnoremap <silent> <Enter> :EasyAlign<cr>
 
@@ -592,7 +595,7 @@ endif
 " ---------------------------------- "
 
 " javascript-libraries-syntax.vim {{{
-silent! if PlugLoaded('javascript-libraries-syntax.vim')
+silent! if HasPlugDirectory('javascript-libraries-syntax.vim')
 
   " Setup used libraries
   let g:used_javascript_libs = 'jquery, underscore, backbone, angularjs, react, handlebars, vue'
@@ -601,42 +604,43 @@ endif
 " }}}
 
 " vim-markdown {{{
-silent! if PlugLoaded('vim-markdown')
+silent! if HasPlugDirectory('vim-markdown')
 
   let g:vim_markdown_folding_disabled=1 " Disable folding
   let g:vim_markdown_frontmatter=1      " Highlight YAML front matter as used by Jekyll or Hugo
   let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
+
   set conceallevel=2                    " Enable Vim's standard conceal configuration
 
 endif
-
 " }}}
 
 " COMPLETION & SNIPPETS
 " ---------------------------------- "
 
-" Ultisnips {{{
-silent! if PlugLoaded('ultisnips')
+" ultisnips {{{
+silent! if HasPlugDirectory('ultisnips')
 
   let g:UltiSnipsExpandTrigger='<Tab>'
   let g:UltiSnipsJumpForwardTrigger='<Tab>'
   let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
   let g:UltiSnipsListSnippets='<C-L>'
+
   let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
   let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
 
 endif
-
 " }}}
 
 " emmet-vim {{{
-silent! if PlugLoaded('emmet-vim')
+silent! if HasPlugDirectory('emmet-vim')
 
   let g:user_emmet_leader_key='<C-e>'
   let g:user_emmet_expandabbr_key='<C-Tab>'
   let g:use_emmet_complete_tag=1
   " Enable just for html/hbs/css
   let g:user_emmet_install_global=0
+
   augroup emmet_config
     autocmd!
     autocmd FileType html,hbs,css EmmetInstall
@@ -646,10 +650,11 @@ endif
 " }}}
 
 " gist-vim {{{
-silent! if PlugLoaded('gist-vim')
+silent! if HasPlugDirectory('gist-vim')
 
   " Open browser after the post
   let g:gist_open_browser_after_post=1
+
   " Copy the gist code
   if has('mac')
     let g:gist_clip_command='pbcopy'
@@ -664,20 +669,19 @@ endif
 " ---------------------------------- "
 
 " tagbar {{{
-silent! if PlugLoaded('tagbar')
+silent! if HasPlugDirectory('tagbar')
 
   " Toggle Tagbar window
   nmap <F8> :TagbarToggle<cr>
 
 endif
-
 " }}}
 
 " UI
 " ---------------------------------- "
 
 " indentLine {{{
-silent! if PlugLoaded('indentLine')
+silent! if HasPlugDirectory('indentLine')
 
   let g:indentLine_color_term = 232
   let g:indentLine_concealcursor = 'nvc'  " Cursor lines behavior
@@ -693,7 +697,7 @@ endif
 " ---------------------------------- "
 
 " vim-fugitive {{{
-" silent! if PlugLoaded('vim-fugitive')
+" silent! if HasPlugDirectory('vim-fugitive')
 
 "   nnoremap <silent> <Leader>gs :Gstatus<CR>
 "   nnoremap <silent> <Leader>gd :Gdiff<CR>
@@ -703,25 +707,26 @@ endif
 "   nnoremap <silent> <Leader>gp :Git push<CR>
 "   nnoremap <silent> <Leader>gw :Gwrite<CR>
 "   nnoremap <silent> <Leader>gr :Gremove<CR>
-"   autocmd BufReadPost fugitive://* set bufhidden=delete
+
+"   "autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " endif
 " }}}
 
 " nerdtree-git-plugin {{{
-" silent! if PlugLoaded('nerdtree-git-plugin')
+" silent! if HasPlugDirectory('nerdtree-git-plugin')
 
-" 	let g:NERDTreeIndicatorMapCustom = {
-" 		\ 'Modified'  : '✹',
-"   	\ 'Staged'    : '✚',
-"   	\ 'Untracked' : '✭',
-"   	\ 'Renamed'   : '➜',
-"   	\ 'Unmerged'  : '═',
-"   	\ 'Deleted'   : '✖',
-"   	\ 'Dirty'     : '✗',
-"   	\ 'Clean'     : '✔︎',
-"   	\ 'Unknown'   : '?'
-"   	\ }
+"   let g:NERDTreeIndicatorMapCustom = {
+" 	  \ 'Modified'  : '✹',
+"     \ 'Staged'    : '✚',
+"     \ 'Untracked' : '✭',
+"     \ 'Renamed'   : '➜',
+"     \ 'Unmerged'  : '═',
+"     \ 'Deleted'   : '✖',
+"     \ 'Dirty'     : '✗',
+"     \ 'Clean'     : '✔︎',
+"     \ 'Unknown'   : '?'
+"     \ }
 
 " endif
 " }}}
@@ -730,13 +735,12 @@ endif
 " ---------------------------------- "
 
 " goyo.vim {{{
-silent! if PlugLoaded('goyo.vim')
+silent! if HasPlugDirectory('goyo.vim')
 
   let g:goyo_width='120'
   nnoremap <Leader>G :Goyo<cr>
 
 endif
-
 " }}}
 
 " }}}

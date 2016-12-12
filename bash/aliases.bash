@@ -51,6 +51,7 @@ alias dbox='cd ~/Dropbox && ls'
 alias note='cd ~/Dropbox/Notes && vim'
 alias site='cd ~/Sites && ls'
 alias repo='cd ~/Repos && ls'
+# alias blog=''
 
 # Dotfiles
 alias dotfiles='sh ~/.dotfiles/bootstrap.sh'

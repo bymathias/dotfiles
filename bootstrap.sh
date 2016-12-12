@@ -19,12 +19,15 @@ declare dot_tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 # Helper functions
 # ========================================================
 
-__cmd_exists() {
+# Check if command exists
+__cmd_exists()
+{
   command -v "$1" > /dev/null 2>&1
 }
 
 # Prompt for git user infos if none found
-__edit_gitconfig() {
+__edit_gitconfig()
+{
   local info
   info=$(git config --global --get "$1" || echo "")
 
@@ -40,7 +43,8 @@ __edit_gitconfig() {
 }
 
 # Remove symlinks and backup files/directories
-__file_remove() {
+__file_remove()
+{
   local file="$HOME/$1"
 
   if [ -h "$file" ]; then
@@ -51,7 +55,8 @@ __file_remove() {
 }
 
 # Symlink dotfiles in $HOME
-__file_symlink() {
+__file_symlink()
+{
   local file="$HOME/$1"
 
   if [ "$1" == ".gitconfig" ]; then
@@ -64,7 +69,8 @@ __file_symlink() {
 }
 
 # Use curl or wget
-__download() {
+__download()
+{
   local url="$1"
   local out="$2"
 
@@ -81,7 +87,8 @@ __download() {
 }
 
 # Download external scripts
-__download_script() {
+__download_script()
+{
   local arr=("$@")
   local out=${@: -1}
   local file="$dot_directory/$out"
@@ -202,12 +209,6 @@ __bootstrap()
         npm completion > "$dot_directory/$npm_comp_path"
         echo "$(basename $npm_comp_path)"
       fi
-
-      # iTerm2 shell integration
-      # local shell_name=$(basename "$SHELL")
-      # __download_script \
-      #   "https://iterm2.com/misc/${shell_name}_startup.in" \
-      #   "config/iTerm/.iterm2_shell_integration.$shell_name"
 
       ;;
     "help"|*)
