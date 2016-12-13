@@ -33,6 +33,7 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'othree/yajs.vim'
   Plug 'othree/es.next.syntax.vim'
   Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'leafgarland/typescript-vim'
   Plug 'moll/vim-node'
   Plug 'elzr/vim-json', { 'for': 'json'}
   Plug 'hail2u/vim-css3-syntax'
