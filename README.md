@@ -1,4 +1,7 @@
-# Mathias's [dotfiles](https://github.com/bymathias/dotfiles) [![Build Status](http://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square)](https://travis-ci.org/bymathias/dotfiles)
+# Mathias's [dotfiles](https://github.com/bymathias/dotfiles)
+
+[![Build Status](http://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square)](https://travis-ci.org/bymathias/dotfiles)
+[![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 > Config files to setup a system the way I want it, hopefully useful also for others.
 
 ## Requirements
