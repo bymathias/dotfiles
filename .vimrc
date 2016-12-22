@@ -88,7 +88,7 @@ endfunction
 " }}}
 
 " filetype plugin indent on " Automatically detect file types, required
-" syntax on
+syntax on
 
 " Color Scheme {{{
 
@@ -471,7 +471,7 @@ nmap <leader>* :%s/\<<C-r><C-w>\>//<Left>
 nmap <leader>/ :nohlsearch<cr>
 
 " Autocomplete with Ctrl + Space
-inoremap <Nul> <C-x><C-o>
+" inoremap <Nul> <C-x><C-o>
 
 " Insert blank lines without going into insert mode
 nmap go o<esc>
@@ -636,8 +636,8 @@ endif
 " emmet-vim {{{
 silent! if HasPlugDirectory('emmet-vim')
 
-  let g:user_emmet_leader_key='<C-e>'
-  let g:user_emmet_expandabbr_key='<C-Tab>'
+  " let g:user_emmet_leader_key='<C-e>'
+  let g:user_emmet_expandabbr_key='<Nul>'
   let g:use_emmet_complete_tag=1
   " Enable just for html/hbs/css
   let g:user_emmet_install_global=0
