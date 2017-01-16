@@ -33,10 +33,12 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'othree/yajs.vim'
   Plug 'othree/es.next.syntax.vim'
   Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'leafgarland/typescript-vim'
   Plug 'moll/vim-node'
   Plug 'elzr/vim-json', { 'for': 'json'}
   Plug 'hail2u/vim-css3-syntax'
   Plug 'othree/html5.vim'
+  Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'mustache/vim-mustache-handlebars'
   Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
@@ -44,6 +46,7 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
   Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'markcornick/vim-bats'
+  Plug 'maksimr/vim-jsbeautify'
 
   " COMPLETION & SNIPPETS
   Plug 'mattn/webapi-vim' " Required by 'gist-vim' and 'emmet-vim'
@@ -87,7 +90,7 @@ endfunction
 " }}}
 
 " filetype plugin indent on " Automatically detect file types, required
-" syntax on
+syntax on
 
 " Color Scheme {{{
 
@@ -470,7 +473,7 @@ nmap <leader>* :%s/\<<C-r><C-w>\>//<Left>
 nmap <leader>/ :nohlsearch<cr>
 
 " Autocomplete with Ctrl + Space
-inoremap <Nul> <C-x><C-o>
+" inoremap <Nul> <C-x><C-o>
 
 " Insert blank lines without going into insert mode
 nmap go o<esc>
@@ -565,6 +568,12 @@ endif
 " vim-commentary {{{
 silent! if HasPlugDirectory('vim-commentary')
 
+  " Add jinja comment support
+  augroup jinja_comment
+    autocmd!
+    autocmd FileType jinja setlocal commentstring={#\ %s\ #}
+  augroup END
+
   " If the filetype is not supported, fallback to '#'
   silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
 
@@ -615,6 +624,14 @@ silent! if HasPlugDirectory('vim-markdown')
 endif
 " }}}
 
+" vim-jsbeautify {{{
+silent! if HasPlugDirectory('vim-jsbeautify')
+
+  nmap <leader>jb :call JsBeautify()<cr>
+
+endif
+" }}}
+
 " COMPLETION & SNIPPETS
 " ---------------------------------- "
 
@@ -635,15 +652,15 @@ endif
 " emmet-vim {{{
 silent! if HasPlugDirectory('emmet-vim')
 
-  let g:user_emmet_leader_key='<C-e>'
-  let g:user_emmet_expandabbr_key='<C-Tab>'
+  " let g:user_emmet_leader_key='<C-e>'
+  let g:user_emmet_expandabbr_key='<Nul>'
   let g:use_emmet_complete_tag=1
   " Enable just for html/hbs/css
   let g:user_emmet_install_global=0
 
   augroup emmet_config
     autocmd!
-    autocmd FileType html,hbs,css EmmetInstall
+    autocmd FileType html,hbs,jinja,css EmmetInstall
   augroup END
 
 endif
