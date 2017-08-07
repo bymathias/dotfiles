@@ -1,3 +1,13 @@
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/bymathias/dotfiles/compare/v0.3.1...v0.3.2) (2017-08-07)
+
+
+### Features
+
+* **vim:** add typescript syntax support ([930b058](https://github.com/bymathias/dotfiles/commit/930b058))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/bymathias/dotfiles/compare/v0.3.0...v0.3.1) (2016-12-11)
 
