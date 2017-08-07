@@ -87,6 +87,19 @@ function! HasPlugDirectory(name)
   return isdirectory(glob(g:plug_home . '/' . a:name))
 endfunction
 
+" Detect OS
+function! OSX()
+  return has('macunix')
+endfunction
+
+function! LINUX()
+  return has('unix') && !has('macunix') && !has('win32unix')
+endfunction
+
+" function! WINDOWS()
+"   return (has('win16') || has('win32') || has('win64'))
+" endfunction
+
 " }}}
 
 " filetype plugin indent on " Automatically detect file types, required
@@ -673,9 +686,9 @@ silent! if HasPlugDirectory('gist-vim')
   let g:gist_open_browser_after_post=1
 
   " Copy the gist code
-  if has('mac')
+  if OSX()
     let g:gist_clip_command='pbcopy'
-  elseif has('unix')
+  elseif LINUX()
     let g:gist_clip_command='xclip -selection clipboard'
   endif
 
