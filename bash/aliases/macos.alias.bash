@@ -3,7 +3,6 @@
 # Basic
 alias ls='ls -G'
 alias o='open -a Finder'
-alias ff='open -a firefox'
 
 # Nginx
 alias nginx-start='sudo nginx'
