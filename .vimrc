@@ -50,7 +50,7 @@ silent! if plug#begin('~/.vim/plugins')
 
   " COMPLETION & SNIPPETS
   Plug 'mattn/webapi-vim' " Required by 'gist-vim' and 'emmet-vim'
-  Plug 'AutoComplPop'
+  Plug 'vim-scripts/AutoComplPop'
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   Plug 'mattn/emmet-vim'
   Plug 'mattn/gist-vim'
