@@ -3,24 +3,10 @@
 [![Build Status](http://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square)](https://travis-ci.org/bymathias/dotfiles) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 > Config files to setup a system (linux/macos) the way I want it, hopefully useful also for others.
 
-#### Table of contents
-
-- [Requirements]()
-- [Installation]()
-- [Usage]()
-- [Change Log]()
-- [Contributing]()
-- [Credits]()
-- [License]()
-
----
-
 ## Requirements
 
 - [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/)
 - [vim](http://www.vim.org/)
-
-**Terminal apps:** [Terminator](https://launchpad.net/terminator)/[iTerm2](https://www.iterm2.com/)
 
 ## Installation
 
@@ -39,13 +25,13 @@ cd ~/.dotfiles
 ```
 Then reload the shell configuration.. `source ~/.bash_profile`, done.
 
-**Terminator setup:**
+Setup terminal ([Terminator](https://launchpad.net/terminator)/[iTerm2](https://www.iterm2.com/)) applications
 ```sh
 # Terminator
 mv ~/.config/terminator/config ~/.config/terminator/config-default.bak
-ln -sv ~/.dotfiles/term/terminator/default.config ~/.config/terminator/config
+ln -sv ~/.dotfiles/init/terminator/default.config ~/.config/terminator/config
 # iTerm2
-open ~/.dotfiles/term/iTerm/default.itermcolors
+open ~/.dotfiles/init/iTerm/default.itermcolors
 ```
 ## Change Log
 

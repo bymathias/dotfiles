@@ -85,20 +85,3 @@ ${color3}Up ${color2}${upspeed wlan0}${alignr}${color3}Sent ${color2}${totalup w
 ${color3}${upspeedgraph wlan0 20,220 294F87 294F87}
 ${color3}Down ${color2}${downspeed wlan0}${alignr}${color3}Received ${color2}${totaldown wlan0}
 ${color3}${downspeedgraph wlan0 20,220 294F87 294F87}
-
-#S H O R T C U T    K E Y S
-#${hr}
-#Alt+F2$alignr Run Dialog
-#Alt+F3$alignr Alt Menu
-#Super+Space$alignr Main Menu
-#Super+Tab$alignr Client Menu
-#Super+t$alignr Terminal
-#Super+f$alignr File Manager
-#Super+e$alignr Editor
-#Super+m$alignr Media Player
-#Super+w$alignr Web Browser
-#Super+h$alignr Task Manager
-#Super+l$alignr Lock Screen
-#Super+v$alignr Volume Control
-#Super+x$alignr Logout
-#PrtSc$alignr Screenshot
