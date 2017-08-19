@@ -39,6 +39,14 @@ fn_display_usage() {
 	echo " -h, --help           Display this help message."
 	echo " --rsync-get-flags    Display the default rsync flags that are used for backup."
 	echo " --rsync-set-flags    Set the rsync flags that are going to be used for backup."
+	echo " --log-dir            Set the log file directory. If this flag is set, generated files will"
+	echo "                      not be managed by the script - in particular they will not be"
+	echo "                      automatically deleted."
+	echo "                      Default: $LOG_DIR"
+	echo ""
+	echo "For more detailed help, please see the README file:"
+	echo ""
+	echo "https://github.com/laurent22/rsync-time-backup/blob/master/README.md"
 }
 
 fn_parse_date() {
@@ -52,7 +60,7 @@ fn_parse_date() {
 }
 
 fn_find_backups() {
-	fn_run_cmd "find "$DEST_FOLDER" -type d -name "????-??-??-??????" -prune | sort -r"
+	fn_run_cmd "find "$DEST_FOLDER" -maxdepth 1 -type d -name "????-??-??-??????" -prune | sort -r"
 }
 
 fn_expire_backup() {
@@ -64,7 +72,7 @@ fn_expire_backup() {
 	fi
 
 	fn_log_info "Expiring $1"
-	fn_rm "$1"
+	fn_rm_dir "$1"
 }
 
 fn_parse_ssh() {
@@ -99,7 +107,12 @@ fn_mkdir() {
 	fn_run_cmd "mkdir -p -- '$1'"
 }
 
-fn_rm() {
+# Removes a file or symlink - not for directories
+fn_rm_file() {
+	fn_run_cmd "rm -f -- '$1'"
+}
+
+fn_rm_dir() {
 	fn_run_cmd "rm -rf -- '$1'"
 }
 
@@ -124,8 +137,10 @@ SSH_PORT="22"
 SRC_FOLDER=""
 DEST_FOLDER=""
 EXCLUSION_FILE=""
+LOG_DIR="$HOME/.$APPNAME"
+AUTO_DELETE_LOG="1"
 
-RSYNC_FLAGS="-D --compress --numeric-ids --links --hard-links --one-file-system --itemize-changes --times --recursive --perms --owner --group"
+RSYNC_FLAGS="-D --compress --numeric-ids --links --hard-links --one-file-system --itemize-changes --times --recursive --perms --owner --group --stats --human-readable"
 
 while :; do
 	case $1 in
@@ -145,6 +160,11 @@ while :; do
 		--rsync-set-flags)
 			shift
 			RSYNC_FLAGS="$1"
+			;;
+		--log-dir)
+			shift
+			LOG_DIR="$1"
+			AUTO_DELETE_LOG="0"
 			;;
 		--)
 			shift
@@ -226,19 +246,18 @@ KEEP_ALL_DATE=$((EPOCH - 86400))       # 1 day ago
 KEEP_DAILIES_DATE=$((EPOCH - 2678400)) # 31 days ago
 
 export IFS=$'\n' # Better for handling spaces in filenames.
-PROFILE_FOLDER="$HOME/.$APPNAME"
 DEST="$DEST_FOLDER/$NOW"
 PREVIOUS_DEST="$(fn_find_backups | head -n 1)"
 INPROGRESS_FILE="$DEST_FOLDER/backup.inprogress"
 MYPID="$$"
 
 # -----------------------------------------------------------------------------
-# Create profile folder if it doesn't exist
+# Create log folder if it doesn't exist
 # -----------------------------------------------------------------------------
 
-if [ ! -d "$PROFILE_FOLDER" ]; then
-	fn_log_info "Creating profile folder in '$PROFILE_FOLDER'..."
-	mkdir -- "$PROFILE_FOLDER"
+if [ ! -d "$LOG_DIR" ]; then
+	fn_log_info "Creating log folder in '$LOG_DIR'..."
+	mkdir -- "$LOG_DIR"
 fi
 
 # -----------------------------------------------------------------------------
@@ -247,10 +266,20 @@ fi
 
 if [ -n "$(fn_find "$INPROGRESS_FILE")" ]; then
 	if [ "$OSTYPE" == "cygwin" ]; then
-		# TODO: Cygwin reports the name of currently running Bash scripts as just "/usr/bin/bash"
-		# TODO: so the pgrep solution below won't work. Need to use "procps -wwFAH", grep
-		# TODO: the script name, and extract the process ID from it.
-		fn_log_warn "Cygwin only: Previous backup task has either been interrupted or it might still be active, but there is currently no check for this. Assuming that the task was simply interrupted."
+		# 1. Grab the PID of previous run from the PID file
+		RUNNINGPID="$(fn_run_cmd "cat $INPROGRESS_FILE")"
+
+		# 2. Get the command for the process currently running under that PID and look for our script name
+		RUNNINGCMD="$(procps -wwfo cmd -p $RUNNINGPID --no-headers | grep "$APPNAME")"
+
+		# 3. Grab the exit code from grep (0=found, 1=not found)
+		GREPCODE=$?
+
+		# 4. if found, assume backup is still running
+		if [ "$GREPCODE" = 0 ]; then
+			fn_log_error "Previous backup task is still active - aborting (command: $RUNNINGCMD)."
+			exit 1
+		fi
 	else 
 		RUNNINGPID="$(fn_run_cmd "cat $INPROGRESS_FILE")"
 		if [ "$RUNNINGPID" = "$(pgrep "$APPNAME")" ]; then
@@ -334,7 +363,7 @@ while : ; do
 	# Start backup
 	# -----------------------------------------------------------------------------
 
-	LOG_FILE="$PROFILE_FOLDER/$(date +"%Y-%m-%d-%H%M%S").log"
+	LOG_FILE="$LOG_DIR/$(date +"%Y-%m-%d-%H%M%S").log"
 
 	fn_log_info "Starting backup..."
 	fn_log_info "From: $SRC_FOLDER/"
@@ -352,7 +381,6 @@ while : ; do
 	fi
 	CMD="$CMD $LINK_DEST_OPTION"
 	CMD="$CMD -- '$SRC_FOLDER/' '$SSH_FOLDER_PREFIX$DEST/'"
-	CMD="$CMD | grep -E '^deleting|[^/]$'"
 
 	fn_log_info "Running command:"
 	fn_log_info "$CMD"
@@ -365,7 +393,6 @@ while : ; do
 	# Check if we ran out of space
 	# -----------------------------------------------------------------------------
 
-	# TODO: find better way to check for out of space condition without parsing log.
 	NO_SPACE_LEFT="$(grep "No space left on device (28)\|Result too large (34)" "$LOG_FILE")"
 
 	if [ -n "$NO_SPACE_LEFT" ]; then
@@ -385,25 +412,28 @@ while : ; do
 	# -----------------------------------------------------------------------------
 	# Check whether rsync reported any errors
 	# -----------------------------------------------------------------------------
-	if [ -n "$(grep "rsync:" "$LOG_FILE")" ]; then
-		fn_log_warn "Rsync reported a warning, please check '$LOG_FILE' for more details."
-	fi
+
+	EXIT_CODE="1"
 	if [ -n "$(grep "rsync error:" "$LOG_FILE")" ]; then
-		fn_log_error "Rsync reported an error, please check '$LOG_FILE' for more details."
-		exit 1
+		fn_log_error "Rsync reported an error. Run this command for more details: grep -E 'rsync:|rsync error:' '$LOG_FILE'"
+	elif [ -n "$(grep "rsync:" "$LOG_FILE")" ]; then
+		fn_log_warn "Rsync reported a warning. Run this command for more details: grep -E 'rsync:|rsync error:' '$LOG_FILE'"
+	else
+		fn_log_info "Backup completed without errors."
+		if [[ $AUTO_DELETE_LOG == "1" ]]; then
+			rm -f -- "$LOG_FILE"
+		fi
+		EXIT_CODE="0"
 	fi
 
 	# -----------------------------------------------------------------------------
-	# Add symlink to last successful backup
+	# Add symlink to last backup
 	# -----------------------------------------------------------------------------
 
-	fn_rm "$DEST_FOLDER/latest"
+	fn_rm_file "$DEST_FOLDER/latest"
 	fn_ln "$(basename -- "$DEST")" "$DEST_FOLDER/latest"
 
-	fn_rm "$INPROGRESS_FILE"
-	rm -f -- "$LOG_FILE"
+	fn_rm_file "$INPROGRESS_FILE"
 
-	fn_log_info "Backup completed without errors."
-
-	exit 0
+	exit $EXIT_CODE
 done
