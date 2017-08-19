@@ -8,14 +8,6 @@ cdl()
   cd "$1" && ls -al;
 }
 
-# Change working directory to the top-most 'Finder' window location
-# usage: `cdf`
-# TODO: with thunar for Debian
-cdf()
-{
-  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
-}
-
 # Create a new directory and enter it
 # usage: `mkc <dirname>`
 mkc()
@@ -42,7 +34,7 @@ new_script()
 
 # List todos in PWD recursively
 # usage: `list-todo <dirname>`
-ls_todo()
+list_todo()
 {
   grep \
     --exclude-dir="node_modules" \
