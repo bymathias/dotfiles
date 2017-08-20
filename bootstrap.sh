@@ -12,7 +12,9 @@ declare dot_directory="$HOME/.dotfiles"
 declare dot_symlinks=(.bashrc .bash_profile .gitconfig .vim .vimrc .tmux.conf .inputrc .curlrc .wgetrc .editorconfig .czrc)
 declare dot_gitinfos=(user.name user.email github.user)
 declare dot_gitrepos="https://github.com/bymathias/dotfiles.git"
-declare dot_tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+
+declare dot_tmpdir
+dot_tmpdir=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 
 # Add conky config for linux system
 if [[ "$OSTYPE" == "linux"* ]]; then
@@ -82,7 +84,7 @@ __download()
     curl -Lo "$out" "$url" --create-dirs &> /dev/null
     return $?
   elif __cmd_exists "wget"; then
-    mkdir -p "$(dirname $out)"
+    mkdir -p "$(dirname "$out")"
     wget -O "$out" "$url" &> /dev/null
     return $?
   fi

@@ -25,14 +25,6 @@ cd ~/.dotfiles
 ```
 Then reload the shell configuration.. `source ~/.bash_profile`, done.
 
-Setup terminal ([Terminator](https://launchpad.net/terminator)/[iTerm2](https://www.iterm2.com/)) applications
-```sh
-# Terminator
-mv ~/.config/terminator/config ~/.config/terminator/config-default.bak
-ln -sv ~/.dotfiles/init/terminator/default.config ~/.config/terminator/config
-# iTerm2
-open ~/.dotfiles/init/iTerm/default.itermcolors
-```
 ## Change Log
 
 All notable changes to this project will be documented in the [CHANGELOG](https://github.com/bymathias/dotfiles/blob/master/CHANGELOG.md).
