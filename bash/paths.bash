@@ -5,14 +5,13 @@ __export_d()
   [ -d "$1" ] && export PATH="$PATH:$1"
 }
 
-
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:$PATH"
-
-# Local bin scripts
-__export_d "$HOME/.dotfiles/bin"
 
 # Add RVM to PATH for scripting
 __export_d "$HOME/.rvm/bin"
+
+# Local bin scripts
+__export_d "$HOME/.dotfiles/bin"
 
 # Nginx
 __export_d "/opt/nginx/sbin"

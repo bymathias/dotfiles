@@ -37,9 +37,11 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'moll/vim-node'
   Plug 'elzr/vim-json', { 'for': 'json'}
   Plug 'hail2u/vim-css3-syntax'
+  Plug 'cakebaker/scss-syntax.vim'
   Plug 'othree/html5.vim'
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'mustache/vim-mustache-handlebars'
+  Plug 'posva/vim-vue'
   Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }

@@ -217,6 +217,14 @@ __bootstrap()
       fi
 
       ;;
+    "test")
+
+      echo "Test.."
+      if [[ "$OSTYPE" == "linux"* ]]; then
+        echo "linux os !"
+      fi
+
+      ;;
     "help"|*)
 
       echo "Usage:"
