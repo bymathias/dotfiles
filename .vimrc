@@ -250,6 +250,7 @@ set wildignore+=*.DS_Store,Icon
 set wildignore+=*/.git/*,*/.svn/*,*/.hg/*
 set wildignore+=*/node_modules/**
 set wildignore+=*/bower_components/**
+set wildignore+=*package-lock.json
 
 if has('autocmd')
 
@@ -559,7 +560,7 @@ silent! if HasPlugDirectory('nerdtree')
   let g:NERDTreeWinSize=25  " set nerdtree width
   let g:NERDTreeDirArrows=0
   " Ignore these files extensions
-  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components' ]
+  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components', 'package-lock.json' ]
 
   " Open NERDTree
   map <leader>n :NERDTreeToggle<cr>
@@ -766,6 +767,13 @@ endif
 " WRITING
 " ---------------------------------- "
 
+" vim-instant-markdown {{{
+silent! if HasPlugDirectory('vim-instant-markdown')
+
+  let g:instant_markdown_autostart = 0
+
+endif
+" }}}
 " goyo.vim {{{
 silent! if HasPlugDirectory('goyo.vim')
 
