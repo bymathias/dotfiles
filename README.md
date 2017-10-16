@@ -1,29 +1,15 @@
-# Mathias's [dotfiles](https://github.com/bymathias/dotfiles)
-
 [![Build Status](http://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square)](https://travis-ci.org/bymathias/dotfiles) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
-> Config files to setup a system (linux/macos) the way I want it, hopefully useful also for others.
+> Config files to setup a system (Debian/macOS) the way I want it, hopefully useful also for others.
 
-## Requirements
+## Quick start
 
-- [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/)
-- [vim](http://www.vim.org/)
-
-## Installation
-
-Run the `bootstrap.sh` script with the following one-liner.
-```sh
+To quickly get up and running on a new system with the minimal setup. Install [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [vim](http://www.vim.org/) and then run the following one-liner
+```bash
 curl -fsSL https://git.io/v1v4m | bash -s install
 # or
 wget -O - https://git.io/v1v4m | bash -s install
 ```
-Or manually, clone the repository with [git](https://git-scm.com/) and run the `bootstrap.sh` script.
-```sh
-git clone https://github.com/bymathias/dotfiles.git ~/.dotfiles
-
-cd ~/.dotfiles
-./bootstrap.sh install
-```
-Then reload the shell configuration.. `source ~/.bash_profile`, done.
+Reload the bash configuration, `source ~/.bash_profile`. Et voil&agrave;.
 
 ## Change Log
 

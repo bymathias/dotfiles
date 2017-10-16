@@ -35,7 +35,7 @@ if version > 580
 	endif
 endif
 
-let colors_name = "default"
+let colors_name = "wombat256mod"
 
 
 " General colors
@@ -122,5 +122,9 @@ hi Todo	      ctermfg=232 ctermbg=227 cterm=bold
 
 " Do not underline html link
 hi link htmlLink none
+
+" 80 characters delemiter
+" execute "set colorcolumn=" . join(range(81,81), ',')
+" hi ColorColumn ctermbg=235
 
 " vim:set ts=4 sw=4 noet:

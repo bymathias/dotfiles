@@ -84,6 +84,10 @@ silent! if plug#begin('~/.vim/plugins')
 
 endif
 
+" }}}
+
+" HELPER FUNCTIONS {{{
+
 " Check if plugin directory exists
 function! HasPlugDirectory(name)
   return isdirectory(glob(g:plug_home . '/' . a:name))
@@ -107,16 +111,16 @@ endfunction
 " filetype plugin indent on " Automatically detect file types, required
 syntax on
 
-" Color Scheme {{{
+" COLOR SCHEMES {{{
 
 if !has('gui_running')
   " Enable full-color support
   set t_Co=256
 endif
 
-" Use default colorscheme
 set background=dark
-colorscheme default
+colorscheme wombat256mod
+" colorscheme jellybeans
 
 " }}}
 
@@ -560,7 +564,7 @@ silent! if HasPlugDirectory('nerdtree')
   let g:NERDTreeWinSize=25  " set nerdtree width
   let g:NERDTreeDirArrows=0
   " Ignore these files extensions
-  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components', 'package-lock.json' ]
+  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components', 'package-lock.json', '.git' ]
 
   " Open NERDTree
   map <leader>n :NERDTreeToggle<cr>
@@ -602,7 +606,7 @@ silent! if HasPlugDirectory('MatchTagAlways')
   let g:mta_use_matchparen_group=0
   let g:mta_set_default_matchtag_color=0
 
-  " Colors match 'kivabien' theme
+  " Colors match `wombat256mod` theme
   hi MatchTag ctermfg=227 ctermbg=234
 
 endif
@@ -659,8 +663,8 @@ silent! if HasPlugDirectory('ultisnips')
   let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
   let g:UltiSnipsListSnippets='<C-L>'
 
-  let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
-  let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
+  let g:UltiSnipsSnippetsDir='~/.vim/_snippets'
+  let g:UltiSnipsSnippetDirectories=['UltiSnips', '_snippets']
 
 endif
 " }}}
@@ -774,6 +778,7 @@ silent! if HasPlugDirectory('vim-instant-markdown')
 
 endif
 " }}}
+
 " goyo.vim {{{
 silent! if HasPlugDirectory('goyo.vim')
 

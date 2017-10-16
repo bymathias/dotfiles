@@ -2,7 +2,7 @@
   "name": "dotfiles",
   "version": "0.3.2",
   "private": true,
-  "description": "Config files to setup a system (macOS/Debian) the way I want it.",
+  "description": "Config files to setup a system (Debian/macOS) the way I want it.",
   "author": "Mathias Brouilly",
   "license": "MIT",
   "homepage": "https://github.com/bymathias/dotfiles#readme",
@@ -14,14 +14,16 @@
     "url": "https://github.com/bymathias/dotfiles/issues"
   },
   "scripts": {
+    "docs": "docsify serve _docs",
     "prerelease": "npm install",
     "release": "npm version -m 'chore(release): v%s'",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add --all",
+    "version": "conventional-changelog -p angular -i docs/CHANGELOG.md -s && git add --all",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^1.2.0",
-    "cz-conventional-changelog": "^1.2.0"
+    "cz-conventional-changelog": "^1.2.0",
+    "docsify": "^4.3.8"
   },
   "config": {
     "commitizen": {

@@ -5,13 +5,10 @@
 
 DOT_BASH="$HOME/.dotfiles/bash"
 
-__source_e()
+__source_exist()
 {
   [ -r "$1" ] && [ -f "$1" ] && . "$1";
 }
-
-# Load RVM into a shell session *as a function*
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Bash configurations
 for i in config colors prompt paths aliases functions; do

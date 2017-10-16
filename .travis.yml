@@ -1,39 +1,36 @@
-language: generic
+language: bash
 
-# sudo: required
+os:
+  - linux
+  # - osx
 
 matrix:
   include:
     - env: ENV=debian
       os: linux
-      dist: jessie
-      addons:
-        apt: { sources: [debian-sid], packages: [shellcheck] }
-    - env: ENV=macos
-      os: osx
-      osx_image: xcode8
+      dist: stretch
+      sudo: required
+    # - env: ENV=macos
+    #   os: osx
+    #   osx_image: xcode8
 
 before_install:
   - git config --global user.name "Travis CI"
   - git config --global user.email "travis@travis-ci.org"
   - git config --global github.user "travis"
-  - npm install -g npm
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install shellcheck; fi
+  # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
 
 before_script:
-  - shellcheck *.sh .bash* bash/*.bash bash/aliases/* init/*
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
+  - shellcheck *.sh .bash* bash/*.bash bash/aliases/*
 
 script:
   - ./bootstrap.sh install
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh init/brew; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh init/debian; fi
-  - sh init/npm-global
 
 notifications:
   email: true
