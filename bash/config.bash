@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 # Don't put duplicate lines in the history
 export HISTCONTROL=ignoredups

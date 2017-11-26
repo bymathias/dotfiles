@@ -6,9 +6,9 @@
 
 __git_info()
 {
-	local s=""
-	local branchName=""
-	local releaseTag=""
+  local s=""
+  local branchName=""
+  local releaseTag=""
 
 	# Check if the current directory is in a Git repository
 	if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}")" == "0" ]; then
@@ -69,8 +69,8 @@ PS1+="\$(__git_info \"\[$cyan\]on \[${blue}\]\" \"\[${red}\]\" \"\[${green}\]\")
 PS1+="\[${cyan}\]in "
 PS1+="\[${purple}\]\w"   # Working directory full path
 PS1+="\n"
-PS1+="\[${cyan}\]> \[${reset}\]"
+PS1+="\[${cyan}\]>> \[${reset}\]"
 export PS1
 
-PS2="\[${cyan}\]~ \[${reset}\]"
+PS2="\[${cyan}\]> \[${reset}\]"
 export PS2

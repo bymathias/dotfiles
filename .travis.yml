@@ -33,5 +33,5 @@ script:
   - ./bootstrap.sh install
 
 notifications:
-  email: true
+  email: false
   irc: false

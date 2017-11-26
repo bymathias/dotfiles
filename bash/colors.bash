@@ -2,7 +2,6 @@
 # shellcheck disable=SC2034
 
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-
   # Reset colors
 	tput sgr0
 
@@ -18,9 +17,7 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	red=$(tput setaf 203)
 	white=$(tput setaf 252)
 	yellow=$(tput setaf 186)
-
 else
-
   # Reset colors
 	reset="\e[0m"
 
@@ -35,5 +32,4 @@ else
 	red="\e[0;31m"
 	white="\e[0;37m"
 	yellow="\e[0;33m"
-
 fi

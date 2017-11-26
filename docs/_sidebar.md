@@ -1,5 +1,0 @@
-- [Home](/)
-- [Installation](INSTALLATION.md)
-- [Cheatsheet](cheatsheet.md)
-- [Contributing](contributing.md)
-- [Changelog](changelog.md)

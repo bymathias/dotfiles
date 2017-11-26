@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -e
+
+# Ask for admin password upfront
+sudo -v
+
+# Update, upgrade
+sudo apt-get update
+sudo apt-get -y dist-upgrade
+
+# -------------------------------------------
+
+# Terminal
+sudo apt-get install -y terminator
+
+# Web browsers
+sudo apt-get install -y iceweasel
+sudo apt-get install -y chromium
+
+# Office tools
+sudo apt-get install -y keepassx
+sudo apt-get install -y libreoffice
+
+# Graphic tools
+sudo apt-get install -y inkscape
+sudo apt-get install -y gimp
+sudo apt-get install -y gpick
+sudo apt-get install -y trimage
+sudo apt-get install -y digikam
+
+# Data transfer
+sudo apt-get install -y filezilla
+sudo apt-get install -y transmission-gtk
+
+# Video and editing
+sudo apt-get install -y vlc
+
+# Security
+sudo apt-get install -y gufw
+
+# Font editor
+sudo apt-get install -y fontforge
+
+# Custom fonts
+sudo apt-get install -y fonts-inconsolata
+sudo apt-get install -y fonts-droid
+
+# -------------------------------------------
+
+## Final upgrade and clean up
+sudo apt-get upgrade
+sudo apt-get autoremove
+sudo apt-get clean

@@ -77,6 +77,7 @@ silent! if plug#begin('~/.vim/plugins')
 
   " TMUX
   Plug 'tmux-plugins/vim-tmux'
+  Plug 'tmux-plugins/vim-tmux-focus-events'
 
   " ------------------------------------
   " Add plugins to &runtimepath
@@ -564,7 +565,7 @@ silent! if HasPlugDirectory('nerdtree')
   let g:NERDTreeWinSize=25  " set nerdtree width
   let g:NERDTreeDirArrows=0
   " Ignore these files extensions
-  let g:NERDTreeIgnore=[ '\.DS_Store$', '\.swp$', 'node_modules', 'bower_components', 'package-lock.json', '.git' ]
+  let g:NERDTreeIgnore=['\.DS_Store$', '\.swp$', 'node_modules', 'bower_components', 'package-lock.json']
 
   " Open NERDTree
   map <leader>n :NERDTreeToggle<cr>

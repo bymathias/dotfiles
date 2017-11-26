@@ -65,12 +65,12 @@ ${color3}CPU
 ${color2}${top name 1}${color3}${alignc}${top pid 1}${alignr 30}${top cpu 1}${alignr}${top mem 1}
 ${color2}${top name 2}${color3}${alignc}${top pid 2}${alignr 30}${top cpu 2}${alignr}${top mem 2}
 ${color2}${top name 3}${color3}${alignc}${top pid 3}${alignr 30}${top cpu 3}${alignr}${top mem 3}
-# ${color2}${top name 4}${color3}${alignc}${top pid 4}${alignr 30}${top cpu 4}${alignr}${top mem 4}
+${color2}${top name 4}${color3}${alignc}${top pid 4}${alignr 30}${top cpu 4}${alignr}${top mem 4}
 ${color3}MEMORY
 ${color2}${top_mem name 1}${color3}${alignc}${top_mem pid 1}${alignr 30}${top_mem cpu 1}${alignr}${top_mem mem 1}
 ${color2}${top_mem name 2}${color3}${alignc}${top_mem pid 2}${alignr 30}${top_mem cpu 2}${alignr}${top_mem mem 2}
 ${color2}${top_mem name 3}${color3}${alignc}${top_mem pid 3}${alignr 30}${top_mem cpu 3}${alignr}${top_mem mem 3}
-# ${color2}${top_mem name 4}${color3}${alignc}${top_mem pid 4}${alignr 30}${top_mem cpu 4}${alignr}${top_mem mem 4}
+${color2}${top_mem name 4}${color3}${alignc}${top_mem pid 4}${alignr 30}${top_mem cpu 4}${alignr}${top_mem mem 4}
 ${color3}${alignc -15}PID${alignr 20}CPU%${alignr}MEM%
 
 ${color1}F I L E    S Y S T E M  ${hr 1}

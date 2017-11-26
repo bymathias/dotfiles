@@ -1,41 +1,52 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2164
 
+# ########################################## #
 # Enter a directory and list files
-# usage: `cdl <dirname>`
-cdl()
-{
+#   usage: `cdl <dirname>`
+# ########################################## #
+
+cdl() {
   cd "$1" && ls -al;
 }
 
+# ########################################## #
 # Create a new directory and enter it
-# usage: `mkc <dirname>`
-mkc()
-{
+#   usage: `mkc <dirname>`
+# ########################################## #
+
+mkc() {
   mkdir -p "$1" && cd "$1";
 }
 
+# ########################################## #
 # Copy w/ progress
-# usage: `cpp <inpout> <output>`
-cpp()
-{
+#   usage: `cpp <inpout> <output>`
+# ########################################## #
+
+cpp() {
   rsync -WavP --human-readable --progress "$1" "$2"
 }
 
-# New script
-# usage: `new_script <filename>`
-new_script()
-{
+# ########################################## #
+# Create new bash script
+#   usage: `new_script <filename>`
+# ########################################## #
+
+new_script() {
   [[ -e "$1" ]] && echo "'$1' already exists" && return
   echo "#!/usr/bin/env bash" > "$1" && \
   chmod a+x "$1" && \
     vim "$1"
 }
 
+
+# ########################################## #
 # List todos in PWD recursively
-# usage: `list-todo <dirname>`
-list_todo()
-{
+#   usage: `list-todo <dirname>`
+# ########################################## #
+
+list_todo() {
   grep \
     --exclude-dir="node_modules" \
     --exclude-dir="bower_components" \
@@ -43,11 +54,13 @@ list_todo()
     -rnw "$1" -e "TODO:"
 }
 
+# ########################################## #
 # Colored man pages with less command
-# see: http://bit.ly/IqWXtu
-# usage: `man <cmd>`
-man()
-{
+#   see: http://bit.ly/IqWXtu
+#   usage: `man <cmd>`
+# ########################################## #
+
+man() {
   env \
     LESS_TERMCAP_mb="$(printf '\033[1;31m')" \
     LESS_TERMCAP_md="$(printf '\033[1;31m')" \
