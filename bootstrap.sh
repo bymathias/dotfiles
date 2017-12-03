@@ -4,14 +4,12 @@
 # Install, uninstall and update the .dotfiles
 #   see: https://github.com/bymathias/dotfiles
 
-set -euo pipefail
+# set -euo pipefail
 
 
 directory_dot=".dotfiles"
 directory_tmp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 file_symlinks=(.bashrc .bash_profile .vim .vimrc .editorconfig .gitconfig .curlrc .wgetrc .tmux.conf)
-
-echo $OSTYPE
 
 # ================================================
 #   Helper functions
