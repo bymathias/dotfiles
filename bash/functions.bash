@@ -40,6 +40,15 @@ new_script() {
     vim "$1"
 }
 
+# ########################################## #
+# New site directories
+#   usage: `new_site <dirname>`
+# ########################################## #
+
+new_site() {
+  mkdir -p "$HOME/Sites/$1/logs/" && \
+    mkdir -p "$HOME/Sites/$1/public_html/"
+}
 
 # ########################################## #
 # List todos in PWD recursively

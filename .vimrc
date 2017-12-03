@@ -7,6 +7,7 @@
 
 
 set nocompatible " Vim not vi
+scriptencoding utf-8
 " filetype off     " Required
 
 " PLUGINS {{{
