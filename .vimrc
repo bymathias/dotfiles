@@ -46,7 +46,7 @@ silent! if plug#begin('~/.vim/plugins')
   Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'dsawardekar/wordpress.vim', { 'for': 'php' }
-  Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
+  Plug 'vim-scripts/nginx.vim'
   Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'markcornick/vim-bats'
   Plug 'maksimr/vim-jsbeautify'
