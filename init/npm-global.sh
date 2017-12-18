@@ -22,5 +22,3 @@ npm install -g conventional-changelog-cli
 
 # Videos tools
 npm install -g youtube-dl
-npm install -g peerflix
-npm install -g termflix

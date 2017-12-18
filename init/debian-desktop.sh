@@ -14,37 +14,31 @@ sudo apt-get -y dist-upgrade
 # Terminal
 sudo apt-get install -y terminator
 
-# Web browsers
-sudo apt-get install -y iceweasel
-sudo apt-get install -y chromium
-
 # Office tools
+sudo apt-get install -y geary
 sudo apt-get install -y keepassx
 sudo apt-get install -y libreoffice
 
-# Graphic tools
+# Graphic tools and fonts
+sudo apt-get install -y digikam
 sudo apt-get install -y inkscape
 sudo apt-get install -y gimp
 sudo apt-get install -y gpick
 sudo apt-get install -y trimage
-sudo apt-get install -y digikam
+sudo apt-get install -y fontforge
+
+# Security
+sudo apt-get install -y gufw
 
 # Data transfer
 sudo apt-get install -y filezilla
 sudo apt-get install -y transmission-gtk
 
-# Video and editing
+# Media
 sudo apt-get install -y vlc
 
-# Security
-sudo apt-get install -y gufw
-
-# Font editor
-sudo apt-get install -y fontforge
-
-# Custom fonts
-sudo apt-get install -y fonts-inconsolata
-sudo apt-get install -y fonts-droid
+# Backup
+sudo apt-get install -y deja-dup
 
 # -------------------------------------------
 

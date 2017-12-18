@@ -264,7 +264,7 @@ if has('autocmd')
 
   augroup complete_html
     autocmd!
-    autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType html,markdown,heml set omnifunc=htmlcomplete#CompleteTags
   augroup END
 
   augroup complete_css
@@ -340,6 +340,12 @@ if has('autocmd')
     autocmd!
     " These are markdown file
     autocmd BufNewFile,BufRead *.{markdown,md,mkd} set ft=markdown
+  augroup END
+
+  augroup filetype_heml
+    autocmd!
+    " These are markdown file
+    autocmd BufNewFile,BufRead *.heml set ft=html
   augroup END
 
   augroup filetype_nginx

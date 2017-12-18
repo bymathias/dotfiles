@@ -27,7 +27,7 @@ install:
 
 before_script:
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
-  - shellcheck *.sh .bash* bash/*.bash bash/aliases/*
+  - shellcheck *.sh .bash* bash/*.bash init/*
 
 script:
   - ./bootstrap.sh install

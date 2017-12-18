@@ -90,6 +90,11 @@ _bootstrap() {
       vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
 
       ;;
+    "test")
+
+      echo "Test.."
+
+      ;;
     "help"|*)
       echo "Usage:"
       echo ""
