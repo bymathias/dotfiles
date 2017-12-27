@@ -1,0 +1,43 @@
+# ref: github.com/github/gitignore
+
+# VIM
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+Session.vim
+.netrwhist
+*~
+tags
+
+# ARCHIVES
+# git has its own built in compression
+*.zip
+*.7z
+*.jar
+*.rar
+*.tar
+*.gz
+*.dmg
+*.iso
+
+# DATABASES
+*.sql
+*.sqlite
+
+# NODE.JS
+logs
+*.log
+npm-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+.grunt
+node_modules
+jspm_packages
+.npm
+.eslintcache
+*.tgz
+
+# BOWER
+bower_components

@@ -1,2 +1,5 @@
+# ref: github.com/github/gitignore
+
+# VIM
 vim/plugins/*
 vim/autoload/plug.vim.old

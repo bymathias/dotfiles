@@ -1,6 +1,6 @@
 [core]
   editor = vim
-  excludesfile = "~/.dotfiles/git/.gitignore_global"
+  excludesfile = "~/.dotfiles/git/gitignore_global"
   whitespace = trailing-space,space-before-tab
 [branch]
   autosetupmerge = true
