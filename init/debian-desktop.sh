@@ -11,6 +11,20 @@ sudo apt-get -y dist-upgrade
 
 # -------------------------------------------
 
+# Image optimisation
+sudo apt-get install -y imagemagick
+
+# exFAT support
+sudo apt-get install -y exfat-utils exfat-fuse
+
+# A shell script static analysis tool
+sudo apt-get install -y shellcheck
+
+# Syntax highlighting package
+#sudo apt-get install python-pygments
+
+# -------------------------------------------
+
 # Terminal
 sudo apt-get install -y terminator
 

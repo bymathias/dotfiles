@@ -8,10 +8,10 @@ __source_exists "/etc/bash_completion"
 # Enable nvm completions
 __source_exists "$HOME/.nvm/bash_completion"
 
-# # Enable NPM completions, if `npm` is installed
+# Enable NPM completions, if `npm` is installed
 if __command_exists npm; then
   source <(npm completion)
 fi
 
-# # Enable WP-CLI completions
+# Enable WP-CLI completions
 # __source "$DOT_BASH/completions/wp_completion.bash"

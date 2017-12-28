@@ -13,9 +13,7 @@ npm install -g instant-markdown-d
 
 # Web development tools
 npm install -g js-beautify
-npm install -g docco
 npm install -g jsdoc
-npm install -g ungit
 npm install -g commitizen
 npm install -g cz-conventional-changelog
 npm install -g conventional-changelog-cli

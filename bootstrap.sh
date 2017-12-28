@@ -4,17 +4,15 @@
 # Install, uninstall and update the .dotfiles
 #   see: https://github.com/bymathias/dotfiles
 
-# set -euo pipefail
-
-
-tmp_directory=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
-ext_backup="$(date +'%Y-%m-%d').backup"
+set -euo pipefail
 
 dot_directory="$HOME/.dotfiles"
 file_symlinks=(bashrc bash_profile vim vimrc editorconfig gitconfig curlrc wgetrc tmux.conf)
+git_repository="https://github.com/bymathias/dotfiles.git"
 
 git_infos=(user.name user.email github.user)
-git_repository="https://github.com/bymathias/dotfiles.git"
+tmp_directory=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+ext_backup="$(date +'%Y-%m-%d').backup"
 
 # ================================================
 #   Helper functions
@@ -22,7 +20,7 @@ git_repository="https://github.com/bymathias/dotfiles.git"
 
 # Print output underlined
 fn_print_info() {
-  printf "\n\e[0;4m$1\e[0m\n"
+  printf "\n[i] \e[0;4m$1\e[0m\n"
 }
 
 # Print output in green
@@ -53,6 +51,15 @@ fn_ask_is_yes() {
 	[[ "$REPLY" =~ ^[Yy]$ ]] && return 0 || return 1
 }
 
+# Return 0 if this is a desktop environment
+fn_env_is_desktop() {
+  [[ ! -z $DESKTOP_SESSION ]] && return 0 || return 1
+}
+
+fn_print_log() {
+  [[ "$1" -ne 0 ]] && fn_print_error "$2 failed" || fn_print_success "$2"
+}
+
 # Check if command exists
 fn_cmd_exists() {
   command -v "$1" > /dev/null 2>&1
@@ -67,13 +74,12 @@ fn_file_remove() {
   fi
 }
 
+# Symlink helper
 fn_file_symlink() {
-  local link="$2$1"
-
-  fn_file_remove "$link"
-  ln -sv "$dot_directory/$1" "$link"
+  fn_file_remove "$2" && ln -sv "$1" "$2"
 }
 
+# Edit `gitconfig` user infos
 fn_edit_gitconfig() {
   local info
   info=$(git config --global --get "$1" || echo "")
@@ -97,45 +103,84 @@ fn_bootstrap() {
     return
   fi
   case "$1" in
-
     "install")
+      # =========================================================
+      # - Edit `.gitconfig` user infos, ASK user if none found
+      # - Symlink `.dotfiles` files in home directory
+      # - Vim plugins installation with vim-plug
+      # - If desktop env, symlink app's config files
 
-      fn_print_info "Edit \"git\" infos user.."
+      fn_print_info "Edit '.gitconfig' user infos"
       for i in "${git_infos[@]}"; do
         fn_edit_gitconfig "$i"
       done
 
-      fn_print_info "Symlink .dotfiles to home.."
+      fn_print_info "Symlink '.dotfiles' files to '$dot_directory'"
       for i in "${file_symlinks[@]}"; do
-        fn_file_symlink "$i" "$HOME/."
-      done
+        fn_file_symlink "$dot_directory/$i" "$HOME/.$i"
+      done \
+        && fn_print_log "$?" "Symlink done"
 
-      fn_print_info "Install vim plugins.."
-      vim +PlugInstall +qall
+      fn_print_info "Vim plugins with vim-plug"
+      vim +PlugInstall +qall \
+        && fn_print_log "$?" "Vim install"
+
+
+      if fn_env_is_desktop; then
+        if fn_cmd_exists "terminator"; then
+          fn_file_symlink "$dot_directory/config/terminator/terminator.config" \
+            "$HOME/.config/terminator/config"
+        fi
+        if fn_cmd_exists "conky"; then
+          fn_file_symlink "$dot_directory/config/conky/conkyrc" \
+            "$HOME/.conkyrc"
+        fi
+      fi
 
       ;;
-
     "uninstall")
+      # =========================================================
+      # - Remove `.dotfiles` symlinks in home directory
+      # - Remove/backup `.dotfiles` directory
+      # - If desktop env, remove symlink app's config files
 
-      fn_print_info "Remove symlinks and move .dotfiles folder.."
       for i in "${file_symlinks[@]}"; do
         fn_file_remove "$i"
       done
+
       fn_file_remove "$dot_directory"
 
+      if fn_env_is_desktop; then
+        if fn_cmd_exists "terminator"; then
+          fn_file_remove "$HOME/.config/terminator/config"
+        fi
+        if fn_cmd_exists "conky"; then
+          fn_file_remove "$HOME/.conkyrc"
+        fi
+      fi
+
       ;;
-
     "update")
+      # =========================================================
+      # - Vim plugins with vim-plug
+      #   - Remove unused directories (bang version will clean without prompt)
+      #   - Upgrade vim-plug itself
+      #   - Install or update plugins
 
-      # Vim plugins with vim-plug
-      # - Remove unused directories (bang version will clean without prompt)
-      # - Upgrade vim-plug itself
-      # - Install or update plugins
       vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
 
       ;;
+    "test")
+      # =========================================================
 
+      fn_print_info "Print info"
+      fn_print_success "Print success"
+      fn_print_error "Print error"
+      fn_print_question "Print question"
+
+      ;;
     "help"|*)
+      # =========================================================
 
       echo "Usage:"
       echo ""

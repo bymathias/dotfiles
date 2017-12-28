@@ -6,6 +6,8 @@
   autosetupmerge = true
 [push]
   default = tracking
+[commit]
+  template = "~/.dotfiles/git/gitmessage"
 [color]
   diff = auto
   status = auto
