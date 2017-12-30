@@ -9,8 +9,10 @@ set -e
 
 dot_directory="$HOME/.dotfiles"
 file_symlinks=(bashrc bash_profile vim vimrc editorconfig gitconfig curlrc wgetrc tmux.conf)
-# git_repository="https://github.com/bymathias/dotfiles.git"
+
 git_infos=(user.name user.email github.user)
+git_repository="https://github.com/bymathias/dotfiles.git"
+git_repository_zip="https://github.com/bymathias/dotfiles.git"
 
 #tmp_directory=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 ext_backup="$(date +'%Y-%m-%d').backup"
@@ -46,19 +48,6 @@ fn_print_log() {
     fn_print_success "$2"
   fi
 }
-
-# Ask question, timeout after 8s with 'Yes' as default.
-# fn_ask() {
-#   fn_print_question "$1 (y/n)"
-#   read -n 1 -t 8
-#   REPLY=${REPLY:-y}
-#   printf "\n"
-# }
-
-# Return 0 if the answer is y/yes/Y/Yes
-# fn_ask_is_yes() {
-# 	[[ "$REPLY" =~ ^[Yy]$ ]] && return 0 || return 1
-# }
 
 # Check if command exists
 fn_cmd_exists() {
@@ -153,7 +142,7 @@ fn_bootstrap() {
 
       fn_print_info "Remove \".dotfiles\" symlinks.."
       for i in "${file_symlinks[@]}"; do
-        fn_file_remove "$i"
+        fn_file_remove "$HOME/$i"
       done
 
       fn_print_info "Backup \".dotfiles\" directory.."
@@ -181,15 +170,6 @@ fn_bootstrap() {
       fn_print_info "Update Vim plugins with vim-plug.."
       vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
       fn_print_log "$?" "Vim update"
-
-      ;;
-    "test")
-      # =========================================================
-
-      fn_print_info "Print info"
-      fn_print_success "Print success"
-      fn_print_error "Print error"
-      fn_print_question "Print question"
 
       ;;
     "help"|*)
