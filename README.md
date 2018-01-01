@@ -3,20 +3,29 @@
 
 ## Requirements
 
-- [git]()
-- [vim]()
+- [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/)
 
-## Installation
+## Quick start
 
-Clone the repository and run the `bootstrap.sh` script.
+To get up and running on a new system, run the following one-liner
 ```bash
-git clone --depth 1 https://github.com/bymathias/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+bash <(i=https://git.io/v1v4m && curl -fsSL $i || wget -O - $i) install
+```
+then reload the shell configuration
+```bash
+source ~/.bash_profile
+```
+Et voil&agrave;.
 
+_(optional)_ To enable all the features, install the dependencies and tools
+```bash
+# `apt` debian libraries
+# `npm` IF node.js is installed
+./init/dotfiles.sh
+
+# then re-run bootstrap install
 ./bootstrap.sh install
 ```
-Reload the config, `source ~/.bash_profile`. Et voil&agrave;.
-
 ## Usage
 
 ...

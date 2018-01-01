@@ -11,7 +11,6 @@ sudo apt-get -y dist-upgrade
 
 # -------------------------------------------
 
-# Install build tools libraries required
 sudo apt-get install -y build-essential libssl-dev cmake libpcre3-dev
 
 # Data transfer tools
@@ -36,6 +35,28 @@ sudo apt-get install -y xdg-utils
 sudo apt-get install -y exuberant-ctags
 # EditorConfig, required by editorconfig-vim
 sudo apt-get install -y editorconfig
+
+# Image optimisation
+sudo apt-get install -y imagemagick
+
+# A shell script static analysis tool
+sudo apt-get install -y shellcheck
+
+# Syntax highlighting package
+sudo apt-get install python-pygments
+
+# -------------------------------------------
+
+if command -v "npm" > /dev/null 2>&1; then
+  # Update npm
+  npm install -g npm
+
+  # Vim dependencies
+  # csscomb, required by vim 'vim-csscomb' plugin
+  npm install -g csscomb
+  # instant-markdown-d, required by vim 'vim-instant-markdown' plugin
+  npm install -g instant-markdown-d
+fi
 
 # -------------------------------------------
 

@@ -11,17 +11,8 @@ sudo apt-get -y dist-upgrade
 
 # -------------------------------------------
 
-# Image optimisation
-sudo apt-get install -y imagemagick
-
 # exFAT support
 sudo apt-get install -y exfat-utils exfat-fuse
-
-# A shell script static analysis tool
-sudo apt-get install -y shellcheck
-
-# Syntax highlighting package
-#sudo apt-get install python-pygments
 
 # -------------------------------------------
 
@@ -54,6 +45,24 @@ sudo apt-get install -y vlc
 # Backup
 sudo apt-get install -y deja-dup
 
+# -------------------------------------------
+
+if command -v "npm" > /dev/null 2>&1; then
+  # Update npm
+  npm install -g npm
+
+  # Javascript tools
+  npm install -g js-beautify
+  npm install -g jsdoc
+
+  # Git helpers
+  npm install -g commitizen
+  npm install -g cz-conventional-changelog
+  npm install -g conventional-changelog-cli
+
+  # Videos tools
+  npm install -g youtube-dl
+fi
 # -------------------------------------------
 
 ## Final upgrade and clean up

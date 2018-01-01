@@ -126,7 +126,13 @@ _bootstrap() {
         _symlink "$directory/$i" "$HOME/.$i"
       done
 
-      vim +PlugInstall +qall
+      if _cmd "vim"; then
+        if [[ -d "$directory/vim/plugins" ]]; then
+          vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
+        else
+          vim +PlugInstall +qall
+        fi
+      fi
 
       if _desktop; then
         if _cmd "terminator"; then
@@ -155,15 +161,10 @@ _bootstrap() {
       _remove "$directory"
 
       ;;
-    "update"|"u")
-
-      vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
-
-      ;;
     "help"|*)
 
       echo "Usage:"
-      echo -e "\t./bootstrap.sh [ install | uninstall | update | help ]"
+      echo -e "\t./bootstrap.sh [ install | uninstall | help ]"
 
       ;;
   esac
