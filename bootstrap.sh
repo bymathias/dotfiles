@@ -1,107 +1,135 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+#
+# Install, update and remove .dotfiles
+# url: https://github.com/bymathias/dotfiles
+#
+
+# -e: Exit immediately if a command exits with a non-zero status.
+# -u: Treat unset variables as an error when substituting.
+set -eu
 
 
-directory="$HOME/.dotfiles"
-symlinks=(bashrc bash_profile vim vimrc editorconfig gitconfig curlrc wgetrc tmux.conf)
+# GLOBAL CONSTANTS
+# ------------------------------------------------------- #
 
-gitconfig=(user.name user.email github.user)
-repository="https://github.com/bymathias/dotfiles"
+local_directory="$HOME/.dotfiles"
+home_symlinks=(bashrc bash_profile vim vimrc editorconfig gitconfig curlrc wgetrc tmux.conf)
 
-extbackup="$(date +'%Y-%m-%d').backup"
+git_repo_owner='bymathias'
+git_edit_infos=(user.name user.email github.user)
+git_repo_url="https://github.com/$git_repo_owner/dotfiles"
 
-# ================================================ #
-#   Helper functions
-# ================================================ #
+# tmp_directory=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+ext_backup="$(date +'%Y-%m-%d').backup"
+
+# HELPER FUNCTIONS
+# ------------------------------------------------------- #
+
+# Print usage
+_log_usage() {
+  cat <<EOF
+
+Usage:
+
+  $1 [ install | i | update | u ]
+  $1 [ remove | r ]
+  $1 [ help | h ]
+
+Report bugs to '$git_repo_url'
+EOF
+}
+
+# Prompt user
+_ask_user() {
+  printf "\e[0;33m[?] %s: \e[0m" "$1"
+  read -r -n 1 -t 25
+  printf "\n%s\n" "$REPLY"
+}
 
 # Check if the command exists
-_cmd() {
-  command -v "$1" > /dev/null 2>&1 \
-    && return 0 \
-    || return 1
+_cmd_exists() {
+  declare cmd=$1
+  local status
+
+  command -v "$cmd" > /dev/null 2>&1
+  status=$?
+  if [[ "$status" == 0 ]]; then
+    printf "'%s' installed\n" "$cmd"
+  else
+    printf "'%s' not installed\n" "$cmd"
+  fi
+  return $status
 }
 
-# Check if this is a desktop environment
-_desktop() {
-  [[ -n $DESKTOP_SESSION ]] \
-    && return 0 \
-    || return 1
-}
-
-# Check the owner of the git repository
-_dotfiles() {
-  command grep -R "$1" "$directory/.git/config" > /dev/null 2>&1 \
-    && return 0 \
-    || return 1
+# Check git repository owner
+_dotfiles_owner() {
+  _cmd_exists "git" \
+    && command grep -R "$1" "$local_directory/.git/config" > /dev/null 2>&1
 }
 
 # Remove symlinks and move files/directories
-_remove() {
+_file_remove() {
   if [ -h "$1" ]; then
     rm -v "$1"
   elif [ -f "$1" ] || [ -d "$1" ]; then
-    mv -v "$1" "$1.$extbackup"
+    mv -v "$1" "$1.$ext_backup"
   fi
 }
 
 # Remove symlink if any and create a new symlink
-_symlink() {
-  _remove "$2" \
-    && ln -sv "$1" "$2"
+_file_symlink() {
+  _file_remove "$2" && ln -sv "$1" "$2"
 }
 
-# Use git, curl or wget to download repository
-_download() {
-  declare url=$1 dir=$2
-  local cmd
+# Use git, curl or wget to download Github repository
+_download_repository() {
+	declare url=$1 dir=$2
+	local cmd
 
-  if [[ -d "$dir" ]]; then
-    echo "'$dir' directory already exists"
-
-    echo "Would you like to remove it (backup -> '$dir.$extbackup') ? (y/n): "
-    read -n 1 -t 10
+	if [[ -d "$dir" ]]; then
+    echo "'$dir' already exists !"
+    _ask_user "Would you like to remove it (backup -> '$dir.$ext_backup') ? (y/n)"
     REPLY=${REPLY:-y}
-    echo ""
 
-    [[ "$REPLY" =~ ^[Yy]$ ]] && _remove "$dir" || return 1
+    [[ "$REPLY" =~ ^[Yy]$ ]] && _file_remove "$dir" || return 1
   fi
 
-  if _cmd "git"; then
+  if _cmd_exists "git"; then
     command git clone --depth 1 "$url.git" "$dir"
     return 0
-  elif _cmd "curl"; then
+  elif _cmd_exists "curl"; then
     cmd="curl -#L"
-  elif _cmd "wget"; then
+  elif _cmd_exists "wget"; then
     cmd="wget --no-check-certificate -O -"
   fi
 
   if [ -n "$cmd" ]; then
-    command mkdir -p "$dir"
+    command mkdir -pv "$dir"
     command $cmd "$url/tarball/master" \
-      | tar -xzv -C $dir --strip-components=1 --exclude='{.gitignore}' > /dev/null 2>&1
+      | tar -xzv -C $dir --strip-components=1 > /dev/null 2>&1
   else
-    echo "No git, curl or wget available. Aborting."
-    exit 1
+    echo "No git, curl or wget available. Aborting.."
+    return 1
   fi
 }
 
-_gitconfig() {
+# Edit `.gitconfig` user info and ask if none found
+_edit_gitconfig() {
   local info
   info=$(git config --global --get "$1" || echo "")
 
   if [ -z "$info" ]; then
-    echo "Enter your git \"$1\": "
-    read -r -t 10 ans
-    info=$ans
+    _ask_user "Enter your git '$1': "
+    info=$REPLY
   fi
 
-  git config --file "$directory/gitconfig" --replace-all "$1" "$info"
+  git config --file "$local_directory/gitconfig" --replace-all "$1" "$info" \
+		&& echo "Git '$1' edited to '$info'"
 }
 
-# ================================================ #
-#   Main function
-# ================================================ #
+# MAIN FUNCTION
+# ------------------------------------------------------- #
 
 _bootstrap() {
   if [ $# -ne 1 ]; then
@@ -109,65 +137,79 @@ _bootstrap() {
     return
   fi
 
-  case "$1" in
-    "install"|"i")
-
-      if _dotfiles "bymathias"; then
-        (cd $directory && command git pull origin master)
+	case "$1" in
+    # ------------------------------------- #
+    "install"|"update")
+      if _dotfiles_owner "$git_repo_owner"; then
+        # Fetch last changes from '$git_repo_url'
+        (cd $local_directory && command git pull origin master || exit 1)
       else
-        _download "$repository" "$directory"
+        # Download '$git_repo_url' using git, curl or wget
+        _download_repository "$git_repo_url" "$local_directory"
       fi
 
-      for i in "${gitconfig[@]}"; do
-        _gitconfig "$i"
+			# Edit '.gitconfig' user infos
+			for i in ${git_edit_infos[@]}; do
+        _edit_gitconfig "$i"
+			done
+
+      # Symlink '.dotfiles' in home
+      for i in "${home_symlinks[@]}"; do
+        _file_symlink "$local_directory/$i" "$HOME/.$i"
       done
 
-      for i in "${symlinks[@]}"; do
-        _symlink "$directory/$i" "$HOME/.$i"
-      done
-
-      if _cmd "vim"; then
-        if [[ -d "$directory/vim/plugins" ]]; then
+      # If Vim is installed, install or update plugins
+      # Using vim-plug to manage vim plugins
+      if _cmd_exists "vim"; then
+        if [[ -d "$local_directory/vim/plugins" ]]; then
           vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
         else
           vim +PlugInstall +qall
         fi
+        echo "Vim setup done"
       fi
 
-      if _desktop; then
-        if _cmd "terminator"; then
-          _symlink "$directory/config/terminator/terminator.config" "$HOME/.config/terminator/config"
-        fi
-        if _cmd "conky"; then
-          _symlink "$directory/config/conky/conkyrc" "$HOME/.conkyrc"
-        fi
+      # DESKTOP: Symlink app's configuration
+      if _cmd_exists "terminator"; then
+        _file_symlink "$local_directory/config/terminator/terminator.config" \
+          "$HOME/.config/terminator/config"
       fi
+      if _cmd_exists "conky"; then
+        _file_symlink "$local_directory/config/conky/conkyrc" \
+          "$HOME/.conkyrc"
+      fi
+    ;;
 
-      ;;
-    "remove"|"r")
-
-      for i in "${symlinks[@]}"; do
-        _remove "$HOME/.$i"
+    # ------------------------------------- #
+    "uninstall")
+      # Remove '.dotfiles' symlink in home
+      for i in "${home_symlinks[@]}"; do
+        _file_remove "$HOME/.$i"
       done
 
-      if _desktop; then
-        local desktop_symlinks=("$HOME/.config/terminator/config" "$HOME/.conkyrc")
+      # Move '.dotfiles' directory
+      _file_remove "$local_directory"
 
-        for i in "${desktop_symlinks}"; do
-          _remove "$i"
-        done
+      # DESKTOP: Remove symlink app's configuration
+      if _cmd_exists "terminator"; then
+        _file_remove "$HOME/.config/terminator/config"
       fi
+      if _cmd_exists "conky"; then
+        _file_remove "$HOME/.conkyrc"
+      fi
+    ;;
 
-      _remove "$directory"
+    # ------------------------------------- #
+    "release")
+      echo "Release strategy.."
+    ;;
 
-      ;;
+    # ------------------------------------- #
     "help"|*)
-
-      echo "Usage:"
-      echo -e "\t./bootstrap.sh [ install | uninstall | help ]"
-
-      ;;
+      _log_usage "$0"
+    ;;
   esac
 }
 
-time { _bootstrap "$@"; }
+# Main executable function at end of script
+_bootstrap "$@"
