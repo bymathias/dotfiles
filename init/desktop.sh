@@ -51,6 +51,12 @@ if command -v "npm" > /dev/null 2>&1; then
   # Update npm
   npm install -g npm
 
+  # Vim dependencies
+  # csscomb, required by vim 'vim-csscomb' plugin
+  npm install -g csscomb
+  # instant-markdown-d, required by vim 'vim-instant-markdown' plugin
+  npm install -g instant-markdown-d
+
   # Javascript tools
   npm install -g js-beautify
   npm install -g jsdoc
@@ -63,6 +69,7 @@ if command -v "npm" > /dev/null 2>&1; then
   # Videos tools
   npm install -g youtube-dl
 fi
+
 # -------------------------------------------
 
 ## Final upgrade and clean up
