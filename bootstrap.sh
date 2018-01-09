@@ -84,10 +84,10 @@ _file_symlink() {
 
 # Use git, curl or wget to download Github repository
 _download_repository() {
-	declare url=$1 dir=$2
-	local cmd
+  declare url=$1 dir=$2
+  local cmd
 
-	if [[ -d "$dir" ]]; then
+  if [[ -d "$dir" ]]; then
     echo "'$dir' already exists !"
     _ask_user "Would you like to remove it (backup -> '$dir.$ext_backup') ? (y/n)"
     REPLY=${REPLY:-y}
@@ -125,7 +125,7 @@ _edit_gitconfig() {
   fi
 
   git config --file "$local_directory/gitconfig" --replace-all "$1" "$info" \
-		&& echo "Git '$1' edited to '$info'"
+    && echo "Git '$1' edited to '$info'"
 }
 
 # MAIN FUNCTION
@@ -137,7 +137,7 @@ _bootstrap() {
     return
   fi
 
-	case "$1" in
+  case "$1" in
     # ------------------------------------- #
     "install"|"update")
     if _dotfiles_owner "$git_repo_owner"; then
@@ -148,10 +148,10 @@ _bootstrap() {
       _download_repository "$git_repo_url" "$local_directory"
     fi
 
-		# Edit '.gitconfig' user infos
-		for i in ${git_edit_infos[@]}; do
+    # Edit '.gitconfig' user infos
+    for i in ${git_edit_infos[@]}; do
       _edit_gitconfig "$i"
-		done
+    done
 
     # Symlink '.dotfiles' in home
     for i in "${home_symlinks[@]}"; do
@@ -200,13 +200,8 @@ _bootstrap() {
     ;;
 
     # ------------------------------------- #
-    "release")
-    echo "Release strategy.."
-    ;;
-
-    # ------------------------------------- #
     "help"|*)
-    _log_usage "$0"
+      _log_usage "$0"
     ;;
 esac
 }
