@@ -4,13 +4,6 @@
   "description": "Config files to setup a system (debian) the way I want it, hopefully useful also for others.",
   "author": "Mathias Brouilly",
   "license": "MIT",
-  "keywords": [
-    "bash",
-    "bin",
-    "vim",
-    "tmux",
-    "git"
-  ],
   "homepage": "https://github.com/bymathias/dotfiles#readme",
   "repository": {
     "type": "git",
