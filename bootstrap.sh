@@ -30,13 +30,13 @@ ext_backup="$(date +'%Y-%m-%d').backup"
 _log_usage() {
   cat <<EOF
 
-Usage:
+  Usage:
 
   $1 [ install | i | update | u ]
   $1 [ remove | r ]
   $1 [ help | h ]
 
-Report bugs to '$git_repo_url'
+  Report bugs to '$git_repo_url'
 EOF
 }
 
@@ -140,75 +140,75 @@ _bootstrap() {
 	case "$1" in
     # ------------------------------------- #
     "install"|"update")
-      if _dotfiles_owner "$git_repo_owner"; then
-        # Fetch last changes from '$git_repo_url'
-        (cd $local_directory && command git pull origin master || exit 1)
+    if _dotfiles_owner "$git_repo_owner"; then
+      # Fetch last changes from '$git_repo_url'
+      (cd $local_directory && command git pull origin master || exit 1)
+    else
+      # Download '$git_repo_url' using git, curl or wget
+      _download_repository "$git_repo_url" "$local_directory"
+    fi
+
+		# Edit '.gitconfig' user infos
+		for i in ${git_edit_infos[@]}; do
+      _edit_gitconfig "$i"
+		done
+
+    # Symlink '.dotfiles' in home
+    for i in "${home_symlinks[@]}"; do
+      _file_symlink "$local_directory/$i" "$HOME/.$i"
+    done
+
+    # If Vim is installed, install or update plugins
+    # Using vim-plug to manage vim plugins
+    if _cmd_exists "vim"; then
+      if [[ -d "$local_directory/vim/plugins" ]]; then
+        vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
       else
-        # Download '$git_repo_url' using git, curl or wget
-        _download_repository "$git_repo_url" "$local_directory"
+        vim +PlugInstall +qall
       fi
+      echo "Vim setup done"
+    fi
 
-			# Edit '.gitconfig' user infos
-			for i in ${git_edit_infos[@]}; do
-        _edit_gitconfig "$i"
-			done
-
-      # Symlink '.dotfiles' in home
-      for i in "${home_symlinks[@]}"; do
-        _file_symlink "$local_directory/$i" "$HOME/.$i"
-      done
-
-      # If Vim is installed, install or update plugins
-      # Using vim-plug to manage vim plugins
-      if _cmd_exists "vim"; then
-        if [[ -d "$local_directory/vim/plugins" ]]; then
-          vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
-        else
-          vim +PlugInstall +qall
-        fi
-        echo "Vim setup done"
-      fi
-
-      # DESKTOP: Symlink app's configuration
-      if _cmd_exists "terminator"; then
-        _file_symlink "$local_directory/config/terminator/terminator.config" \
-          "$HOME/.config/terminator/config"
-      fi
-      if _cmd_exists "conky"; then
-        _file_symlink "$local_directory/config/conky/conkyrc" \
-          "$HOME/.conkyrc"
-      fi
+    # DESKTOP: Symlink app's configuration
+    if _cmd_exists "terminator"; then
+      _file_symlink "$local_directory/config/terminator/terminator.config" \
+        "$HOME/.config/terminator/config"
+    fi
+    if _cmd_exists "conky"; then
+      _file_symlink "$local_directory/config/conky/conkyrc" \
+        "$HOME/.conkyrc"
+    fi
     ;;
 
     # ------------------------------------- #
     "uninstall")
-      # Remove '.dotfiles' symlink in home
-      for i in "${home_symlinks[@]}"; do
-        _file_remove "$HOME/.$i"
-      done
+    # Remove '.dotfiles' symlink in home
+    for i in "${home_symlinks[@]}"; do
+      _file_remove "$HOME/.$i"
+    done
 
-      # Move '.dotfiles' directory
-      _file_remove "$local_directory"
+    # Move '.dotfiles' directory
+    _file_remove "$local_directory"
 
-      # DESKTOP: Remove symlink app's configuration
-      if _cmd_exists "terminator"; then
-        _file_remove "$HOME/.config/terminator/config"
-      fi
-      if _cmd_exists "conky"; then
-        _file_remove "$HOME/.conkyrc"
-      fi
+    # DESKTOP: Remove symlink app's configuration
+    if _cmd_exists "terminator"; then
+      _file_remove "$HOME/.config/terminator/config"
+    fi
+    if _cmd_exists "conky"; then
+      _file_remove "$HOME/.conkyrc"
+    fi
     ;;
 
     # ------------------------------------- #
     "release")
-      echo "Release strategy.."
+    echo "Release strategy.."
     ;;
 
     # ------------------------------------- #
     "help"|*)
-      _log_usage "$0"
+    _log_usage "$0"
     ;;
-  esac
+esac
 }
 
 # Main executable function at end of script
