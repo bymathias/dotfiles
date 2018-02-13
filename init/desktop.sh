@@ -9,12 +9,12 @@ sudo -v
 sudo apt-get update
 sudo apt-get -y dist-upgrade
 
-# -------------------------------------------
+# ========================================== #
 
 # exFAT support
 sudo apt-get install -y exfat-utils exfat-fuse
 
-# -------------------------------------------
+# ========================================== #
 
 # Terminal
 sudo apt-get install -y terminator
@@ -45,32 +45,17 @@ sudo apt-get install -y vlc
 # Backup
 sudo apt-get install -y deja-dup
 
-# -------------------------------------------
+# ========================================== #
 
 if command -v "npm" > /dev/null 2>&1; then
   # Update npm
   npm install -g npm
 
-  # Vim dependencies
-  # csscomb, required by vim 'vim-csscomb' plugin
-  npm install -g csscomb
-  # instant-markdown-d, required by vim 'vim-instant-markdown' plugin
-  npm install -g instant-markdown-d
-
-  # Javascript tools
-  npm install -g js-beautify
-  npm install -g jsdoc
-
-  # Git helpers
-  npm install -g commitizen
-  npm install -g cz-conventional-changelog
-  npm install -g conventional-changelog-cli
-
   # Videos tools
   npm install -g youtube-dl
 fi
 
-# -------------------------------------------
+# ========================================== #
 
 ## Final upgrade and clean up
 sudo apt-get upgrade

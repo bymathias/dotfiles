@@ -6,9 +6,9 @@
 FILENAME="LICENSE.txt"
 
 echo -n "Author Name: "
-read NAME
+read -r NAME
 echo -n "Author Url: "
-read URL
+read -r URL
 
 if [ -f $FILENAME ]; then
   echo "'$FILENAME' already exists"

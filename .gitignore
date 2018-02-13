@@ -3,6 +3,3 @@
 # VIM
 vim/plugins/*
 vim/autoload/plug.vim.old
-
-# NPM
-package-lock.json

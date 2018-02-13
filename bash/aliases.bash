@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# ########################################## #
+# ========================================== #
 #   Basic
-# ########################################## #
+# ========================================== #
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -38,9 +38,9 @@ alias weather='wttr'
 
 alias lock-screen='sleep 2 && xscreensaver-command -lock'
 
-# ########################################## #
+# ========================================== #
 #   Tmux
-# ########################################## #
+# ========================================== #
 
 alias t='tmux'
 alias tn='tmux new-session -s'
@@ -49,9 +49,9 @@ alias tl='tmux list-session'
 alias tk='tmux kill-server'
 alias tx='tmux -q has-session && tmux attach-session -d || tmux new-session -s$USER'
 
-# ########################################## #
+# ========================================== #
 #   Git
-# ########################################## #
+# ========================================== #
 
 alias g='git'
 alias ga='git add'
@@ -67,11 +67,11 @@ alias glom='git pull origin master'
 alias gt='git checkout'
 alias ge='git clone'
 
-# ########################################## #
+# ========================================== #
 #   Nginx
 #   Usage: `/etc/init.d/nginx {start|stop|restart|reload|force-reload|status|configtest|rotate|upgrade}`
 #   Enable/Disable Nginx at start up: `sudo systemctl {enable|disable} nginx`
-# ########################################## #
+# ========================================== #
 
 alias nginx-test='sudo /etc/init.d/nginx configtest'
 alias nginx-start='sudo /etc/init.d/nginx start'
@@ -81,11 +81,11 @@ alias nginx-reload='sudo /etc/init.d/nginx reload'
 alias nginx-status='sudo /etc/init.d/nginx status'
 alias nginx-upgrade='sudo /etc/init.d/nginx upgrade'
 
-# ########################################## #
+# ========================================== #
 #   PHP-FPM 7.0
 #   Usage: `/etc/init.d/php7.0-fpm {start|stop|status|restart|reload|force-reload}`
 #   Enable/Disable PHP at start up: `sudo systemctl {enable|disable} php7.0-fpm`
-# ########################################## #
+# ========================================== #
 
 alias php-start='sudo /etc/init.d/php7.0-fpm start'
 alias php-stop='sudo /etc/init.d/php7.0-fpm stop'
@@ -93,11 +93,11 @@ alias php-restart='sudo /etc/init.d/php7.0-fpm restart'
 alias php-reload='sudo /etc/init.d/php7.0-fpm reload'
 alias php-status='sudo /etc/init.d/php7.0-fpm status'
 
-# ########################################## #
+# ========================================== #
 #   MariaDB (mysql)
 #   Usage: `/etc/init.d/mysql {start|stop|restart|reload|force-reload|status|bootstrap}`
 #   Enable/Disable MariaDB at start up: `sudo systemctl enable/disable mysql`
-# ########################################## #
+# ========================================== #
 
 alias mysql-start='sudo /etc/init.d/mysql start'
 alias mysql-stop='sudo /etc/init.d/mysql stop'
@@ -105,11 +105,11 @@ alias mysql-restart='sudo /etc/init.d/mysql restart'
 alias mysql-reload='sudo /etc/init.d/mysql reload'
 alias mysql-status='sudo /etc/init.d/mysql status'
 
-# ########################################## #
+# ========================================== #
 #   MongoDB
 #   Usage: /etc/init.d/mongodb {start|stop|force-stop|restart|force-reload|status}`
 #   Enable/Disable MongoDB at start up: `sudo systemctl enable/disable mongodb`
-# ########################################## #
+# ========================================== #
 
 alias mongo-start='sudo /etc/init.d/mongodb start'
 alias mongo-stop='sudo /etc/init.d/mongodb stop'
