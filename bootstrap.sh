@@ -30,6 +30,11 @@ declare -A symlinks=(
 dirtemp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 extback="$(date +'%Y-%m-%d').backup"
 
+# if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+#   echo "Bash version 4 is required !" 1>&2
+#   exit 1
+# fi
+
 # ============================================================= #
 #   HELPER FUNCTIONS
 # ============================================================= #

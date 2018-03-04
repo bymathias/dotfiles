@@ -1,31 +1,37 @@
+# [Mathias's dotfiles](https://github.com/bymathias/dotfiles)
+
 [![Build Status][travis-ci-img]][travis-ci]
 [![Commitizen Friendly][commitizen-cli-img]][commitizen-cli]
 
-> Config files to setup a system (debian) the way I want it, hopefully useful also for others.
+Config files to setup a system (debian) the way I want it, hopefully useful also for others.
 
-## Design Principles
-
-- Focused on simplicity, speed and portability
-- Defensive checks, so that it will work in most cases
-- Mostly oriented to web development tasks
+> *Design Principles*
+> - Focused on simplicity, speed and portability
+> - Defensive checks, so that it will work in most cases
+> - Mostly oriented to web development tasks
 
 ## Requirements
 
-- [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/) to download the files
+- [bash4](https://www.gnu.org/software/bash/)
+- [curl](curl-url), [wget](wget-url) or [git](git-url) to download the files
 
+(optional) to enable all features, see `init/default.sh`
 
-## Documentation
+## Installation
 
-_Table of contents:_
+To get up and running on a new system, run the following one-liner..
+```bash
+bash <(curl -fsSL https://git.io/v1v4m || wget -O - https://git.io/v1v4m) install
+```
+And reload the shell configuration
+```bash
+source ~/.bash_profile
+```
+Et voil&agrave;.
 
-- [Requirements](docs/1.0_requirements.md)
-- [Installation](docs/2.0_installation.md)
-- [Usages](docs/3.0_usages.md)
-    - [bash](docs/3.1_usages_bash.md)
-    - [bin](docs/3.2_usages_bin.md)
-    - [git](docs/3.3_usages_git.md)
-    - [vim](docs/3.4_usages_vim.md)
-    - [tmux](docs/3.5_usages_tmux.md)
+## Usage
+
+Work in progress..
 
 ## Change Log
 
@@ -47,5 +53,9 @@ The code is available under the MIT [LICENSE](LICENSE.txt).
 
 [commitizen-cli]: http://commitizen.github.io/cz-cli
 [commitizen-cli-img]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
+
+[curl-url]: https://curl.haxx.se
+[wget-url]: https://www.gnu.org/software/wget
+[git-url]: https://git-scm.com
 
 [dotfiles-community]: http://dotfiles.github.io

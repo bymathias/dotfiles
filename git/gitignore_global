@@ -39,5 +39,7 @@ jspm_packages
 .eslintcache
 *.tgz
 
+package-lock.json
+
 # BOWER
 bower_components

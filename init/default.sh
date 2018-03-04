@@ -67,6 +67,9 @@ if command -v "npm" > /dev/null 2>&1; then
   npm install -g cz-conventional-changelog
   npm install -g conventional-changelog-cli
 
+  # Tool to upgrade your package.json
+  npm install -g npm-check-updates
+
   # Javascript frameworks
   # Angular cli
   npm install -g @angular/cli
