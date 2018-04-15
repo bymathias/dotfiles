@@ -354,6 +354,12 @@ if has('autocmd')
     autocmd BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx
   augroup END
 
+  augroup filetype_sass
+    autocmd!
+    " These are sass file
+    autocmd BufNewFile,BufRead *.scss set ft=scss.css
+  augroup END
+
 endif
 
 " }}}
@@ -648,6 +654,18 @@ silent! if HasPlugDirectory('vim-markdown')
   let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
 
   set conceallevel=2                    " Enable Vim's standard conceal configuration
+
+endif
+" }}}
+
+" Vim-Jinja2-Syntax {{{
+silent! if HasPlugDirectory('Vim-Jinja2-Syntax')
+
+  augroup filetype_markdown
+    autocmd!
+    " These are nunjucks files
+    autocmd BufNewFile,BufRead *.njk set ft=jinja.html
+  augroup END
 
 endif
 " }}}

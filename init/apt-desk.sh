@@ -47,16 +47,6 @@ sudo apt-get install -y deja-dup
 
 # ========================================== #
 
-if command -v "npm" > /dev/null 2>&1; then
-  # Update npm
-  npm install -g npm
-
-  # Videos tools
-  npm install -g youtube-dl
-fi
-
-# ========================================== #
-
 ## Final upgrade and clean up
 sudo apt-get upgrade
 sudo apt-get autoremove

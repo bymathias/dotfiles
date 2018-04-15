@@ -4,64 +4,10 @@
 #   Basic
 # ========================================== #
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
+alias ls='ls --color=auto --group-directories-first'
+alias o='thunar &'
 
-alias l='ls -F'
-alias ll='ls -alF'
-alias ld='ls -l | grep "^d"'
-
-alias h='history'
-alias c='clear'
-alias q='exit'
-
-alias reload='source ~/.bash_profile'
-alias path='echo -e ${PATH//:/\\n}'
-
-alias v='vim'
-
-alias dbox='cd ~/Dropbox && ls'
-alias repo='cd ~/Repos && ls'
-alias site='cd ~/Sites && ls'
-
-alias ssa='ssh-add'
-alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
-alias host-edit='sudo vim /etc/hosts'
-
-alias now='date +"%d-%m-%Y %T"'
-alias week='date +%V'
-alias wttr='curl wttr.in -A "curl"'
-alias weather='wttr'
-
-# ========================================== #
-#   Tmux
-# ========================================== #
-
-alias t='tmux'
-alias tn='tmux new-session -s'
-alias ta='tmux attach-session -t'
-alias tl='tmux list-session'
-alias tk='tmux kill-server'
-alias tx='tmux -q has-session && tmux attach-session -d || tmux new-session -s$USER'
-
-# ========================================== #
-#   Git
-# ========================================== #
-
-alias g='git'
-alias ga='git add'
-alias gc='git commit'
-alias gac='git add --all && git commit -m'
-alias gd='git diff'
-alias gs='git status'
-alias gb='git branch'
-alias gh='git push'
-alias gl='git pull'
-alias ghom='git push origin master'
-alias glom='git pull origin master'
-alias gt='git checkout'
-alias ge='git clone'
+alias lock-screen='sleep 2 && xscreensaver-command -lock'
 
 # ========================================== #
 #   Nginx

@@ -14,17 +14,17 @@ dotfiles=".dotfiles"
 gitinfos=(user.name user.email github.user)
 
 declare -A symlinks=(
-  [0]="bash bashrc .bashrc"
-  [1]="bash bash_profile .bash_profile"
-  [2]="git gitconfig .gitconfig"
-  [3]="curl curlrc .curlrc"
-  [4]="wget wgetrc .wgetrc"
+  [0]="bash .bashrc .bashrc"
+  [1]="bash .bash_profile .bash_profile"
+  [2]="git .gitconfig .gitconfig"
+  [3]="curl .curlrc .curlrc"
+  [4]="wget .wgetrc .wgetrc"
   [5]="vim vim .vim"
-  [6]="vim vimrc .vimrc"
-  [7]="editorconfig editorconfig .editorconfig"
-  [8]="tmux tmux.conf .tmux.conf"
-  [9]="terminator config/terminator/terminator.config .config/terminator/config"
-  [10]="conky config/conky/conkyrc .conkyrc"
+  [6]="vim .vimrc .vimrc"
+  [7]="editorconfig .editorconfig .editorconfig"
+  [8]="tmux .tmux.conf .tmux.conf"
+  [9]="terminator init/terminator/default.config .config/terminator/config"
+  [10]="conky init/conky/conkyrc .conkyrc"
 )
 
 dirtemp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
@@ -73,7 +73,7 @@ _git_config_edit() {
     info=$REPLY
   fi
 
-  command git config --file "$HOME/$dotfiles/gitconfig" --replace-all "$1" "$info" \
+  command git config --file "$HOME/$dotfiles/.gitconfig" --replace-all "$1" "$info" \
     && echo "'git' config '$1' edited to '$info'"
 }
 
@@ -131,13 +131,6 @@ _bootstrap() {
   case "$1" in
     # ========================================== #
     "install"|"i"|"update")
-
-      # if _git_repository_is "$repository"; then
-      #   (cd "$dotfiles" && \
-      #     command git pull origin master || exit 1)
-      # else
-      #   _git_repository_download "$dotfiles" "$repository_url"
-      # fi
 
       _log "Symlink '.dotfiles' to '$HOME' directory.."
       for i in "${symlinks[@]}"; do
