@@ -22,7 +22,7 @@ shopt -s cdspell
 # Extended pattern matching
 shopt -s extglob
 
-# Set vim as default editor
+# Vim everywhere
 export EDITOR=vim
 export VISUAL=vim
 

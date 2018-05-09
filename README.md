@@ -2,9 +2,9 @@
 
 [![Build Status][travis-ci-img]][travis-ci]
 
-> Config files to setup a system (debian/macos) the way I want it, hopefully useful also for others.
+> Config files to setup a system (debian) the way I want it, hopefully useful also for others.
 
-## Principles
+# Principles
 
 - Focused on simplicity, speed and portability
 - Defensive checks, so that it will work in most cases
@@ -30,10 +30,6 @@ cd ~/.dotfiles
 source ~/.bash_profile
 ```
 Et voil&agrave;.
-
-## Usage
-
-...
 
 ## Change Log
 

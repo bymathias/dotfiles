@@ -30,10 +30,10 @@ cpp() {
 
 # ========================================== #
 # Create new bash script
-#   usage: `new_script <filename>`
+#   usage: `new-script <filename>`
 # ========================================== #
 
-new_script() {
+new-script() {
   [[ -e "$1" ]] && echo "'$1' already exists" && return
   echo "#!/usr/bin/env bash" > "$1" && \
   chmod a+x "$1" && \
@@ -41,13 +41,15 @@ new_script() {
 }
 
 # ========================================== #
-# New site directories
-#   usage: `new_site <dirname>`
+# New note in dropbox
+#   usage: `new-note <notename>`
 # ========================================== #
 
-new_site() {
-  mkdir -p "$HOME/Sites/$1/logs/" && \
-    mkdir -p "$HOME/Sites/$1/public_html/"
+new-note() {
+  local NOTE_FILE="$HOME/Dropbox/sync/note/$1.md"
+
+  [[ -e "$NOTE_FILE" ]] && echo "'$NOTE_FILE' already exists" && return
+  command vim "$NOTE_FILE"
 }
 
 # ========================================== #

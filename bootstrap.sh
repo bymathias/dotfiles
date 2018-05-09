@@ -23,8 +23,8 @@ declare -A symlinks=(
   [6]="vim .vimrc .vimrc"
   [7]="editorconfig .editorconfig .editorconfig"
   [8]="tmux .tmux.conf .tmux.conf"
-  [9]="terminator init/terminator/default.config .config/terminator/config"
-  [10]="conky init/conky/conkyrc .conkyrc"
+  [9]="tmux tmux .tmux"
+  [10]="terminator config/terminator/config .config/terminator/config"
 )
 
 dirtemp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
@@ -89,6 +89,13 @@ _vim_setup() {
     && echo "'vim' setup ($cmd) done"
 }
 
+# Setup Tmux plugins with 'tpm'
+#_tmux_setup() {
+#  if [[ -d "$HOME/$dotfiles/tmux/plugins" ]]; then
+#    #statements
+#  fi
+#}
+
 # Remove symlink and move files/directories
 _file_remove() {
   local arr=($@)
@@ -149,6 +156,10 @@ _bootstrap() {
         _vim_setup
       fi
 
+      if _cmd_exist "tmux"; then
+        _log "Tmux setup with 'tpm'.."
+        source ~/.dotfiles/tmux/plugins/tpm/bin/install_plugins
+      fi
     ;;
     # ========================================== #
     "uninstall")
@@ -160,6 +171,10 @@ _bootstrap() {
       _file_remove "$dotfiles"
 
     ;;
+    # ========================================== #
+    # "test")
+
+    # ;;
     # ========================================== #
     "help"|*)
       echo "help.."

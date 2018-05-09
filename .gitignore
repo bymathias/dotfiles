@@ -1,5 +1,9 @@
 # ref: github.com/github/gitignore
 
-# VIM
-vim/plugins/*
+vim/files/*
+vim/plugged/*
 vim/autoload/plug.vim.old
+
+tmux/plugins/*
+!tmux/plugins/tpm/
+tmux/resurrect/*

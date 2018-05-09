@@ -60,15 +60,15 @@ __git_info()
 }
 
 # Prompt string
-PS1="\[\033]0;\w\007\]"  # Set the terminal title to the current working directory
-PS1+="\n"
-# PS1+="\[${cyan}\]* "
+PS1="\[\033]0;\w\007\]" # Set the terminal title to the current working directory
+# PS1+="\n"
+# PS1+="\[${cyan}\] #"
 PS1+="\[${yellow}\]\h" # Host
 PS1+="\[${cyan}\]:"
-PS1+="\[${green}\]\u "   # Username
-PS1+="\$(__git_info \"\[$cyan\]on \[${blue}\]\" \"\[${red}\]\" \"\[${green}\]\")"
+PS1+="\[${green}\]\u " # Username
+PS1+="\$(__git_info \"\[$cyan\]on \[${red}\]\" \"\[${red}\]\" \"\[${orange}\]\")"
 PS1+="\[${cyan}\]in "
-PS1+="\[${purple}\]\w"   # Working directory full path
+PS1+="\[${blue}\]\w" # Working directory full path
 PS1+="\n"
 PS1+="\[${cyan}\]$ \[${reset}\]"
 export PS1

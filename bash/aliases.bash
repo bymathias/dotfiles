@@ -9,6 +9,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 alias l='ls -F'
+alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -alF'
 alias ld='ls -l | grep "^d"'
 
@@ -20,8 +21,10 @@ alias reload='source ~/.bash_profile'
 alias path='echo -e ${PATH//:/\\n}'
 
 alias v='vim'
+alias o='thunar &'
 
 alias dbox='cd ~/Dropbox && ls'
+alias note='cd ~/Dropbox/sync/note && ls'
 alias repo='cd ~/Repos && ls'
 alias site='cd ~/Sites && ls'
 
@@ -33,6 +36,8 @@ alias now='date +"%d-%m-%Y %T"'
 alias week='date +%V'
 alias wttr='curl wttr.in -A "curl"'
 alias weather='wttr'
+
+alias lock-screen='sleep 2 && xscreensaver-command -lock'
 
 # ========================================== #
 #   Tmux

@@ -2,7 +2,6 @@ language: bash
 
 os:
   - linux
-  # - osx
 
 matrix:
   include:
@@ -10,9 +9,6 @@ matrix:
       os: linux
       dist: stretch
       sudo: required
-    # - env: ENV=macos
-    #   os: osx
-    #   osx_image: xcode8
 
 before_install:
   - git config --global user.name "Travis CI"
@@ -22,12 +18,10 @@ before_install:
 install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install shellcheck; fi
-  # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install shellcheck; fi
 
 before_script:
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
-  - shellcheck bashrc bash_profile bash/* bin/{license,unpack} init/* bootstrap.sh
+  - shellcheck bashrc bash_profile bash/* bin/{license,unpack} bootstrap.sh
 
 script:
   - ./bootstrap.sh install

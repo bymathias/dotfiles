@@ -1,5 +1,4 @@
 # conky configuration
-#
 ##############################################
 # Settings
 ##############################################
@@ -41,6 +40,7 @@ color3 999999
 ##############################################
 #  Output
 ##############################################
+
 TEXT
 #${color1}I N F O  ${hr 1}
 ${color1}${time %H:%M}${alignr}${time %d.%m.%Y}
@@ -81,10 +81,10 @@ ${color3}${fs_bar 5,220 /home}
 ${color3}${alignc -10} Free${alignr}Used%
 
 ${color1}N E T W O R K  ${hr 1}
-# ${color3}Up ${color2}${upspeed wlan0}${alignr}${color3}Sent ${color2}${totalup wlan0}
-# ${color3}${upspeedgraph wlan0 20,220 294F87 294F87}
-# ${color3}Down ${color2}${downspeed wlan0}${alignr}${color3}Received ${color2}${totaldown wlan0}
-# ${color3}${downspeedgraph wlan0 20,220 294F87 294F87}
+${color3}Up ${color2}${upspeed wlan0}${alignr}${color3}Sent ${color2}${totalup wlan0}
+${color3}${upspeedgraph wlan0 20,220 294F87 294F87}
+${color3}Down ${color2}${downspeed wlan0}${alignr}${color3}Received ${color2}${totaldown wlan0}
+${color3}${downspeedgraph wlan0 20,220 294F87 294F87}
 ${color3}Up ${color2}${upspeed wlp7s0}${alignr}${color3}Sent ${color2}${totalup wlp7s0}
 ${color3}${upspeedgraph wlp7s0 20,220 294F87 294F87}
 ${color3}Down ${color2}${downspeed wlp7s0}${alignr}${color3}Received ${color2}${totaldown wlp7s0}
