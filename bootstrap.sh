@@ -11,7 +11,6 @@ set -euo pipefail
 
 
 dotfiles=".dotfiles"
-gitinfos=(user.name user.email github.user)
 
 declare -A symlinks=(
   [0]="bash .bashrc .bashrc"
@@ -44,11 +43,6 @@ _log() {
   printf "[i] \e[0;4m%s\e[0m\n" "$1"
 }
 
-# Print output in yellow
-_ask() {
-  printf "\e[0;33m[?] %s: \e[0m" "$1"
-}
-
 # Check if command exists
 _cmd_exist() {
   local status
@@ -62,21 +56,6 @@ _cmd_exist() {
   return $status
 }
 
-# Edit '.gitconfig' informations, prompt user if none found
-_git_config_edit() {
-  local info
-  info=$(git config --global --get "$1" || echo "")
-
-  if [[ -z "$info" ]]; then
-    _ask "Edit 'git' config '$i'"
-    read -r -t 30
-    info=$REPLY
-  fi
-
-  command git config --file "$HOME/$dotfiles/.gitconfig" --replace-all "$1" "$info" \
-    && echo "'git' config '$1' edited to '$info'"
-}
-
 # Setup vim plugins with 'vim-plug'
 _vim_setup() {
   local cmd
@@ -88,13 +67,6 @@ _vim_setup() {
   command vim $cmd +qall \
     && echo "'vim' setup ($cmd) done"
 }
-
-# Setup Tmux plugins with 'tpm'
-#_tmux_setup() {
-#  if [[ -d "$HOME/$dotfiles/tmux/plugins" ]]; then
-#    #statements
-#  fi
-#}
 
 # Remove symlink and move files/directories
 _file_remove() {
@@ -143,13 +115,6 @@ _bootstrap() {
       for i in "${symlinks[@]}"; do
         _file_symlink "$i"
       done
-
-      if _cmd_exist "git"; then
-        _log "Edit 'gitconfig' user infos.."
-        for i in "${gitinfos[@]}"; do
-          _git_config_edit "$i"
-        done
-      fi
 
       if _cmd_exist "vim"; then
         _log "Vim setup with 'vim-plug'.."
