@@ -27,7 +27,7 @@ declare -A symlinks=(
   [10]="terminator config/terminator/config .config/terminator/config"
 )
 
-dirtemp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
+# dirtemp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 extback="$(date +'%Y-%m-%d').backup"
 
 # if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
@@ -99,7 +99,7 @@ _vim_setup() {
 # Remove symlink and move files/directories
 _file_remove() {
   local arr=($@)
-
+  # shellcheck disable=SC2124
   local file="$HOME/${arr[@]:(-1)}"
 
   if [[ -h "$file" ]]; then
@@ -158,6 +158,8 @@ _bootstrap() {
 
       if _cmd_exist "tmux"; then
         _log "Tmux setup with 'tpm'.."
+        # shellcheck source=tmux/plugins/tpm/bin/install_plugins
+        # shellcheck disable=SC1091
         source ~/$dotfiles/tmux/plugins/tpm/bin/install_plugins
       fi
     ;;
