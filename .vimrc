@@ -83,6 +83,7 @@ silent! if plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " ---- Writing ---------------------{{{2
 
