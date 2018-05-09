@@ -158,7 +158,7 @@ _bootstrap() {
 
       if _cmd_exist "tmux"; then
         _log "Tmux setup with 'tpm'.."
-        source ~/.dotfiles/tmux/plugins/tpm/bin/install_plugins
+        source ~/$dotfiles/tmux/plugins/tpm/bin/install_plugins
       fi
     ;;
     # ========================================== #
