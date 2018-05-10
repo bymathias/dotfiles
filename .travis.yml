@@ -6,21 +6,27 @@ matrix:
       os: linux
       dist: stretch
       sudo: required
+      addons:
+        apt:
+          packages:
+            - shellcheck
+            - vim-nox
+            - tmux
 
 install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-  - wget "http://ftp.debian.org/debian/pool/main/s/shellcheck/shellcheck_0.4.4-4_amd64.deb"
-  - sudo dpkg -i "shellcheck_0.4.4-4_amd64.deb"
-  - sudo apt install tmux
+  # - wget "http://ftp.debian.org/debian/pool/main/s/shellcheck/shellcheck_0.4.4-4_amd64.deb"
+  # - sudo dpkg -i "shellcheck_0.4.4-4_amd64.deb"
 
 before_script:
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
-  - shellcheck .bashrc .bash_profile bash/* bin/{license,unpack} bootstrap.sh
+  # - shellcheck .bashrc .bash_profile bash/* bin/{license,unpack} bootstrap.sh
 
 script:
   # - ./bootstrap.sh install
   - bash --version
+  - shellcheck --version
   - vim --version
   - tmux -V
 
