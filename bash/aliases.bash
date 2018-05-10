@@ -60,13 +60,13 @@ alias gc='git commit'
 alias gac='git add --all && git commit -m'
 alias gd='git diff'
 alias gs='git status'
+alias gl='git log'
 alias gb='git branch'
-alias gh='git push'
-alias gl='git pull'
-alias ghom='git push origin master'
-alias glom='git pull origin master'
 alias gt='git checkout'
 alias ge='git clone'
+alias ghom='git push origin master'
+alias glom='git pull origin master'
+alias glog='git log --graph --oneline --decorate --all'
 
 # ========================================== #
 #   Nginx
