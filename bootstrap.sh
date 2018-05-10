@@ -10,8 +10,8 @@
 # -o pipefail: Prevents errors in a pipeline from being masked
 set -euo pipefail
 
-# DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DOT_HOME="$HOME/.dotfiles"
+DOT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# DOT_HOME="$HOME/.dotfiles"
 
 DOT_SYMLINKS=($(find "$DOT_HOME" -maxdepth 1 -type f -name '.*' -exec basename {} \;))
 DOT_SYMLINKS+=(vim tmux)
