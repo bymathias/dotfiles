@@ -22,7 +22,7 @@ script:
   # - ./bootstrap.sh install
   - bash --version
   - vim --version
-  - tmux --version
+  - tmux -V
 
 notifications:
   email: false
