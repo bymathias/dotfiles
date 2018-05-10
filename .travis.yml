@@ -4,9 +4,6 @@ os: linux
 dist: stretch
 sudo: required
 
-env:
-  - HOME=$TRAVIS_BUILD_DIR
-
 before_install:
   - git config --global user.name "Travis CI"
   - git config --global user.email "travis@travis-ci.org"
@@ -25,8 +22,6 @@ before_script:
 
 script:
   - ./bootstrap.sh install
-
-after_success:
   - bash /tmp/vim-plugins-profile/vim-plugins-profile.sh
 
 notifications:
