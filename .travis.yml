@@ -1,28 +1,28 @@
 language: bash
 
-os: linux
-dist: stretch
-sudo: required
-
-before_install:
-  - git config --global user.name "Travis CI"
-  - git config --global user.email "travis@travis-ci.org"
-  - git config --global github.user "travis"
+matrix:
+  include:
+    - env: ENV=debian
+      os: linux
+      dist: stretch
+      sudo: required
 
 install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-  - git clone https://github.com/hyiltiz/vim-plugins-profile /tmp/vim-plugins-profile
   - wget "http://ftp.debian.org/debian/pool/main/s/shellcheck/shellcheck_0.4.4-4_amd64.deb"
   - sudo dpkg -i "shellcheck_0.4.4-4_amd64.deb"
+  - sudo apt install tmux
 
 before_script:
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
   - shellcheck .bashrc .bash_profile bash/* bin/{license,unpack} bootstrap.sh
 
 script:
-  - ./bootstrap.sh install
-  - bash /tmp/vim-plugins-profile/vim-plugins-profile.sh
+  # - ./bootstrap.sh install
+  - bash --version
+  - vim --version
+  - tmux --version
 
 notifications:
   email: false
