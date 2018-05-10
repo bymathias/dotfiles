@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
 #
 # Install, update and remove .dotfiles
 # url: https://github.com/bymathias/dotfiles
@@ -9,92 +10,69 @@
 # -o pipefail: Prevents errors in a pipeline from being masked
 set -euo pipefail
 
+# DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOT_HOME="$HOME/.dotfiles"
 
-dotfiles=".dotfiles"
+DOT_SYMLINKS=($(find "$DOT_HOME" -maxdepth 1 -type f -name '.*' -exec basename {} \;))
+DOT_SYMLINKS+=(vim tmux)
 
-declare -A symlinks=(
-  [0]="bash .bashrc .bashrc"
-  [1]="bash .bash_profile .bash_profile"
-  [2]="git .gitconfig .gitconfig"
-  [3]="curl .curlrc .curlrc"
-  [4]="wget .wgetrc .wgetrc"
-  [5]="vim vim .vim"
-  [6]="vim .vimrc .vimrc"
-  [7]="editorconfig .editorconfig .editorconfig"
-  [8]="tmux .tmux.conf .tmux.conf"
-  [9]="tmux tmux .tmux"
-  [10]="terminator config/terminator/config .config/terminator/config"
-)
+DOT_BACKUP="$(date +'%Y-%m-%d').backup"
+# DOT_TEMP=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 
-# dirtemp=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
-extback="$(date +'%Y-%m-%d').backup"
-
-# if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-#   echo "Bash version 4 is required !" 1>&2
-#   exit 1
-# fi
+declare -a DOT_VIM_PLUG=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" "$DOT_HOME/vim/autoload/plug.vim")
+declare -a DOT_TMUX_PLUG=("https://github.com/tmux-plugins/tpm" "$DOT_HOME/tmux/plugins/tpm")
 
 # ============================================================= #
 #   HELPER FUNCTIONS
 # ============================================================= #
 
 # Print output underlined
-_log() {
+__log_info() {
   printf "[i] \e[0;4m%s\e[0m\n" "$1"
 }
 
 # Check if command exists
-_cmd_exist() {
-  local status
-
+__cmd() {
   command -v "$1" > /dev/null 2>&1
-  status=$?
-  [[ "$status" == 0 ]] \
-	  && printf "\e[0;32m[✔] '%s' found\e[0m\n" "$1" \
-    || printf "\e[0;31m[✖] '%s' not found\e[0m\n" "$1"
-
-  return $status
+  return $?
 }
 
-# Setup vim plugins with 'vim-plug'
-_vim_setup() {
-  local cmd
+# Remove symlink and move/backup files/directories
+__move() {
+  local path="$1"
 
-  [[ -d "$HOME/$dotfiles/vim/plugins" ]] \
-    && cmd="+PlugClean! +PlugUpgrade +PlugUpdate" \
-    || cmd="+PlugInstall"
-
-  command vim $cmd +qall \
-    && echo "'vim' setup ($cmd) done"
-}
-
-# Remove symlink and move files/directories
-_file_remove() {
-  local arr=($@)
-  # shellcheck disable=SC2124
-  local file="$HOME/${arr[@]:(-1)}"
-
-  if [[ -h "$file" ]]; then
-    rm -v "$file"
-  elif [[ -f "$file" ]] || [[ -d "$file" ]]; then
-    mv -v "$file" "$file.$extback"
+  if [[ -h "$path" ]]; then
+    rm "$path"
+  elif [[ -f "$path" ]] || [[ -d "$path" ]]; then
+    mv "$path" "$path.$DOT_BACKUP"
   fi
 }
 
 # Symlink files from '~/.dotfiles' to '$HOME'
-_file_symlink() {
-  local arr=($@)
+__symlink() {
+  local dist="$HOME/$2"
 
-  local cmd="${arr[0]}"
-  local src="$dotfiles/${arr[1]}"
-  local out="${arr[2]}"
+  __move "$dist" && \
+    ln -sv "$HOME/.dotfiles/$1" "$dist"
+}
 
-  if _cmd_exist "$cmd"; then
-    _file_remove "$out" \
-      && command ln -sv "$HOME/$src" "$HOME/$out"
-  else
-    echo "Install '$cmd' and run this script again"
+# Download file using curl or wget
+__download() {
+  local arr=("$@")
+
+  local url="${arr[0]}"
+  local dist="${arr[1]}"
+
+  if __cmd "curl"; then
+    curl -Lo "$dist" "$url" --create-dirs &> /dev/null
+    return $?
+  elif __cmd "wget"; then
+    mkdir -p "$(dirname "$dist")"
+    wget -O "$dist" "$url" &> /dev/null
+    return $?
   fi
+
+  return 1
 }
 
 # ============================================================= #
@@ -109,42 +87,80 @@ _bootstrap() {
 
   case "$1" in
     # ========================================== #
-    "install"|"i"|"update")
+    "install")
 
-      _log "Symlink '.dotfiles' to '$HOME' directory.."
-      for i in "${symlinks[@]}"; do
-        _file_symlink "$i"
+      __log_info "Symlink .dotfiles"
+      for file in "${DOT_SYMLINKS[@]}"; do
+        [[ "$file" != .* ]] && dist=".$file" || dist="$file"
+        __symlink "$file" "$dist"
+        unset file dist
       done
 
-      if _cmd_exist "vim"; then
-        _log "Vim setup with 'vim-plug'.."
-        _vim_setup
+      if __cmd "vim"; # is found, it should be!
+      then
+        vim_str="Vim plugins"
+        __log_info "$vim_str"
+        if [[ -f "${DOT_VIM_PLUG[1]}" ]]; # 'vim-plug' plugin manager is installed
+        then
+          # Clean up and update all plugins
+          vim +PlugClean! +PlugUpgrade +PlugUpdate +qall
+          vim_str="$vim_str updated"
+        else
+          # Get 'vim-plug' plugin manager files and install plugins
+          __download "${DOT_VIM_PLUG[@]}"
+          vim +PlugInstall +qall
+          vim_str="$vim_str installed"
+        fi
+        # echo "$(ls -d $DOT_HOME/vim/plugged/* | xargs -n1 basename)"
+        echo "$vim_str"
       fi
 
-      if _cmd_exist "tmux"; then
-        _log "Tmux setup with 'tpm'.."
-        # shellcheck source=tmux/plugins/tpm/bin/install_plugins
-        # shellcheck disable=SC1091
-        source ~/$dotfiles/tmux/plugins/tpm/bin/install_plugins
+      if __cmd "tmux"; # is found
+      then
+        tmux_str="Tmux plugins"
+        __log_info "$tmux_str"
+        if [[ -d "${DOT_TMUX_PLUG[1]}" ]]; # 'tpm' plugin manager is installed
+        then
+          # Check if 'tpm' is the only plugin installed and install/update plugins
+          if [[ -z $(find "$DOT_HOME/tmux/plugins" -maxdepth 1 -type d -name 'tmux*') ]];
+          then
+            source "${DOT_TMUX_PLUG[1]}/bin/install_plugins" >/dev/null
+            tmux_str="$tmux_str installed"
+          else
+            source "${DOT_TMUX_PLUG[1]}/bin/update_plugins" all >/dev/null
+            tmux_str="$tmux_str updated"
+          fi
+        else
+          # Get 'tpm' plugin manager files and install plugins
+          git clone "${DOT_TMUX_PLUG[0]}" "${DOT_TMUX_PLUG[1]}" >/dev/null
+          source "${DOT_TMUX_PLUG[1]}/bin/install_plugins" >/dev/null
+          tmux_str="$tmux_str installed"
+        fi
+        echo "$tmux_str"
       fi
+
     ;;
     # ========================================== #
     "uninstall")
 
-      for i in "${symlinks[@]}"; do
-        _file_remove "$i"
-      done
+      __log_info "Remove .dotfiles"
 
-      _file_remove "$dotfiles"
+      for file in "${DOT_SYMLINKS[@]}";
+      do
+        [[ "$file" != .* ]] && dist=".$file" || dist="$file"
+        __move "$dist"
+        unset file dist
+      done
+      __move "$DOT_HOME"
+
+      echo "Done!"
 
     ;;
     # ========================================== #
-    # "test")
-
-    # ;;
+    # "test") ;;
     # ========================================== #
     "help"|*)
-      echo "help.."
+      echo "./bootstrap.sh [ install | uninstall ]"
     ;;
 esac
 }
