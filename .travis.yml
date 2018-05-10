@@ -5,19 +5,18 @@ dist: stretch
 sudo: required
 
 install:
+  - wget "http://ftp.debian.org/debian/pool/main/s/shellcheck/shellcheck_0.4.4-4_amd64.deb"
+  - sudo dpkg -i "shellcheck_0.4.4-4_amd64.deb"
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-  - sudo apt install shellcheck vim-nox tmux
 
 before_script:
-  - bash --version
   - shellcheck --version
   - vim --version
-  - tmux -V
 
 script:
-  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
   - shellcheck .bashrc .bash_profile bash/* bin/{license,unpack} bootstrap.sh
+  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v .vimrc
 
 notifications:
   email: false
