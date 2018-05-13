@@ -39,6 +39,8 @@ alias weather='wttr'
 
 alias lock-screen='sleep 2 && xscreensaver-command -lock'
 
+alias jekyll-serve='bundle exec jekyll serve'
+
 # ========================================== #
 #   Tmux
 # ========================================== #
