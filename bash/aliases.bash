@@ -23,10 +23,10 @@ alias path='echo -e ${PATH//:/\\n}'
 alias v='vim'
 alias o='thunar &'
 
-alias dbox='cd ~/Dropbox && ls'
-alias note='cd ~/Dropbox/sync/note && ls'
-alias repo='cd ~/Repos && ls'
-alias site='cd ~/Sites && ls'
+alias dbox='cd ~/Dropbox && ls -l'
+alias note='cd ~/Dropbox/sync/note && ls -oQ'
+alias repo='cd ~/Repos && ls -l'
+alias site='cd ~/Sites && ls -l'
 
 alias ssa='ssh-add'
 alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
@@ -40,6 +40,7 @@ alias weather='wttr'
 alias lock-screen='sleep 2 && xscreensaver-command -lock'
 
 alias jekyll-serve='bundle exec jekyll serve'
+alias mockup='npm start --prefix ~/app/pencil'
 
 # ========================================== #
 #   Tmux
