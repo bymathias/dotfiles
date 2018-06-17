@@ -50,7 +50,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'maksimr/vim-jsbeautify'
   if executable('npm')
-    Plug 'csscomb/vim-csscomb', { 'do': 'npm i -g csscomb' }
+    Plug 'csscomb/vim-csscomb', { 'do': 'sudo npm i -g csscomb' }
   endif
   Plug 'majutsushi/tagbar', {
 		\ 'do': 'sudo apt install -y exuberant-ctags',
@@ -93,7 +93,7 @@ silent! if plug#begin('~/.vim/plugged')
 
   if executable('npm')
     Plug 'suan/vim-instant-markdown', {
-      \ 'do': 'npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
+      \ 'do': 'sudo npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
       \ 'for': 'markdown'
       \ }
   endif
