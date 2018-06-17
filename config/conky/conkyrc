@@ -1,4 +1,3 @@
-# conky configuration
 ##############################################
 # Settings
 ##############################################
@@ -14,8 +13,8 @@ own_window_type desktop
 #own_window_argb_visual yes
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
-minimum_size 200 200
-maximum_width 240
+minimum_size 300 200
+maximum_width 300
 draw_shades no
 draw_outline no
 draw_borders no
@@ -25,7 +24,7 @@ default_shade_color 000000
 default_outline_color 828282
 alignment top_right
 gap_x 105
-gap_y 58
+gap_y 80
 no_buffers yes
 uppercase no
 cpu_avg_samples 2
@@ -44,48 +43,51 @@ color3 999999
 TEXT
 #${color1}I N F O  ${hr 1}
 ${color1}${time %H:%M}${alignr}${time %d.%m.%Y}
-${color3}IP ${color2}${addr wlp7s0}${alignr}${color3}UP ${color2}${uptime}
+${color3}IP ${color2}${addr wlp2s0}${alignr}${color3}UP ${color2}${uptime}
 #${color3}IP ${color2}${alignr}${addr wlan0}
 
 ${color1}C P U  ${hr 1}
+
 ${color3}Average${alignr}${color2}${cpu cpu0}%
-${color3}${cpubar cpu0 5,220 294F87 294F87}
-${color3}CPU 1${alignc -13}${color2}${cpu cpu1}%${alignc -32}${color3}CPU 2${alignr}${color2}${cpu cpu2}%
-${color3}${cpugraph cpu1 20,105 294F87 294F87}${alignr}${cpugraph cpu2 20,105 294F87 294F87}
+${color3}${cpubar cpu0 5, 300 294F87 294F87}
+${color3}CPU 1${alignc -13}${color2}${cpu cpu1}%${alignc -40}${color3}CPU 2${alignr}${color2}${cpu cpu2}%
+${color3}${cpugraph cpu1 20, 145 294F87 294F87}${alignr}${cpugraph cpu2 20, 145 294F87 294F87}
 ${color3}${alignc 4}${freq_g 1}Ghz${alignr}${freq_g 2}Ghz
 
 ${color1}M E M O R Y  ${hr 1}
+
 ${color3}RAM${alignr}$mem / $memmax ${color2}$memperc%
-${color3}${memgraph 20,220 294F87 294F87}
+${color3}${memgraph 20, 300 294F87 294F87}
 ${color3}Swap${alignr}$swap / $swapmax ${color2}$swapperc%
-${color3}${swapbar 5,220 294F87 294F87}
+${color3}${swapbar 5, 300 294F87 294F87}
 
 ${color1}P R O C E S S E S   ${color2}$processes ${color3}Run ${color1}$running_processes ${hr 1}
+
 ${color3}CPU
 ${color2}${top name 1}${color3}${alignc}${top pid 1}${alignr 30}${top cpu 1}${alignr}${top mem 1}
 ${color2}${top name 2}${color3}${alignc}${top pid 2}${alignr 30}${top cpu 2}${alignr}${top mem 2}
 ${color2}${top name 3}${color3}${alignc}${top pid 3}${alignr 30}${top cpu 3}${alignr}${top mem 3}
 ${color2}${top name 4}${color3}${alignc}${top pid 4}${alignr 30}${top cpu 4}${alignr}${top mem 4}
+
 ${color3}MEMORY
 ${color2}${top_mem name 1}${color3}${alignc}${top_mem pid 1}${alignr 30}${top_mem cpu 1}${alignr}${top_mem mem 1}
 ${color2}${top_mem name 2}${color3}${alignc}${top_mem pid 2}${alignr 30}${top_mem cpu 2}${alignr}${top_mem mem 2}
 ${color2}${top_mem name 3}${color3}${alignc}${top_mem pid 3}${alignr 30}${top_mem cpu 3}${alignr}${top_mem mem 3}
 ${color2}${top_mem name 4}${color3}${alignc}${top_mem pid 4}${alignr 30}${top_mem cpu 4}${alignr}${top_mem mem 4}
+
 ${color3}${alignc -15}PID${alignr 20}CPU%${alignr}MEM%
 
 ${color1}F I L E    S Y S T E M  ${hr 1}
+
 ${color3}Root${color1}${alignc}${fs_free /}${alignr}${fs_used_perc /}%
-${color3}${fs_bar 5,220 /}
+${color3}${fs_bar 5, 300 /}
 ${color3}Home${color1}${alignc}${fs_free /home}${alignr}${fs_used_perc /home}%
-${color3}${fs_bar 5,220 /home}
+${color3}${fs_bar 5, 300 /home}
 ${color3}${alignc -10} Free${alignr}Used%
 
 ${color1}N E T W O R K  ${hr 1}
-${color3}Up ${color2}${upspeed wlan0}${alignr}${color3}Sent ${color2}${totalup wlan0}
-${color3}${upspeedgraph wlan0 20,220 294F87 294F87}
-${color3}Down ${color2}${downspeed wlan0}${alignr}${color3}Received ${color2}${totaldown wlan0}
-${color3}${downspeedgraph wlan0 20,220 294F87 294F87}
-${color3}Up ${color2}${upspeed wlp7s0}${alignr}${color3}Sent ${color2}${totalup wlp7s0}
-${color3}${upspeedgraph wlp7s0 20,220 294F87 294F87}
-${color3}Down ${color2}${downspeed wlp7s0}${alignr}${color3}Received ${color2}${totaldown wlp7s0}
-${color3}${downspeedgraph wlp7s0 20,220 294F87 294F87}
+
+${color3}Up ${color2}${upspeed wlp2s0}${alignr}${color3}Sent ${color2}${totalup wlp2s0}
+${color3}${upspeedgraph wlp2s0 30, 300 294F87 294F87}
+${color3}Down ${color2}${downspeed wlp2s0}${alignr}${color3}Received ${color2}${totaldown wlp2s0}
+${color3}${downspeedgraph wlp2s0 30, 300 294F87 294F87}

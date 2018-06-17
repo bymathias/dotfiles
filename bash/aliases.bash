@@ -30,7 +30,7 @@ alias site='cd ~/Sites && ls -l'
 
 alias ssa='ssh-add'
 alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
-alias host-edit='sudo vim /etc/hosts'
+alias host-edit='sudoedit /etc/hosts'
 
 alias now='date +"%d-%m-%Y %T"'
 alias week='date +%V'

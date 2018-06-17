@@ -27,12 +27,16 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'cakebaker/scss-syntax.vim'
   Plug 'othree/html5.vim'
   Plug 'mustache/vim-mustache-handlebars'
+  Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'posva/vim-vue',
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'chr4/nginx.vim'
   Plug 'tpope/vim-git'
   Plug 'tmux-plugins/vim-tmux'
   Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+  Plug 'cespare/vim-toml'
+  Plug 'tpope/vim-liquid'
+  Plug 'ap/vim-css-color'
 
   " ---- Editing/Helpers ---------------------{{{2
 
@@ -628,9 +632,10 @@ endfunction
 " ref: https://github.com/plasticboy/vim-markdown
 
 silent! if g:plug.is_installed('vim-markdown')
-	let g:vim_markdown_folding_disabled=1 " Disable folding
-	let g:vim_markdown_frontmatter=1      " Highlight YAML front matter as used by Jekyll or Hugo
-	let g:vim_markdown_json_frontmatter=1 " JSON syntax highlight requires vim-json
+	let g:vim_markdown_folding_disabled=1   " Disable folding
+	let g:vim_markdown_frontmatter=1        " Highlight YAML front matter as used by Jekyll or Hugo
+	let g:vim_markdown_json_frontmatter=1   " JSON syntax highlight requires vim-json
+  let g:vim_markdown_toml_frontmatter = 1 " TOML syntax highlight requires vim-toml
 
 	set conceallevel=2 " Enable Vim's standard conceal configuration
 endif
@@ -801,7 +806,7 @@ silent! if g:plug.is_installed('nerdtree')
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
     " Close vim if the only window left open is a NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
   augroup END
 endif
 
