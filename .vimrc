@@ -28,6 +28,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'othree/html5.vim'
   Plug 'mustache/vim-mustache-handlebars'
   Plug 'Glench/Vim-Jinja2-Syntax'
+  Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
   Plug 'posva/vim-vue',
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'chr4/nginx.vim'
@@ -50,7 +51,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'maksimr/vim-jsbeautify'
   if executable('npm')
-    Plug 'csscomb/vim-csscomb', { 'do': 'sudo npm i -g csscomb' }
+    Plug 'csscomb/vim-csscomb', { 'do': 'npm i -g csscomb' }
   endif
   Plug 'majutsushi/tagbar', {
 		\ 'do': 'sudo apt install -y exuberant-ctags',
@@ -93,7 +94,7 @@ silent! if plug#begin('~/.vim/plugged')
 
   if executable('npm')
     Plug 'suan/vim-instant-markdown', {
-      \ 'do': 'sudo npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
+      \ 'do': 'npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
       \ 'for': 'markdown'
       \ }
   endif
@@ -213,8 +214,8 @@ endif
 set noswapfile " Turn off swap files
 " set directory=$HOME/files/swap//
 
-set nobackup   " Turm off backup files
-set nowb       " Backup before overwriting a file
+set nobackup      " Turm off backup files
+set nowritebackup
 " set backupdir=$HOME/files/backup
 
 " ---- Filetype ---------------------{{{2
@@ -324,6 +325,8 @@ if has('autocmd')
     autocmd FileType * setl formatoptions-=c formatoptions-=r formatoptions-=o
     " Comments used to indicate folds for vim files
     autocmd FileType vim setl foldenable foldmethod=marker
+    " Make Yaml front matter look like comments in html
+    autocmd BufNewFile,BufRead *.{html,hbs} syntax match Comment /\%^---\_.\{-}---$/
   augroup END
 endif
 
