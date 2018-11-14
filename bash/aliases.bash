@@ -44,6 +44,8 @@ alias mockup='npm start --prefix ~/app/pencil'
 
 alias do-upgrade='sudo apt update && sudo apt -y upgrade && sudo apt autoremove && sudo apt clean'
 
+alias serve='python -m SimpleHTTPServer 8080'
+
 # ========================================== #
 #   Tmux
 # ========================================== #
