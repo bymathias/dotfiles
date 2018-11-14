@@ -50,9 +50,6 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'maksimr/vim-jsbeautify'
-  if executable('npm')
-    Plug 'csscomb/vim-csscomb', { 'do': 'npm i -g csscomb' }
-  endif
   Plug 'majutsushi/tagbar', {
 		\ 'do': 'sudo apt install -y exuberant-ctags',
 		\ 'on': 'TagbarToggle'
@@ -67,6 +64,8 @@ silent! if plug#begin('~/.vim/plugged')
     Plug 'vim-scripts/AutoComplPop'
   endif
   Plug 'othree/csscomplete.vim'
+  Plug 'shawncplus/phpcomplete.vim'
+  Plug 'dsawardekar/wordpress.vim'
 
   " ---- Snippets ---------------------{{{2
 
@@ -751,7 +750,7 @@ silent! if g:plug.is_installed('emmet-vim')
   let g:user_emmet_install_global=0
   augroup emmet_config
     autocmd!
-    autocmd FileType html,hbs,jinja,css EmmetInstall
+    autocmd FileType html,hbs,jinja,php,css EmmetInstall
   augroup END
 endif
 

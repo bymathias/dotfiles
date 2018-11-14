@@ -42,6 +42,8 @@ alias lock-screen='sleep 2 && xscreensaver-command -lock'
 alias jekyll-serve='bundle exec jekyll serve'
 alias mockup='npm start --prefix ~/app/pencil'
 
+alias do-upgrade='sudo apt update && sudo apt -y upgrade && sudo apt autoremove && sudo apt clean'
+
 # ========================================== #
 #   Tmux
 # ========================================== #
