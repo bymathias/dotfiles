@@ -87,7 +87,7 @@ _bootstrap() {
 
   case "$1" in
     # ========================================== #
-    "install")
+    "install"|"update")
 
       __log_info "Symlink .dotfiles"
       for file in "${DOT_SYMLINKS[@]}"; do

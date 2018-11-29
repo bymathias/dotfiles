@@ -92,8 +92,9 @@ silent! if plug#begin('~/.vim/plugged')
   " ---- Writing ---------------------{{{2
 
   if executable('npm')
+    " require 'npm i -g instant-markdown-d'
     Plug 'suan/vim-instant-markdown', {
-      \ 'do': 'npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
+      \ 'do': 'sudo apt -y install xdg-utils',
       \ 'for': 'markdown'
       \ }
   endif
@@ -368,6 +369,8 @@ try
   call one#highlight('VertSplit', '2c323c', '2c323c', 'none')
   call one#highlight('Folded', '828997', '2c323c', 'none')
   call one#highlight('SignColumn', '4b5263', '222222', 'none')
+  " call one#highlight('TabLine', '828997', '2c323c', 'none')
+  " call one#highlight('TabLineFill', '222222', '222222', 'none')
 catch
   "set termguicolors!
   set background=dark
