@@ -327,6 +327,8 @@ if has('autocmd')
     autocmd FileType vim setl foldenable foldmethod=marker
     " Make Yaml front matter look like comments in html
     autocmd BufNewFile,BufRead *.{html,hbs} syntax match Comment /\%^---\_.\{-}---$/
+
+    autocmd FileType pug setlocal commentstring=//\ %s
   augroup END
 endif
 
