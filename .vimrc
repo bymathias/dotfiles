@@ -59,7 +59,9 @@ silent! if plug#begin('~/.vim/plugged')
 
   if executable('npm')
     Plug 'maralla/completor.vim', { 'do': 'make js' }
-    Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
+    " Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
+    " install the tern server by running npm install in the bundle/tern_for_vim directory
+    Plug 'ternjs/tern_for_vim'
   else
     Plug 'vim-scripts/AutoComplPop'
   endif
