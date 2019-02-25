@@ -115,11 +115,10 @@ alias mysql-status='sudo /etc/init.d/mysql status'
 
 # ========================================== #
 #   MongoDB
-#   Usage: /etc/init.d/mongodb {start|stop|force-stop|restart|force-reload|status}`
-#   Enable/Disable MongoDB at start up: `sudo systemctl enable/disable mongodb`
+#   Installed via package:
+#   see: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
 # ========================================== #
 
-alias mongo-start='sudo /etc/init.d/mongodb start'
-alias mongo-stop='sudo /etc/init.d/mongodb stop'
-alias mongo-restart='sudo /etc/init.d/mongodb restart'
-alias mongo-status='sudo /etc/init.d/mongodb status'
+alias mongo-start='sudo service mongod start'
+alias mongo-stop='sudo service mongod stop'
+alias mongo-restart='sudo service mongod restart'

@@ -26,7 +26,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'hail2u/vim-css3-syntax'
   Plug 'cakebaker/scss-syntax.vim'
   Plug 'othree/html5.vim'
-  Plug 'mustache/vim-mustache-handlebars'
+  Plug 'mustache/vim-mustache-handlebars', { 'for': 'hbs' }
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
   Plug 'posva/vim-vue',
