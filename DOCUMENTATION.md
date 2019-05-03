@@ -2,10 +2,31 @@
 
 __Table of contents__
 
+- [bootstrap.sh](#bootstrap.sh)
 - [Bash](#bash)
 - [Bin](#bin)
 - [Vim](#vim)
 - [Tmux](#tmux)
+
+## Bootstrap
+
+Display the help message
+```bash
+./bootstrap.sh help
+# or
+./bootstrap.sh
+```
+Update Vim and Tmux plugins
+```bash
+./bootstrap.sh update
+```
+Release .dotfiles version
+```bash
+./bootstrap.sh release
+# It will prompt you to submit a new version..
+# Create and commit the changelog file automatically..
+# And add the new git tag
+```
 
 ## Bash
 

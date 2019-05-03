@@ -79,21 +79,25 @@ __download() {
 
 # Generate changelog from git metadata
 __changelog() {
-  local TODAY=$(date +"%Y-%m-%d")
-  local GIT_CUR_TAG=`git describe --abbrev=0 --tags`
+  local TODAY
+  TODAY=$(date +"%Y-%m-%d")
+
+  local GIT_CUR_TAG
+  GIT_CUR_TAG=$(git describe --abbrev=0 --tags)
+
   local GIT_LOG_FORMAT="- %s [#]($DOT_GIT_REPO/commit/%H \"commit %h\")"
 
-  [[ ! -f $1 ]] && touch $1
-  mv $1 $TODAY-$1
+  [[ ! -f $1 ]] && touch "$1"
+  mv "$1" "$TODAY-$1"
 
-  echo -e "## $2 - ($TODAY)\n" > $1
+  echo -e "## $2 - ($TODAY)\n" > "$1"
   git log \
     --no-merges \
     --date=short \
-    --pretty=format:"$GIT_LOG_FORMAT" $GIT_CUR_TAG..HEAD >> $1
-  echo -e "\n" >> $1
-  cat $TODAY-$1 >> $1
-  rm $TODAY-$1
+    --pretty=format:"$GIT_LOG_FORMAT" "$GIT_CUR_TAG"..HEAD >> "$1"
+  echo -e "\n" >> "$1"
+  cat "$TODAY-$1" >> "$1"
+  rm "$TODAY-$1"
 }
 
 # ============================================================= #
