@@ -86,7 +86,7 @@ __changelog() {
   [[ ! -f $1 ]] && touch $1
   mv $1 $TODAY-$1
 
-  echo -e "$2 - ($TODAY)\n" > $1
+  echo -e "## $2 - ($TODAY)\n" > $1
   git log \
     --no-merges \
     --date=short \
