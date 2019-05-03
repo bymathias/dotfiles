@@ -90,13 +90,23 @@ __changelog() {
   [[ ! -f $1 ]] && touch "$1"
   mv "$1" "$TODAY-$1"
 
-  echo -e "## $2 - ($TODAY)\n" > "$1"
-  git log \
-    --no-merges \
-    --date=short \
-    --pretty=format:"$GIT_LOG_FORMAT" "$GIT_CUR_TAG"..HEAD >> "$1"
-  echo -e "\n" >> "$1"
-  cat "$TODAY-$1" >> "$1"
+  {
+    echo -e "## $2 - ($TODAY)\n"
+    git log \
+      --no-merges \
+      --date=short \
+      --pretty=format:"$GIT_LOG_FORMAT" "$GIT_CUR_TAG"..HEAD
+    echo -e "\n"
+    cat "$TODAY-$1"
+  } >> "$1"
+
+  # git log \
+  #   --no-merges \
+  #   --date=short \
+  #   --pretty=format:"$GIT_LOG_FORMAT" "$GIT_CUR_TAG"..HEAD >> "$1"
+  # echo -e "\n" >> "$1"
+  # cat "$TODAY-$1" >> "$1"
+
   rm "$TODAY-$1"
 }
 
