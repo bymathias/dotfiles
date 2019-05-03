@@ -184,10 +184,10 @@ _bootstrap() {
       echo -e "Bump project version (current $GIT_CUR_TAG)..."
       read -p "Bump: " V_NEW
       __changelog $DOT_LOG_FILE $V_NEW
-
       git add $DOT_LOG_FILE
-      git tag -a v$V_NEW -m "Release version v$V_NEW"
+      git commit -m "docs(CHANGELOG): update changelog" &> /dev/null
 
+      git tag -a v$V_NEW -m "Release v$V_NEW"
       echo "Done!"
     ;;
     # ========================================== #
