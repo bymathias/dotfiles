@@ -10,19 +10,18 @@
 # -o pipefail: Prevents errors in a pipeline from being masked
 set -euo pipefail
 
+DOT_LOG_FILE="CHANGELOG.md"
+DOT_GIT_REPO="https://github.com/bymathias/dotfiles"
+
 DOT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOT_BACKUP="$(date +'%Y-%m-%d').backup"
+# DOT_TEMP=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
 
 mapfile -t DOT_SYMLINKS < <(find "$DOT_HOME" -maxdepth 1 -type f -name '.*' -exec basename {} \;)
 DOT_SYMLINKS+=(vim tmux)
 
-DOT_BACKUP="$(date +'%Y-%m-%d').backup"
-# DOT_TEMP=$(mktemp -dq ~/tmp/dotfiles.XXXXXX)
-
 declare -a DOT_VIM_PLUG=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" "$DOT_HOME/vim/autoload/plug.vim")
 declare -a DOT_TMUX_PLUG=("https://github.com/tmux-plugins/tpm" "$DOT_HOME/tmux/plugins/tpm")
-
-DOT_LOG_FILE="CHANGELOG.md"
-DOT_GIT_REPO="https://github.com/bymathias/dotfiles"
 
 # ============================================================= #
 #   HELPER FUNCTIONS
@@ -81,10 +80,8 @@ __download() {
 __changelog() {
   local TODAY
   TODAY=$(date +"%Y-%m-%d")
-
   local GIT_CUR_TAG
   GIT_CUR_TAG=$(git describe --abbrev=0 --tags)
-
   local GIT_LOG_FORMAT="- %s [#]($DOT_GIT_REPO/commit/%H \"commit %h\")"
 
   [[ ! -f $1 ]] && touch "$1"
@@ -99,14 +96,6 @@ __changelog() {
     echo -e "\n"
     cat "$TODAY-$1"
   } >> "$1"
-
-  # git log \
-  #   --no-merges \
-  #   --date=short \
-  #   --pretty=format:"$GIT_LOG_FORMAT" "$GIT_CUR_TAG"..HEAD >> "$1"
-  # echo -e "\n" >> "$1"
-  # cat "$TODAY-$1" >> "$1"
-
   rm "$TODAY-$1"
 }
 
