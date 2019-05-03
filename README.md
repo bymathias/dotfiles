@@ -6,7 +6,7 @@
 
 # Principles
 
-- Focused on simplicity, speed and portability
+- Focused on simplicity, speed and portability (desktop, server)
 - Defensive checks, so that it will work in most cases
 - Mostly oriented to web development tasks
 
@@ -31,9 +31,20 @@ source ~/.bash_profile
 ```
 Et voil&agrave;.
 
+## Usage
+
+See the [DOCUMENTATION](DOCUMENTATION.md).
+
 ## Change Log
 
 All notable changes to this project will be documented in the [CHANGELOG](CHANGELOG.md).
+
+## Contributing
+
+Feel free to contribute. Pull requests will be automatically checked/linted via [Travis](https://travis-ci.org) with:
+
+- [Shellcheck](https://www.shellcheck.net/)
+- [vim-vimlint](https://github.com/syngan/vim-vimlint) and [vim-vimlparser](https://github.com/ynkdir/vim-vimlparser)
 
 ## Credits
 

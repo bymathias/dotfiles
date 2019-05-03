@@ -21,6 +21,9 @@ DOT_BACKUP="$(date +'%Y-%m-%d').backup"
 declare -a DOT_VIM_PLUG=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" "$DOT_HOME/vim/autoload/plug.vim")
 declare -a DOT_TMUX_PLUG=("https://github.com/tmux-plugins/tpm" "$DOT_HOME/tmux/plugins/tpm")
 
+DOT_LOG_FILE="CHANGELOG.md"
+DOT_GIT_REPO="https://github.com/bymathias/dotfiles"
+
 # ============================================================= #
 #   HELPER FUNCTIONS
 # ============================================================= #
@@ -72,6 +75,25 @@ __download() {
   fi
 
   return 1
+}
+
+# Generate changelog from git metadata
+__changelog() {
+  local TODAY=$(date +"%Y-%m-%d")
+  local GIT_CUR_TAG=`git describe --abbrev=0 --tags`
+  local GIT_LOG_FORMAT="- %s [#]($DOT_GIT_REPO/commit/%H \"commit %h\")"
+
+  [[ ! -f $1 ]] && touch $1
+  mv $1 $TODAY-$1
+
+  echo -e "$2 - ($TODAY)\n" > $1
+  git log \
+    --no-merges \
+    --date=short \
+    --pretty=format:"$GIT_LOG_FORMAT" $GIT_CUR_TAG..HEAD >> $1
+  echo -e "\n" >> $1
+  cat $TODAY-$1 >> $1
+  rm $TODAY-$1
 }
 
 # ============================================================= #
@@ -154,6 +176,19 @@ _bootstrap() {
 
       echo "Done!"
 
+    ;;
+    # ========================================== #
+    "release")
+      GIT_CUR_TAG=`git describe --abbrev=0 --tags`
+
+      echo -e "Bump project version (current $GIT_CUR_TAG)..."
+      read -p "Bump: " V_NEW
+      __changelog $DOT_LOG_FILE $V_NEW
+
+      git add $DOT_LOG_FILE
+      git tag -a v$V_NEW -m "Release version v$V_NEW"
+
+      echo "Done!"
     ;;
     # ========================================== #
     # "test") ;;

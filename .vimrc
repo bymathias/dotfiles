@@ -668,14 +668,6 @@ silent! if g:plug.is_installed('editorconfig-vim')
     \ ]
 endif
 
-" ---- vim-commentary ---------------------{{{2
-" ref: https://github.com/tpope/vim-commentary
-
-" silent! if g:plug.is_installed('vim-commentary')
-"   " If the filetype is not supported, fallback to '#'
-"   silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
-" endif
-
 " ---- NERD Commenter ---------------------{{{2
 " ref: https://github.com/scrooloose/nerdcommenter
 
