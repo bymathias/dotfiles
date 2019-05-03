@@ -28,7 +28,7 @@ declare -a DOT_TMUX_PLUG=("https://github.com/tmux-plugins/tpm" "$DOT_HOME/tmux/
 
 # Print output underlined
 __log_info() {
-  printf "[i] \e[0;4m%s\e[0m\n" "$1"
+  printf "[i] \\e[0;4m%s\\e[0m\\n" "$1"
 }
 
 # Check if command exists
