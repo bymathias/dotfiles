@@ -1,4 +1,5 @@
 [global_config]
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   title_inactive_bg_color = "#000000"
   title_transmit_bg_color = "#000000"
 [keybindings]
@@ -51,6 +52,18 @@
     foreground_color = "#5c6370"
     login_shell = True
     palette = "#000000:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#abb2bf:#5c6370:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#fffefe"
+    scrollback_infinite = True
+    scrollback_lines = 5000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[onelight]]
+    background_color = "#fafafa"
+    cursor_color = "#bfceff"
+    font = Inconsolata 14
+    foreground_color = "#383a42"
+    login_shell = True
+    palette = "#383a42:#e45649:#50a14f:#c18401:#0184bc:#a626a4:#0997b3:#fafafa:#4f525e:#e06c75:#98c379:#e5c07b:#61afef:#c678dd:#56b6c2:#ffffff"
     scrollback_infinite = True
     scrollback_lines = 5000
     scrollbar_position = hidden

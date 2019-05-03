@@ -44,7 +44,8 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'editorconfig/editorconfig-vim', { 'do': 'sudo apt -y install editorconfig' }
   Plug 'Valloric/MatchTagAlways'
   Plug 'Raimondi/delimitMate'
-  Plug 'tpope/vim-commentary'
+  " Plug 'tpope/vim-commentary'
+  Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-surround'
   Plug 'terryma/vim-expand-region'
   Plug 'terryma/vim-multiple-cursors'
@@ -365,18 +366,24 @@ try
   colorscheme one
   " Background has to be called after setting the colorscheme
   " see https://github.com/rakr/vim-one/issues/21
-  set background=dark " for the dark version
-  "set background=light " for the light version
+  set background=dark
+  "set background=light
 
-  " Customize the line number background
-  call one#highlight('LineNr', '4b5263', '222222', 'none')
-  call one#highlight('VertSplit', '2c323c', '2c323c', 'none')
-  call one#highlight('Folded', '828997', '2c323c', 'none')
-  call one#highlight('SignColumn', '4b5263', '222222', 'none')
-  " call one#highlight('TabLine', '828997', '2c323c', 'none')
-  " call one#highlight('TabLineFill', '222222', '222222', 'none')
+  if &background ==# 'light'
+    call one#highlight('LineNr', 'd3d3d3', 'f0f0f0', 'none')
+    call one#highlight('VertSplit', 'd3d3d3', 'd3d3d3', 'none')
+    call one#highlight('Folded', '9e9e9e', 'd3d3d3', 'none')
+    call one#highlight('SignColumn', 'd3d3d3', 'f0f0f0', 'none')
+  endif
+
+  if &background ==# 'dark'
+    call one#highlight('LineNr', '4b5263', '222222', 'none')
+    call one#highlight('VertSplit', '2c323c', '2c323c', 'none')
+    call one#highlight('Folded', '828997', '2c323c', 'none')
+    call one#highlight('SignColumn', '4b5263', '222222', 'none')
+  endif
 catch
-  "set termguicolors!
+  " set termguicolors!
   set background=dark
   colorscheme jellybeans
 endtry
@@ -664,10 +671,44 @@ endif
 " ---- vim-commentary ---------------------{{{2
 " ref: https://github.com/tpope/vim-commentary
 
-silent! if g:plug.is_installed('vim-commentary')
-  " If the filetype is not supported, fallback to '#'
-  silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
-endif
+" silent! if g:plug.is_installed('vim-commentary')
+"   " If the filetype is not supported, fallback to '#'
+"   silent! if empty(&commentstring) | setlocal commentstring=#\ %s | endif
+" endif
+
+" ---- NERD Commenter ---------------------{{{2
+" ref: https://github.com/scrooloose/nerdcommenter
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" To use NERDCommenter with Vue files
+" see: https://github.com/posva/vim-vue#nerdcommenter
+let g:ft = ''
+function! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      endif
+    endif
+  endif
+endfunction
+function! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    let g:ft = ''
+  endif
+endfunction
 
 " ---- vim-easy-align ---------------------{{{2
 " ref: https://github.com/junegunn/vim-easy-align
