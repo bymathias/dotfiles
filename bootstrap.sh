@@ -11,9 +11,8 @@
 set -euo pipefail
 
 DOT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# DOT_HOME="$HOME/.dotfiles"
 
-DOT_SYMLINKS=($(find "$DOT_HOME" -maxdepth 1 -type f -name '.*' -exec basename {} \;))
+mapfile -t DOT_SYMLINKS < <(find "$DOT_HOME" -maxdepth 1 -type f -name '.*' -exec basename {} \;)
 DOT_SYMLINKS+=(vim tmux)
 
 DOT_BACKUP="$(date +'%Y-%m-%d').backup"
