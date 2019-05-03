@@ -1,3 +1,7 @@
+## 1.2.3 - (2019-05-03)
+
+- shellcheck fixes 2 [#](https://github.com/bymathias/dotfiles/commit/01c5f87569b5af4bfae8d6753190351667944c7e "commit 01c5f87")
+
 ## 1.2.2 - (2019-05-03)
 
 - shellcheck fixes [#](https://github.com/bymathias/dotfiles/commit/d200b59d5c332ab66611fff609d168e7a4568c81 "commit d200b59")
