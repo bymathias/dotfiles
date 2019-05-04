@@ -1,19 +1,27 @@
 # [Mathias's dotfiles][dotfiles]
 
-[![Build Status][travis-ci-img]][travis-ci]
+![GitHub release](https://img.shields.io/github/release/bymathias/dotfiles.svg?style=flat-square)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/bymathias/dotfiles.svg?color=red&style=flat-square)
+![Travis (.org)](https://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square)
 
 > Config files to setup a system (debian) the way I want it, hopefully useful also for others.
 
 # Principles
 
-- Focused on simplicity, speed and portability (desktop, server)
+- Focused on simplicity, speed and portability
 - Defensive checks, so that it will work in most cases
 - Mostly oriented to web development tasks
 
 ## Requirements
 
-- [bash4][bash4]
-- [git][git]
+- [Bash4][bash4]
+- [Git][git]
+- *Optional, but strongly recommended:*
+    - [Vim](https://www.vim.org/)
+    - [Tmux](https://github.com/tmux/tmux)
+    - [EditorConfig](https://editorconfig.org/)
+    - [Node.js](https://nodejs.org/en/)
+    - [Terminator](https://terminator-gtk3.readthedocs.io/en/latest/)
 
 ## Installation
 
@@ -43,8 +51,8 @@ All notable changes to this project will be documented in the [CHANGELOG](CHANGE
 
 Feel free to contribute. Pull requests will be automatically checked/linted via [Travis](https://travis-ci.org) with:
 
-- [Shellcheck](https://www.shellcheck.net/)
-- [vim-vimlint](https://github.com/syngan/vim-vimlint) and [vim-vimlparser](https://github.com/ynkdir/vim-vimlparser)
+- [shellcheck](https://www.shellcheck.net/)
+- [vim-vimlint](https://github.com/syngan/vim-vimlint), [vim-vimlparser](https://github.com/ynkdir/vim-vimlparser)
 
 ## Credits
 
@@ -58,9 +66,6 @@ The code is available under the MIT [LICENSE](LICENSE.txt).
 <!-- Links -->
 
 [dotfiles]: https://github.com/bymathias/dotfiles
-
-[travis-ci]: https://travis-ci.org/bymathias/dotfiles
-[travis-ci-img]: http://img.shields.io/travis/bymathias/dotfiles.svg?style=flat-square
 
 [bash4]: https://www.gnu.org/software/bash
 [git]: https://git-scm.com

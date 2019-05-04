@@ -197,7 +197,7 @@ _bootstrap() {
     # "test") ;;
     # ========================================== #
     "help"|*)
-      echo "./bootstrap.sh [ install | uninstall ]"
+      echo "./bootstrap.sh [ install (update) | uninstall | release ]"
     ;;
 esac
 }
