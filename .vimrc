@@ -425,32 +425,32 @@ endif
 set laststatus=2 " Always show statusline
 
 " Default statusline layout
-if has('statusline')
-  set statusline=
-  set stl+=\ %m          " Modified flag [+/-]
-  set stl+=\ %Y          " File type
-  set stl+=\ \[%{&ff}\]  " File format
-  set stl+=\ %{&enc}     " File encoding
-  set stl+=\ %r          " Readonly flag [RO]
-  set stl+=\=>
-  set stl+=\ %f          " Relative path to file
-  set stl+=%=            " Right align following items
-  set stl+=\ \%*
-  set stl+=%t            " File name
-  set stl+=%{FileSize()} " File size
-  set stl+=\ \%*
-  set stl+=%1*\ %l\/%L   " Infos line number
-  set stl+=\ \-\ %p%%    " Percent through file
-  set stl+=\ \%*
-endif
+" if has('statusline')
+"   set statusline=
+"   set stl+=\ %m          " Modified flag [+/-]
+"   set stl+=\ %Y          " File type
+"   set stl+=\ \[%{&ff}\]  " File format
+"   set stl+=\ %{&enc}     " File encoding
+"   set stl+=\ %r          " Readonly flag [RO]
+"   set stl+=\=>
+"   set stl+=\ %f          " Relative path to file
+"   set stl+=%=            " Right align following items
+"   set stl+=\ \%*
+"   set stl+=%t            " File name
+"   set stl+=%{FileSize()} " File size
+"   set stl+=\ \%*
+"   set stl+=%1*\ %l\/%L   " Infos line number
+"   set stl+=\ \-\ %p%%    " Percent through file
+"   set stl+=\ \%*
+" endif
 
 " ---- Tabline ---------------------{{{2
 
 set showtabline=1
 
-if exists('+showtabline')
-  set tabline=%!DefaultTabs()
-endif
+" if exists('+showtabline')
+"   set tabline=%!DefaultTabs()
+" endif
 
 " ---- Window ---------------------{{{2
 
@@ -607,36 +607,50 @@ function! FileSize()
   let bytes = getfsize(expand('%:p'))
   if bytes <= 0 | return '' | endif
   if bytes < 1024
-    return ' ' . bytes . 'B'
+    return '' . bytes . 'B'
   else
-    return ' ' . (bytes / 1024) . 'K'
+    return '' . (bytes / 1024) . 'K'
   endif
 endfunction
 
 " ---- DefaultTabs() ---------------------{{{2
 
 " Default tabline layout, based on: github.com/mkitt/tabline.vim
-function! DefaultTabs()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    let tab = i + 1
-    let winnr = tabpagewinnr(tab)     " Gets current window of current tab
-    let buflist = tabpagebuflist(tab) " List of buffers associated with the windows in the current tab
-    let bufnr = buflist[winnr - 1]    " Current buffer number
-    let bufname = bufname(bufnr)      " Gets the name of the current buffer in the current window of the current tab
-    let bufmodified = getbufvar(bufnr, "&mod")
-    let s .= '%' . tab . 'T'
-    " If this tab is the current tab...set the right highlighting
-    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-    let s .= ' [' . tab .']-'
-    let s .= (bufname != '' ? ''. fnamemodify(bufname, ':t') . ' ' : 'NO NAME ')
-    if bufmodified
-      let s .= '[+] '
-    endif
-  endfor
-  let s .= '%#TabLineFill#' " Blank highlighting between the tabs and the righthand close 'X'
-  return s
-endfunction
+" function! DefaultTabs()
+"   let s = ''
+"   for i in range(tabpagenr('$'))
+"     let tab = i + 1
+"     let winnr = tabpagewinnr(tab)     " Gets current window of current tab
+"     let buflist = tabpagebuflist(tab) " List of buffers associated with the windows in the current tab
+"     let bufnr = buflist[winnr - 1]    " Current buffer number
+"     let bufname = bufname(bufnr)      " Gets the name of the current buffer in the current window of the current tab
+"     let bufmodified = getbufvar(bufnr, "&mod")
+"     let s .= '%' . tab . 'T'
+"     " If this tab is the current tab...set the right highlighting
+"     let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+"     let s .= ' [' . tab .'] '
+"     let s .= (bufname != '' ? ''. fnamemodify(bufname, ':t') . ' ' : 'NO NAME ')
+"     if bufmodified
+"       let s .= '[+] '
+"     endif
+"   endfor
+
+"   let s .= '%#TabLineFill#' " Blank highlighting between the tabs and the righthand close 'X'
+
+"   " right-align the label to close the current tab page
+"   if tabpagenr('$') > 1
+"     let s .= '%=%#TabLine#%999Xclose'
+"   endif
+
+"   return s
+" endfunction
+
+" " Remove underline from tabs text
+" hi! TabLineFill cterm=none term=none
+" hi! TabLineNum cterm=none term=none
+" hi! TabLine cterm=none term=none
+" hi! TabLineNumSel cterm=none term=none
+" hi! TabLineSel cterm=none term=none
 
 " }}}2
 
@@ -861,7 +875,65 @@ silent! if g:plug.is_installed('lightline.vim')
   " Select statusbar theme
   let g:lightline = {
     \ 'colorscheme': 'one',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+    \   'right': [ [ 'lineinfo' ],
+		\            [ 'percent' ],
+		\            [ 'fileformat', 'fileencoding', 'filetype', 'filesize' ] ]
+    \ },
+    \ 'component_function': {
+    \   'filename': 'LightlineFilename',
+    \   'gitbranch': 'LightlineFugitive',
+    \   'filesize': 'FileSize'
+    \ },
     \ }
+
+  " Set tabline theme
+  let g:lightline.tab = {
+    \ 'active': [ 'tabnum', 'filename', 'modified' ],
+    \ 'inactive': [ 'tabnum', 'filename', 'modified' ]
+    \ }
+
+  let g:lightline.tab_component_function = {
+    \ 'filename': 'LightlineTabFilename',
+    \ 'modified': 'lightline#tab#modified',
+    \ 'readonly': 'lightline#tab#readonly',
+    \ 'tabnum': 'LightlineTabNumber'
+    \ }
+
+	let g:lightline.separator = { 'left': '', 'right': '' }
+	let g:lightline.subseparator = { 'left': '|', 'right': '|' }
+
+  function! LightlineFilename()
+	  let fname = expand('%:t')
+	  let fpath = expand('%:.')
+	  return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+	    \ fname == '__Tagbar__' ? g:lightline.fname :
+      \ fname =~ 'NERD_tree' ? 'NERDTree' :
+	    \ ('' != fname ? fpath : '[No Name]')
+	endfunction
+
+  function! LightlineTabFilename(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let fname = expand('#'.buflist[winnr - 1].':f')
+    return fname =~ '__Tagbar__' ? 'Tagbar' :
+      \ fname =~ 'NERD_tree' ? '[NERDTree]' :
+      \ ('' != fname ? pathshorten(fname) : '[No Name]')
+  endfunction
+
+  function! LightlineTabNumber(n)
+    return '[' . a:n .']'
+  endfunction
+
+  function! LightlineFugitive()
+		if exists('*fugitive#head')
+			let branch = fugitive#head()
+			return branch !=# '' ? '(git)'.branch : ''
+		endif
+		return ''
+	endfunction
 endif
 
 " ---- vim-instant-markdown ---------------------{{{2
