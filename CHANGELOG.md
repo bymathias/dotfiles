@@ -1,3 +1,7 @@
+## 1.2.5 - (2019-09-08)
+
+- add cht [#](https://github.com/bymathias/dotfiles/commit/68625cb3f8e0c0bc0672d36d24ce626d1c760573 "commit 68625cb")
+
 ## 1.2.4 - (2019-05-04)
 
 - docs(readme) add recommended tools [#](https://github.com/bymathias/dotfiles/commit/e88906f51055decaf9e16759be928730a4bf5b5c "commit e88906f")
