@@ -51,6 +51,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'maksimr/vim-jsbeautify'
+  Plug 'heavenshell/vim-jsdoc'
   Plug 'majutsushi/tagbar', {
 		\ 'do': 'sudo apt install -y exuberant-ctags',
 		\ 'on': 'TagbarToggle'
