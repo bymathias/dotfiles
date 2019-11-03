@@ -1,3 +1,8 @@
+## 1.3.1 - (2019-11-03)
+
+- vim: add git nerdtree plugin [#](https://github.com/bymathias/dotfiles/commit/8ebd16fc52022fc5066dd85e4dcdf3efa4ee540b "commit 8ebd16f")
+- cleanup vimrc [#](https://github.com/bymathias/dotfiles/commit/f6c290b8b2149217bc21292f1b602a94d8caede0 "commit f6c290b")
+
 ## 1.3.0 - (2019-11-03)
 
 - tmux: add tmux-continuum plugin [#](https://github.com/bymathias/dotfiles/commit/8db0c83af508793d625609b363a5f92ec0dbe4f1 "commit 8db0c83")
