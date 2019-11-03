@@ -1,3 +1,8 @@
+## 1.3.0 - (2019-11-03)
+
+- tmux: add tmux-continuum plugin [#](https://github.com/bymathias/dotfiles/commit/8db0c83af508793d625609b363a5f92ec0dbe4f1 "commit 8db0c83")
+- vim: add vim-jsodc plugin [#](https://github.com/bymathias/dotfiles/commit/49fc863256838833bf81f075ac0ce9210be32be5 "commit 49fc863")
+
 ## 1.2.5 - (2019-09-08)
 
 - add cht [#](https://github.com/bymathias/dotfiles/commit/68625cb3f8e0c0bc0672d36d24ce626d1c760573 "commit 68625cb")
