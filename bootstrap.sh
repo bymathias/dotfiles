@@ -143,7 +143,7 @@ _bootstrap() {
       then
         tmux_str="Tmux plugins"
         __log_info "$tmux_str"
-        if [[ -d "${DOT_TMUX_PLUG[1]}" ]]; # 'tpm' plugin manager is installed
+        if [[ -f "${DOT_TMUX_PLUG[1]}/tpm" ]]; # 'tpm' plugin manager is installed
         then
           # Check if 'tpm' is the only plugin installed and install/update plugins
           if [[ -z $(find "$DOT_HOME/tmux/plugins" -maxdepth 1 -type d -name 'tmux*') ]];
