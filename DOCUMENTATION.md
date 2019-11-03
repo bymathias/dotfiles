@@ -70,4 +70,9 @@ Release .dotfiles version
 | key            | action                               |
 | ------         | ------                               |
 | `<prefix>` `?` | Display a list of keyboard shortcuts |
+| `<prefix> Ctrl + s` | Saves all the working directories, pane layouts, etc.., from your tmux environment |
+| `<prefix> Ctrl + r` | Restores your tmux environment setup |
 | ...            |                                      |
+
+Tmux environment will be saved at the interval of 15 minutes, using [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
+

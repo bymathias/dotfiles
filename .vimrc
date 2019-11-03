@@ -30,6 +30,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'Glench/Vim-Jinja2-Syntax'
   Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
   Plug 'posva/vim-vue',
+  Plug 'evanleck/vim-svelte'
   Plug 'StanAngeloff/php.vim', { 'for': 'php' }
   Plug 'chr4/nginx.vim'
   Plug 'tpope/vim-git'
@@ -44,7 +45,6 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'editorconfig/editorconfig-vim', { 'do': 'sudo apt -y install editorconfig' }
   Plug 'Valloric/MatchTagAlways'
   Plug 'Raimondi/delimitMate'
-  " Plug 'tpope/vim-commentary'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-surround'
   Plug 'terryma/vim-expand-region'
@@ -53,23 +53,15 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'maksimr/vim-jsbeautify'
   Plug 'heavenshell/vim-jsdoc'
   Plug 'majutsushi/tagbar', {
-		\ 'do': 'sudo apt install -y exuberant-ctags',
-		\ 'on': 'TagbarToggle'
-		\ }
+    \ 'do': 'sudo apt install -y exuberant-ctags',
+    \ 'on': 'TagbarToggle'
+    \ }
 
   " ---- Completion ---------------------{{{2
 
-  if executable('npm')
-    Plug 'maralla/completor.vim', { 'do': 'make js' }
-    " Plug 'ternjs/tern_for_vim', { 'do': 'npm i' }
-    " install the tern server by running npm install in the bundle/tern_for_vim directory
-    Plug 'ternjs/tern_for_vim'
-  else
-    Plug 'vim-scripts/AutoComplPop'
-  endif
+  Plug 'vim-scripts/AutoComplPop'
   Plug 'othree/csscomplete.vim'
   Plug 'shawncplus/phpcomplete.vim'
-  Plug 'dsawardekar/wordpress.vim'
 
   " ---- Snippets ---------------------{{{2
 
@@ -91,18 +83,17 @@ silent! if plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+  " Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " ---- Writing ---------------------{{{2
 
-  if executable('npm')
-    " require 'npm i -g instant-markdown-d'
+  if executable('nvm') && executable('npm') " For local setup
     Plug 'suan/vim-instant-markdown', {
-      \ 'do': 'sudo apt -y install xdg-utils',
+      \ 'do': 'npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
       \ 'for': 'markdown'
       \ }
+    Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
   endif
-  Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 
   " }}}2
 
@@ -864,6 +855,11 @@ silent! if g:plug.is_installed('nerdtree')
 
     " Close vim if the only window left open is a NERDTree
     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    autocmd VimEnter * NERDTree
+    autocmd BufWinEnter * NERDTreeMirror
+
+    " autocmd VimEnter * wincmd w
   augroup END
 endif
 
