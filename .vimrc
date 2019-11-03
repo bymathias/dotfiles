@@ -83,11 +83,11 @@ silent! if plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
-  " Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " ---- Writing ---------------------{{{2
 
-  if executable('nvm') && executable('npm') " For local setup
+  if executable('npm')
     Plug 'suan/vim-instant-markdown', {
       \ 'do': 'npm i -g instant-markdown-d && sudo apt -y install xdg-utils',
       \ 'for': 'markdown'
