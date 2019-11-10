@@ -37,13 +37,9 @@ alias week='date +%V'
 alias wttr='curl wttr.in -A "curl"'
 alias weather='wttr'
 
-alias lock-screen='sleep 2 && xscreensaver-command -lock'
-
-alias jekyll-serve='bundle exec jekyll serve'
 alias mockup='npm start --prefix ~/app/pencil'
-
+alias lock-screen='sleep 2 && xscreensaver-command -lock'
 alias do-upgrade='sudo apt update && sudo apt -y upgrade && sudo apt autoremove && sudo apt clean'
-
 alias serve='python -m SimpleHTTPServer 8080'
 
 # ========================================== #
@@ -61,19 +57,33 @@ alias tx='tmux -q has-session && tmux attach-session -d || tmux new-session -s$U
 #   Git
 # ========================================== #
 
-alias g='git'
-alias ga='git add'
-alias gc='git commit'
-alias gac='git add --all && git commit -m'
-alias gd='git diff'
-alias gs='git status'
-alias gl='git log'
-alias gb='git branch'
-alias gt='git checkout'
-alias ge='git clone'
-alias ghom='git push origin master'
-alias glom='git pull origin master'
+# Adds all changes to staging
+alias gaa='git add .'
+# Creates a new commit with all staged files
+# and uses the given message as the commit's message
+alias gcm='git commit -m'
+# Adds all files to staging and makes a commit
+# using the given message as the commit's message
+alias gcma='git commit -a -m'
+# Removes all the changes detected by Git
+alias gnope='git checkout .'
+# Unstages everything
+alias gwait='git reset HEAD'
+# Undoes the last commit and moves the files in the commit to staging
+alias gundo='git reset --soft HEAD^'
+# Logs previous commits in a concise manner
 alias glog='git log --graph --oneline --decorate --all'
+# Allows to switch between branches
+alias gco='git checkout'
+# Updates the remote
+alias gps='git push'
+# Fetch updates from the remote and rebase
+# the local branch with the upstream branch.
+# This avoids any merge commits that may occur when using git pull
+alias gpl='git pull --rebase'
+# Rebases the current branch with another branch
+# ex: grb origin/master
+alias grb='git rebase'
 
 # ========================================== #
 #   Nginx
