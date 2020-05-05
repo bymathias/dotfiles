@@ -856,8 +856,8 @@ silent! if g:plug.is_installed('nerdtree')
     " Close vim if the only window left open is a NERDTree
     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-    autocmd VimEnter * NERDTree
-    autocmd BufWinEnter * NERDTreeMirror
+    " autocmd VimEnter * NERDTree
+    " autocmd BufWinEnter * NERDTreeMirror
 
     " autocmd VimEnter * wincmd w
   augroup END
