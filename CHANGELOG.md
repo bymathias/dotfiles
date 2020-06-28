@@ -1,3 +1,9 @@
+## 1.3.2 - (2020-06-28)
+
+- initial commit [#](https://github.com/bymathias/dotfiles/commit/fe4e541cf1f4467c1318b0c67c401f09b88d8637 "commit fe4e541")
+- alias: add git common commands [#](https://github.com/bymathias/dotfiles/commit/044a69b2285ec3d1f08651a6ffdda56f0234c0fd "commit 044a69b")
+- fix: tmux install [#](https://github.com/bymathias/dotfiles/commit/77c3dbb1aa5c4524b11c2afa09d54efaae219b96 "commit 77c3dbb")
+
 ## 1.3.1 - (2019-11-03)
 
 - vim: add git nerdtree plugin [#](https://github.com/bymathias/dotfiles/commit/8ebd16fc52022fc5066dd85e4dcdf3efa4ee540b "commit 8ebd16f")
