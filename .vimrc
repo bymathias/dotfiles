@@ -21,25 +21,7 @@ silent! if plug#begin('~/.vim/plugged')
 
   " ---- Syntax ---------------------{{{2
 
-  " Plug 'pangloss/vim-javascript'
-  " Plug 'elzr/vim-json', { 'for': 'json'}
-  " Plug 'hail2u/vim-css3-syntax'
-  " Plug 'cakebaker/scss-syntax.vim'
-  " Plug 'othree/html5.vim'
-  " Plug 'mustache/vim-mustache-handlebars', { 'for': 'hbs' }
-  " Plug 'Glench/Vim-Jinja2-Syntax'
-  " Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
-  " Plug 'posva/vim-vue',
-  " Plug 'evanleck/vim-svelte'
-  " Plug 'StanAngeloff/php.vim', { 'for': 'php' }
-  " Plug 'chr4/nginx.vim'
-  " Plug 'tpope/vim-git'
-  " Plug 'tmux-plugins/vim-tmux'
-  " Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  " Plug 'cespare/vim-toml'
-  " Plug 'tpope/vim-liquid'
-  " Plug 'ap/vim-css-color'
-
+  Plug 'godlygeek/tabular' " Required by vim-markdown, included in vim-polyglot
   Plug 'sheerun/vim-polyglot'
 
   " ---- Editing/Helpers ---------------------{{{2
@@ -54,6 +36,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'maksimr/vim-jsbeautify'
   Plug 'heavenshell/vim-jsdoc'
+  Plug 'ap/vim-css-color'
   Plug 'majutsushi/tagbar', {
     \ 'do': 'sudo apt install -y exuberant-ctags',
     \ 'on': 'TagbarToggle'
@@ -61,9 +44,10 @@ silent! if plug#begin('~/.vim/plugged')
 
   " ---- Completion ---------------------{{{2
 
-  Plug 'vim-scripts/AutoComplPop'
-  Plug 'othree/csscomplete.vim'
-  Plug 'shawncplus/phpcomplete.vim'
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  Plug 'maralla/completor.vim', { 'do': 'make js' }
+  Plug 'kyouryuukunn/completor-necovim'
+  Plug 'jsit/sasscomplete.vim'
 
   " ---- Snippets ---------------------{{{2
 
@@ -278,38 +262,38 @@ set wildmode=list:longest,full " Completion mode used
 set showfulltag " Show the full tag when completing
                 " Doesn't work well with 'longest' in 'completeopt'
 
-set omnifunc=syntaxcomplete#Complete
+" set omnifunc=syntaxcomplete#Complete
 
 if has('autocmd')
   " Auto enable autocomplete for html, css, javascript, php..
   augroup complete_html
     autocmd!
-    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   augroup END
 
-  augroup complete_css
-    autocmd!
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  augroup END
+  " augroup complete_css
+  "   autocmd!
+  "   autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
+  " augroup END
 
-  augroup complete_js
+  " augroup complete_js
+  "   autocmd!
+  "   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  " augroup END
+
+  augroup complete_xml
     autocmd!
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   augroup END
 
   augroup complete_php
     autocmd!
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-  augroup END
-
-  augroup complete_xml
-    autocmd!
-    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   augroup END
 
   augroup complete_python
     autocmd!
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   augroup END
 endif
 
@@ -597,15 +581,15 @@ endif
 " ---- FileSize() ---------------------{{{2
 
 " Get file size (used in the default statusline)
-function! FileSize()
-  let bytes = getfsize(expand('%:p'))
-  if bytes <= 0 | return '' | endif
-  if bytes < 1024
-    return '' . bytes . 'B'
-  else
-    return '' . (bytes / 1024) . 'K'
-  endif
-endfunction
+" function! FileSize()
+"   let bytes = getfsize(expand('%:p'))
+"   if bytes <= 0 | return '' | endif
+"   if bytes < 1024
+"     return '' . bytes . 'B'
+"   else
+"     return '' . (bytes / 1024) . 'K'
+"   endif
+" endfunction
 
 " ---- DefaultTabs() ---------------------{{{2
 
@@ -734,14 +718,42 @@ silent! if g:plug.is_installed('tagbar')
 	nmap <F8> :TagbarToggle<cr>
 endif
 
+" ---- completor.vim ---------------------{{{2
+" ref: https://github.com/maralla/completor.vim
+
+silent! if g:plug.is_installed('completor.vim')
+  " Use html/css/scss/json omnifunc
+  let g:completor_html_omni_trigger = '(<|<[a-zA-Z][a-zA-Z1-6]*\s+|="|"\s+)$'
+  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+  let g:completor_scss_omni_trigger = g:completor_css_omni_trigger
+  let g:completor_json_omni_trigger = '(\s*\w*)$'
+
+  " Use Tab to select completion
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+endif
+
+" ---- sasscomplete.vim ---------------------{{{2
+" ref: https://github.com/jsit/sasscomplete.vim
+
+silent! if g:plug.is_installed('sasscomplete.vim')
+  if has('autocmd')
+    augroup complete_scss
+      autocmd!
+      autocmd FileType css,sass,scss setlocal omnifunc=sasscomplete#CompleteSass noci
+    augroup END
+  endif
+endif
+
 " ---- ultisnips ---------------------{{{2
 " ref: https://github.com/SirVer/ultisnips
 
 silent! if g:plug.is_installed('ultisnips')
-	let g:UltiSnipsExpandTrigger='<Tab>'
-	let g:UltiSnipsJumpForwardTrigger='<Tab>'
-	let g:UltiSnipsJumpBackwardTrigger='<s-Tab>'
-	let g:UltiSnipsListSnippets='<C-L>'
+  let g:UltiSnipsExpandTrigger='<Nul>'
+  let g:UltiSnipsJumpForwardTrigger='<Nul>'
+  let g:UltiSnipsJumpBackwardTrigger='<C-B>'
+  let g:UltiSnipsListSnippets='<C-L>'
 
 	" let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
 	let g:UltiSnipsSnippetDirectories=['UltiSnips', 'csnippets']
@@ -751,8 +763,8 @@ endif
 " ref: https://github.com/mattn/emmet-vim
 
 silent! if g:plug.is_installed('emmet-vim')
-  " let g:user_emmet_leader_key='<C-e>'
-  let g:user_emmet_expandabbr_key='<Nul>'
+  let g:user_emmet_leader_key='<C-M>'
+  " let g:user_emmet_expandabbr_key='<Nul>'
   let g:use_emmet_complete_tag=1
 
   " Enable just for html/hbs/php/css/scss
