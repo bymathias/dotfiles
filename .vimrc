@@ -21,24 +21,26 @@ silent! if plug#begin('~/.vim/plugged')
 
   " ---- Syntax ---------------------{{{2
 
-  Plug 'pangloss/vim-javascript'
-  Plug 'elzr/vim-json', { 'for': 'json'}
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'cakebaker/scss-syntax.vim'
-  Plug 'othree/html5.vim'
-  Plug 'mustache/vim-mustache-handlebars', { 'for': 'hbs' }
-  Plug 'Glench/Vim-Jinja2-Syntax'
-  Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
-  Plug 'posva/vim-vue',
-  Plug 'evanleck/vim-svelte'
-  Plug 'StanAngeloff/php.vim', { 'for': 'php' }
-  Plug 'chr4/nginx.vim'
-  Plug 'tpope/vim-git'
-  Plug 'tmux-plugins/vim-tmux'
-  Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  Plug 'cespare/vim-toml'
-  Plug 'tpope/vim-liquid'
-  Plug 'ap/vim-css-color'
+  " Plug 'pangloss/vim-javascript'
+  " Plug 'elzr/vim-json', { 'for': 'json'}
+  " Plug 'hail2u/vim-css3-syntax'
+  " Plug 'cakebaker/scss-syntax.vim'
+  " Plug 'othree/html5.vim'
+  " Plug 'mustache/vim-mustache-handlebars', { 'for': 'hbs' }
+  " Plug 'Glench/Vim-Jinja2-Syntax'
+  " Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
+  " Plug 'posva/vim-vue',
+  " Plug 'evanleck/vim-svelte'
+  " Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+  " Plug 'chr4/nginx.vim'
+  " Plug 'tpope/vim-git'
+  " Plug 'tmux-plugins/vim-tmux'
+  " Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+  " Plug 'cespare/vim-toml'
+  " Plug 'tpope/vim-liquid'
+  " Plug 'ap/vim-css-color'
+
+  Plug 'sheerun/vim-polyglot'
 
   " ---- Editing/Helpers ---------------------{{{2
 
