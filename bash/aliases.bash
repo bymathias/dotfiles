@@ -100,16 +100,40 @@ alias nginx-status='sudo /etc/init.d/nginx status'
 alias nginx-upgrade='sudo /etc/init.d/nginx upgrade'
 
 # ========================================== #
+#   Apache
+#   Usage: `/etc/init.d/apache2 {start|stop|restart}`
+#   Enable/Disable Apache2 at start up: `sudo systemctl {enable|disable} apache2`
+# ========================================== #
+
+alias apache2-start='sudo /etc/init.d/apache2 start'
+alias apache2-stop='sudo /etc/init.d/apache2 stop'
+alias apache2-restart='sudo /etc/init.d/apache2 restart'
+alias apache2-status='sudo /etc/init.d/apache2 status'
+alias apache2-reload='sudo /etc/init.d/apache2 reload'
+
+# ========================================== #
 #   PHP-FPM 7.0
 #   Usage: `/etc/init.d/php7.0-fpm {start|stop|status|restart|reload|force-reload}`
 #   Enable/Disable PHP at start up: `sudo systemctl {enable|disable} php7.0-fpm`
 # ========================================== #
 
-alias php-start='sudo /etc/init.d/php7.0-fpm start'
-alias php-stop='sudo /etc/init.d/php7.0-fpm stop'
-alias php-restart='sudo /etc/init.d/php7.0-fpm restart'
-alias php-reload='sudo /etc/init.d/php7.0-fpm reload'
-alias php-status='sudo /etc/init.d/php7.0-fpm status'
+alias php7.0-start='sudo /etc/init.d/php7.0-fpm start'
+alias php7.0-stop='sudo /etc/init.d/php7.0-fpm stop'
+alias php7.0-restart='sudo /etc/init.d/php7.0-fpm restart'
+alias php7.0-reload='sudo /etc/init.d/php7.0-fpm reload'
+alias php7.0-status='sudo /etc/init.d/php7.0-fpm status'
+
+# ========================================== #
+#   PHP-FPM 7.4
+#   Usage: `/etc/init.d/php7.4-fpm {start|stop|status|restart|reload|force-reload}`
+#   Enable/Disable PHP at start up: `sudo systemctl {enable|disable} php7.4-fpm`
+# ========================================== #
+
+alias php7.4-start='sudo /etc/init.d/php7.4-fpm start'
+alias php7.4-stop='sudo /etc/init.d/php7.4-fpm stop'
+alias php7.4-restart='sudo /etc/init.d/php7.4-fpm restart'
+alias php7.4-reload='sudo /etc/init.d/php7.4-fpm reload'
+alias php7.4-status='sudo /etc/init.d/php7.4-fpm status'
 
 # ========================================== #
 #   MariaDB (mysql)
