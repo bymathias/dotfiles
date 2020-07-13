@@ -238,7 +238,7 @@ if has('autocmd')
 
   augroup filetype_nginx
     autocmd!
-    autocmd BufNewFile,BufRead /opt/nginx/{conf,sites-available}/* set ft=nginx
+    autocmd BufNewFile,BufRead /etc/nginx/{conf,sites-available}/* set ft=nginx
   augroup END
 endif
 
@@ -721,20 +721,7 @@ endif
 
 silent! if g:plug.is_installed('vim-jsbeautify')
   " Beautify assets
-  nmap <leader>jb :call JsBeautify()<cr>
-endif
-
-" ---- vim-csscomb ---------------------{{{2
-" ref: https://github.com/csscomb/vim-csscomb
-
-silent! if g:plug.is_installed('vim-csscomb')
-  augroup csscomb_config
-    autocmd!
-    " Map bc to run CSScomb. bc stands for beautify css
-    autocmd FileType scss,css noremap <buffer> <leader>bc :CSScomb<cr>
-    " Automatically comb your CSS on save
-    "autocmd BufWritePre,FileWritePre *.css,*.less,*.scss,*.sass silent! :CSScomb
-  augroup END
+  nmap <leader>bj :call JsBeautify()<cr>
 endif
 
 " ---- tagbar ---------------------{{{2
@@ -743,32 +730,6 @@ endif
 silent! if g:plug.is_installed('tagbar')
 	" Toggle Tagbar window
 	nmap <F8> :TagbarToggle<cr>
-endif
-
-" ---- completor.vim ---------------------{{{2
-" ref: https://github.com/maralla/completor.vim
-
-silent! if g:plug.is_installed('completor.vim')
-  " let g:completor_node_binary = '/usr/bin/node'
-
-  " Other omni completions completor
-  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-  let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-
-  " Use Tab to trigger completion (disable auto trigger)
-  "let g:completor_auto_trigger = 0
-  "inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
-endif
-
-" ---- tern_for_vim ---------------------{{{2
-" ref: https://github.com/ternjs/tern_for_vim
-
-silent! if g:plug.is_installed('tern_for_vim')
-
-  augroup tern_config
-    autocmd!
-    autocmd FileType javascript,jsx setl omnifunc=tern#Complete
-  augroup END
 endif
 
 " ---- ultisnips ---------------------{{{2
@@ -792,11 +753,11 @@ silent! if g:plug.is_installed('emmet-vim')
   let g:user_emmet_expandabbr_key='<Nul>'
   let g:use_emmet_complete_tag=1
 
-  " Enable just for html/hbs/css
+  " Enable just for html/hbs/php/css/scss
   let g:user_emmet_install_global=0
   augroup emmet_config
     autocmd!
-    autocmd FileType html,hbs,jinja,php,css EmmetInstall
+    autocmd FileType html,hbs,php,css,scss EmmetInstall
   augroup END
 endif
 
