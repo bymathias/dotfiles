@@ -58,10 +58,19 @@ Release .dotfiles version
 
 `<leader>` key => `,`
 
-| key            | mode        | action               |
-| ------         | ----------- | ------               |
-| `<leader>` `n` | Normal      | Toggle NERDTree pane |
-| ...            |             |                      |
+| key                | mode        | action                                             |
+| ------             | ----------- | ------                                             |
+| `<leader>` + `n`   | Normal      | `NERDTree` toggle pane                             |
+| `<leader>` + `fn`  | Normal      | `NERDTree` focus/highlight toggle the current file |
+| `<leader>` + `cn`  | Normal      | `NERDTree` open directory of the current file      |
+|                    |             |                                                    |
+| `<Tab>`            | Insert      | `Ultisnips` expand snippets                        |
+| `<Tab>`            | Insert      | `Ultisnips` jump forward, next placeholder         |
+| `b` + `<Tab>`      | Insert      | `Ultisnips` jump backward, previous placeholder    |
+| `Ctrl` + `l`       | Insert      | `Ultisnips` list snippets                          |
+|                    |             |                                                    |
+| `Ctrl` + `<space>` | Insert      | `Emmet-vim` expand abbreviation                    |
+| ...                |             |                                                    |
 
 ## Tmux
 

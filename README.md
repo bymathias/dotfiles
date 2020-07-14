@@ -17,7 +17,7 @@
 - [Bash4][bash4]
 - [Git][git]
 - *Optional, but strongly recommended:*
-    - [Vim](https://www.vim.org/)
+    - [Vim 8](https://www.vim.org/) (compiled with `python` or `python3`)
     - [Tmux](https://github.com/tmux/tmux)
     - [EditorConfig](https://editorconfig.org/)
     - [Node.js](https://nodejs.org/en/)

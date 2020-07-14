@@ -47,7 +47,6 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
   Plug 'maralla/completor.vim', { 'do': 'make js' }
   Plug 'kyouryuukunn/completor-necovim'
-  Plug 'jsit/sasscomplete.vim'
 
   " ---- Snippets ---------------------{{{2
 
@@ -214,7 +213,7 @@ if has('autocmd')
 
   augroup filetype_sass
     autocmd!
-    autocmd BufNewFile,BufRead *.scss set ft=scss.css
+    autocmd BufNewFile,BufRead *.{scss,sass} set ft=scss.css
   augroup END
 
   augroup filetype_markdown
@@ -251,15 +250,17 @@ set wildignore+=*package-lock.json
 set wildmenu                   " Better command line completion
 set wildmode=list:longest,full " Completion mode used
 
-" set complete-=i " Don't pollute the completion results
-" set completeopt-=longest
-" set completeopt+=menuone
-" set completeopt-=menu
-" if &completeopt !~# 'noinsert\|noselect'
-"   set completeopt+=noselect
-" endif
+set complete-=i " Don't pollute the completion results
+set completeopt+=preview
+set completeopt-=longest
+set completeopt+=menuone
+set completeopt-=menu
+if &completeopt !~# 'noinsert\|noselect'
+  set completeopt+=noselect
+endif
+set shortmess+=c
 
-set showfulltag " Show the full tag when completing
+" set showfulltag " Show the full tag when completing
                 " Doesn't work well with 'longest' in 'completeopt'
 
 " set omnifunc=syntaxcomplete#Complete
@@ -271,15 +272,15 @@ if has('autocmd')
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   augroup END
 
-  " augroup complete_css
-  "   autocmd!
-  "   autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
-  " augroup END
+  augroup complete_css
+    autocmd!
+    autocmd FileType css,scss,sass setlocal omnifunc=csscomplete#CompleteCSS
+  augroup END
 
-  " augroup complete_js
-  "   autocmd!
-  "   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  " augroup END
+  augroup complete_js
+    autocmd!
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  augroup END
 
   augroup complete_xml
     autocmd!
@@ -580,16 +581,16 @@ endif
 
 " ---- FileSize() ---------------------{{{2
 
-" Get file size (used in the default statusline)
-" function! FileSize()
-"   let bytes = getfsize(expand('%:p'))
-"   if bytes <= 0 | return '' | endif
-"   if bytes < 1024
-"     return '' . bytes . 'B'
-"   else
-"     return '' . (bytes / 1024) . 'K'
-"   endif
-" endfunction
+" Get file size (used in the statusline)
+function! FileSize()
+  let bytes = getfsize(expand('%:p'))
+  if bytes <= 0 | return '' | endif
+  if bytes < 1024
+    return '' . bytes . 'B'
+  else
+    return '' . (bytes / 1024) . 'K'
+  endif
+endfunction
 
 " ---- DefaultTabs() ---------------------{{{2
 
@@ -722,37 +723,19 @@ endif
 " ref: https://github.com/maralla/completor.vim
 
 silent! if g:plug.is_installed('completor.vim')
-  " Use html/css/scss/json omnifunc
-  let g:completor_html_omni_trigger = '(<|<[a-zA-Z][a-zA-Z1-6]*\s+|="|"\s+)$'
-  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-  let g:completor_scss_omni_trigger = g:completor_css_omni_trigger
-  let g:completor_json_omni_trigger = '(\s*\w*)$'
-
-  " Use Tab to select completion
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-endif
-
-" ---- sasscomplete.vim ---------------------{{{2
-" ref: https://github.com/jsit/sasscomplete.vim
-
-silent! if g:plug.is_installed('sasscomplete.vim')
-  if has('autocmd')
-    augroup complete_scss
-      autocmd!
-      autocmd FileType css,sass,scss setlocal omnifunc=sasscomplete#CompleteSass noci
-    augroup END
-  endif
+  " Use <C-n> to select completion and <C-b> to go back
+  " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <C-b> pumvisible() ? "\<C-p>" : "\<C-b>"
 endif
 
 " ---- ultisnips ---------------------{{{2
 " ref: https://github.com/SirVer/ultisnips
 
 silent! if g:plug.is_installed('ultisnips')
-  let g:UltiSnipsExpandTrigger='<Nul>'
-  let g:UltiSnipsJumpForwardTrigger='<Nul>'
-  let g:UltiSnipsJumpBackwardTrigger='<C-B>'
+  " Use <Tab> to trigger the snippets
+  let g:UltiSnipsExpandTrigger='<Tab>'
+  let g:UltiSnipsJumpForwardTrigger='<Tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<b-Tab>'
   let g:UltiSnipsListSnippets='<C-L>'
 
 	" let g:UltiSnipsSnippetsDir='~/.vim/csnippets'
@@ -763,15 +746,15 @@ endif
 " ref: https://github.com/mattn/emmet-vim
 
 silent! if g:plug.is_installed('emmet-vim')
-  let g:user_emmet_leader_key='<C-M>'
-  " let g:user_emmet_expandabbr_key='<Nul>'
+  " Use <C-Space> to trigger emmet completion
+  let g:user_emmet_expandabbr_key='<Nul>'
   let g:use_emmet_complete_tag=1
 
   " Enable just for html/hbs/php/css/scss
   let g:user_emmet_install_global=0
   augroup emmet_config
     autocmd!
-    autocmd FileType html,hbs,php,css,scss EmmetInstall
+    autocmd FileType html,hbs,php,css,scss,sass EmmetInstall
   augroup END
 endif
 
