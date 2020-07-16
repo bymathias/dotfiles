@@ -517,6 +517,11 @@ nmap gO O<esc>
 " Prevent auto-indenting and auto-expansion when pasting from clipboard
 set pastetoggle=<F9>
 
+" set clipboard=unnamedplus
+" set go+=a
+" imap <C-V> <C-O>:set paste<cr><C-R><C-R>+<C-O>:set nopaste<cr>
+" vnoremap <C-C> "+ygv
+
 " ---- Spelling ---------------------{{{2
 
 if has('spell')
