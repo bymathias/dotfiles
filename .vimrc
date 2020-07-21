@@ -346,13 +346,13 @@ try
   " Background has to be called after setting the colorscheme
   " see https://github.com/rakr/vim-one/issues/21
   set background=dark
-  "set background=light
+  " set background=light
 
   if &background ==# 'light'
-    call one#highlight('LineNr', 'd3d3d3', 'f0f0f0', 'none')
-    call one#highlight('VertSplit', 'd3d3d3', 'd3d3d3', 'none')
-    call one#highlight('Folded', '9e9e9e', 'd3d3d3', 'none')
-    call one#highlight('SignColumn', 'd3d3d3', 'f0f0f0', 'none')
+    call one#highlight('LineNr', 'f0f0f0', 'd3d3d3', 'none')
+    call one#highlight('VertSplit', 'f0f0f0', 'f0f0f0', 'none')
+    call one#highlight('Folded', '9e9e9e', 'f0f0f0', 'none')
+    call one#highlight('SignColumn', 'f0f0f0', 'd3d3d3', 'none')
   endif
 
   if &background ==# 'dark'
@@ -369,9 +369,11 @@ endtry
 
 " ---- UI ---------------------{{{2
 
-set number     " Display line number
-set cursorline " Highlight the line of the cursor
-set showmatch  " Highlight matching [{()}]
+set number        " Display line number
+set cursorline    " Highlight the line of the cursor
+set showmatch     " Highlight matching [{()}]
+set fillchars=""  " Remove pipe separating the vertical windows
+
 
 let g:php_htmlInStrings=1 " Highlight html syntax within strings
 let g:php_sql_query=1     " Highlight sql queries
