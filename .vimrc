@@ -644,6 +644,14 @@ endfunction
 
 " -- PLUGGED Settings -----------------------------------------------{{{1
 
+" ---- vim-polyglot ---------------------{{{2
+" ref: https://github.com/sheerun/vim-polyglot
+
+silent! if g:plug.is_installed('vim-polyglot')
+  " Fix the slowness when opening .vue files
+  " let g:vue_disable_pre_processors = 1
+endif
+
 " ---- vim-markdown ---------------------{{{2
 " ref: https://github.com/plasticboy/vim-markdown
 
@@ -821,9 +829,9 @@ silent! if g:plug.is_installed('nerdtree')
     " Close vim if the only window left open is a NERDTree
     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+    " Auto-open NERDTree in “EVERY” tab
     " autocmd VimEnter * NERDTree
     " autocmd BufWinEnter * NERDTreeMirror
-
     " autocmd VimEnter * wincmd w
   augroup END
 endif
