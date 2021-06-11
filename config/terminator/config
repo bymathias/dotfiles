@@ -3,7 +3,7 @@
   title_inactive_bg_color = "#000000"
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 [keybindings]
-  hide_window = <Shift><Control>a
+  hide_window = <Super>d
 [profiles]
   [[default]]
     background_color = "#2e3436"
