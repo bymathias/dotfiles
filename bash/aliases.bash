@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Find aliases
+# ex: fa git
+alias fa='alias | grep'
+
 # ========================================== #
 #   Basic
 # ========================================== #

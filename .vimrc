@@ -35,7 +35,10 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
   Plug 'maksimr/vim-jsbeautify'
-  Plug 'heavenshell/vim-jsdoc'
+  Plug 'heavenshell/vim-jsdoc', {
+    \ 'for': ['javascript', 'javascript.jsx','typescript'],
+    \ 'do': 'make install'
+    \ }
   Plug 'ap/vim-css-color'
   Plug 'majutsushi/tagbar', {
     \ 'do': 'sudo apt install -y exuberant-ctags',
@@ -353,6 +356,10 @@ try
     call one#highlight('VertSplit', 'f0f0f0', 'f0f0f0', 'none')
     call one#highlight('Folded', '9e9e9e', 'f0f0f0', 'none')
     call one#highlight('SignColumn', 'f0f0f0', 'd3d3d3', 'none')
+
+    " call one#highlight('TabLine', '222222', '2c323c', 'none')
+    " call one#highlight('TabLineFill', '222222', '2c323c', 'none')
+    " call one#highlight('TabLineSel', 'f0f0f0', '2c323c', 'none')
   endif
 
   if &background ==# 'dark'
@@ -360,6 +367,10 @@ try
     call one#highlight('VertSplit', '2c323c', '2c323c', 'none')
     call one#highlight('Folded', '828997', '2c323c', 'none')
     call one#highlight('SignColumn', '4b5263', '222222', 'none')
+
+    " call one#highlight('TabLine', '222222', '2c323c', 'none')
+    " call one#highlight('TabLineFill', '222222', '2c323c', 'none')
+    " call one#highlight('TabLineSel', 'f0f0f0', '2c323c', 'none')
   endif
 catch
   " set termguicolors!
@@ -820,6 +831,20 @@ silent! if g:plug.is_installed('nerdtree')
   " Open directory of the current file in NERDTree
   nmap <leader>cn :NERDTree %<cr>
 
+	" Check if NERDTree is open or active
+	function! s:IsNERDTreeOpen()
+  	return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+	endfunction
+
+	" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+	" file, and we're not in vimdiff
+	function! s:SyncTree()
+  	if &modifiable && s:IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    	NERDTreeFind
+    	wincmd p
+  	endif
+	endfunction
+
   augroup nerdtree_config
     autocmd!
     " Open a NERDTree automatically when vim starts up if no files were specified
@@ -827,12 +852,16 @@ silent! if g:plug.is_installed('nerdtree')
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
     " Close vim if the only window left open is a NERDTree
-    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     " Auto-open NERDTree in “EVERY” tab
-    " autocmd VimEnter * NERDTree
-    " autocmd BufWinEnter * NERDTreeMirror
+    autocmd VimEnter * NERDTree
+    autocmd BufWinEnter * NERDTreeMirror
     " autocmd VimEnter * wincmd w
+
+		" Highlight currently open buffer in NERDTree
+		autocmd BufEnter * call s:SyncTree()
+
   augroup END
 endif
 
