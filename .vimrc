@@ -663,6 +663,7 @@ endfunction
 
 silent! if g:plug.is_installed('vim-polyglot')
   " Fix the slowness when opening .vue files
+  let g:vue_pre_processors = 'detect_on_enter'
   " let g:vue_disable_pre_processors = 1
 endif
 
