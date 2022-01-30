@@ -1,0 +1,9 @@
++ /
++ /Documents
++ /Dropbox
++ /.config/
++ /.config/openbox
+- /*
+- /.config/*
+- .*
+- .*/

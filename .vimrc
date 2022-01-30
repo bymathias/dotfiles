@@ -44,13 +44,17 @@ silent! if plug#begin('~/.vim/plugged')
     \ 'do': 'sudo apt install -y exuberant-ctags',
     \ 'on': 'TagbarToggle'
     \ }
-  Plug 'prettier/vim-prettier', {
-    \ 'do': 'npm install',
-    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+  if executable('npm')
+    Plug 'prettier/vim-prettier', {
+      \ 'do': 'npm install',
+      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+  endif
 
   " ---- Completion ---------------------{{{2
 
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  if executable('npm')
+    Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  endif
   Plug 'maralla/completor.vim', { 'do': 'make js' }
   Plug 'kyouryuukunn/completor-necovim'
 
@@ -74,7 +78,7 @@ silent! if plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+  " Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " ---- Writing ---------------------{{{2
 
