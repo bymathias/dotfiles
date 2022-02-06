@@ -1,3 +1,13 @@
+## 1.2.7 - (2022-02-06)
+
+- Add readme section for .config folder submodule [#](https://github.com/bymathias/dotfiles/commit/5436bd91a160a0e4a241c262d462fd62c0f70621 "commit 5436bd9")
+- Added in submodule .config for removed folder [#](https://github.com/bymathias/dotfiles/commit/33494559b0674c8fa8426fc23b03636dd8b0a8df "commit 3349455")
+- removed config submodule [#](https://github.com/bymathias/dotfiles/commit/416eb37792c9e84381cce7a692482654a52f73dd "commit 416eb37")
+- Added in submodules for removed config folder [#](https://github.com/bymathias/dotfiles/commit/1360ab87d96d9fceb67b7df217d8ea342660d333 "commit 1360ab8")
+- Removing the config folder that are now a submodule [#](https://github.com/bymathias/dotfiles/commit/09d009b1916ba4f6b7911556b96e9da0aa6171cd "commit 09d009b")
+- remove backup script [#](https://github.com/bymathias/dotfiles/commit/5eed10e19ede6313756a10d9405f3799df4f60e1 "commit 5eed10e")
+- Release v1.2.6 [#](https://github.com/bymathias/dotfiles/commit/ad338e0f113ca58c91e74ddff4e32eb547fc2e91 "commit ad338e0")
+
 ## 1.2.6 - (2022-01-30)
 
 - fix slowness when opening vue files [#](https://github.com/bymathias/dotfiles/commit/3ae92d43bb84f902499c57fa1d85b2dbbb5a6b53 "commit 3ae92d4")
