@@ -21,14 +21,17 @@
     - [Tmux](https://github.com/tmux/tmux)
     - [EditorConfig](https://editorconfig.org/)
     - [Node.js](https://nodejs.org/en/)
-    - [Terminator](https://terminator-gtk3.readthedocs.io/en/latest/)
 
 ## Installation
 
 To get up and running on a new system, run the following
 ```bash
 # Clone the repository
+# for server env
 git clone https://github.com/bymathias/dotfiles.git ~/.dotfiles
+# for desktop env
+git clone --recurse-submodules https://github.com/bymathias/dotfiles.git ~/.dotfiles
+
 cd ~/.dotfiles
 
 # Run the install script
@@ -38,6 +41,38 @@ cd ~/.dotfiles
 source ~/.bash_profile
 ```
 Et voil&agrave;.
+
+The `.config` submodule folder stores the config files for desktop apps.
+
+#### conky
+
+```
+# Backup default conky config
+mv ~/.conkyrc ~/.default.conkyrc
+
+# Symlink config file
+ln -s ~/.dotfiles/.config/conky/conkyrc ~/.conkyrc
+```
+
+#### terminator
+
+```
+# Backup default terminator config
+mv ~/.config/terminator/config ~/.config/terminator/default.config
+
+# Symlink config file
+ln -s ~/.dotfiles/.config/terminator/config ~/.config/terminator/config
+```
+
+#### tint2
+
+```
+# Backup default tint2 config
+mv ~/.config/tint2/tint2rc ~/.config/tint2/default.tint2rc
+
+# Symlink config file
+ln -s ~/.dotfiles/.config/tint2/tint2rc ~/.config/tint2/tint2rc
+```
 
 ## Usage
 
