@@ -34,6 +34,7 @@ silent! if plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-expand-region'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+  Plug 'AndrewRadev/sideways.vim'
   Plug 'maksimr/vim-jsbeautify'
   Plug 'heavenshell/vim-jsdoc', {
     \ 'for': ['javascript', 'javascript.jsx','typescript'],
@@ -941,6 +942,15 @@ silent! if g:plug.is_installed('lightline.vim')
 		endif
 		return ''
 	endfunction
+endif
+
+" ---- sideways.vim ---------------------{{{2
+" ref: https://github.com/AndrewRadev/sideways.vim
+
+silent! if g:plug.is_installed('sideways.vim')
+  " Map the two main commands to convenient keys
+  nnoremap <c-h> :SidewaysLeft<cr>
+  nnoremap <c-l> :SidewaysRight<cr>
 endif
 
 " ---- vim-instant-markdown ---------------------{{{2
