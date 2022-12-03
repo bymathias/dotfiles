@@ -165,6 +165,17 @@ _bootstrap() {
 
     ;;
     # ========================================== #
+    # "config")
+    #   DOT_CONFIG_SL="$DOT_HOME/.config/symlinks.txt"
+
+    #   while read -r line; do
+    #     IFS=" " read -ra item <<< "$line"
+    #     # echo ${item[1]} ${item[0]}
+    #     __symlink ${item[1]} ${item[0]}
+    #   done < "$DOT_CONFIG_SL"
+    # ;;
+
+    # ========================================== #
     "uninstall")
 
       __log_info "Remove .dotfiles"
@@ -203,4 +214,5 @@ esac
 }
 
 # Main executable function at end of script
+    # ========================================== #
 _bootstrap "$@"
