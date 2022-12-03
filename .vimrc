@@ -661,6 +661,18 @@ endfunction
 
 " }}}1
 
+" -- SKELETONS Templates -----------------------------------------------{{{1
+
+if has('autocmd')
+  augroup templates
+    autocmd BufNewFile [README]*.md 0r ~/.vim/skeletons/README.tpl.md
+    " Make skeleton works when creating files in NERDTree
+    autocmd BufRead README.md if getfsize(expand('%')) == 0 | $r ~/.vim/skeletons/README.tpl.md | endif
+  augroup END
+endif
+
+" }}}1
+
 " -- PLUGGED Settings -----------------------------------------------{{{1
 
 " ---- vim-polyglot ---------------------{{{2
@@ -723,6 +735,7 @@ function! NERDCommenter_before()
     endif
   endif
 endfunction
+
 function! NERDCommenter_after()
   if g:ft == 'vue'
     setf vue
