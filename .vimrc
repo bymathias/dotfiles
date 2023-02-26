@@ -15,6 +15,10 @@ endif
 " Define the entire vimrc encoding
 scriptencoding utf-8
 
+" -- GLOBAL Variables -----------------------------------------------{{{1
+
+" let wiki_dir = '~/.dotfiles/.wiki'
+
 " -- PLUGGED Initialize -----------------------------------------------{{{1
 
 silent! if plug#begin('~/.vim/plugged')
@@ -90,6 +94,10 @@ silent! if plug#begin('~/.vim/plugged')
       \ }
     Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
   endif
+
+  " if isdirectory(expand(wiki_dir))
+  "   Plug 'lervag/wiki.vim'
+  " endif
 
   " }}}2
 
@@ -711,37 +719,39 @@ endif
 " ---- NERD Commenter ---------------------{{{2
 " ref: https://github.com/scrooloose/nerdcommenter
 
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
+silent! if g:plug.is_installed('nerdcommenter')
+  " Add spaces after comment delimiters by default
+  let g:NERDSpaceDelims = 1
 
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
+  " Use compact syntax for prettified multi-line comments
+  let g:NERDCompactSexyComs = 1
 
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
+  " Align line-wise comment delimiters flush left instead of following code indentation
+  let g:NERDDefaultAlign = 'left'
 
-" To use NERDCommenter with Vue files
-" see: https://github.com/posva/vim-vue#nerdcommenter
-let g:ft = ''
-function! NERDCommenter_before()
-  if &ft == 'vue'
-    let g:ft = 'vue'
-    let stack = synstack(line('.'), col('.'))
-    if len(stack) > 0
-      let syn = synIDattr((stack)[0], 'name')
-      if len(syn) > 0
-        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+  " To use NERDCommenter with Vue files
+  " see: https://github.com/posva/vim-vue#nerdcommenter
+  let g:ft = ''
+  function! NERDCommenter_before()
+    if &ft == 'vue'
+      let g:ft = 'vue'
+      let stack = synstack(line('.'), col('.'))
+      if len(stack) > 0
+        let syn = synIDattr((stack)[0], 'name')
+        if len(syn) > 0
+          exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+        endif
       endif
     endif
-  endif
-endfunction
+  endfunction
 
-function! NERDCommenter_after()
-  if g:ft == 'vue'
-    setf vue
-    let g:ft = ''
-  endif
-endfunction
+  function! NERDCommenter_after()
+    if g:ft == 'vue'
+      setf vue
+      let g:ft = ''
+    endif
+  endfunction
+endif
 
 " ---- vim-easy-align ---------------------{{{2
 " ref: https://github.com/junegunn/vim-easy-align
@@ -981,6 +991,17 @@ silent! if g:plug.is_installed('goyo.vim')
   let g:goyo_width='100'
   nnoremap <Leader>G :Goyo<cr>
 endif
+
+" ---- wiki.vim ---------------------{{{2
+" ref: https://github.com/lervag/wiki.vim
+
+" silent! if g:plug.is_installed('wiki.vim')
+"   " Directory where the wiki files should be stored
+"   let g:wiki_root = '~/.dotfiles/.wiki'
+"   " Use `.md` (Markdown) as the default extension
+"   let g:wiki_filetypes = ['md']
+"   let g:wiki_link_extension = '.md'
+" endif
 
 " }}}2
 
