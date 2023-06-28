@@ -82,3 +82,26 @@ man() {
     LESS_TERMCAP_us="$(printf '\033[1;32m')" \
   man "$@"
 }
+
+
+# ========================================== #
+# Explain shell commands
+#   see: https://www.tecmint.com/explain-shell-commands-in-the-linux-shell
+#   requirements: curl
+#   usage: `explain '<cmd>'`
+# ========================================== #
+
+explain () {
+  if [ "$#" -eq 0 ]; then
+    while read  -p "Command: " cmd; do
+      curl -Gs "https://www.mankier.com/api/explain/?cols="$(tput cols) --data-urlencode "q=$cmd"
+    done
+    echo "Bye!"
+  elif [ "$#" -eq 1 ]; then
+    curl -Gs "https://www.mankier.com/api/explain/?cols="$(tput cols) --data-urlencode "q=$1"
+  else
+    echo "Usage"
+    echo "explain                  interactive mode."
+    echo "explain 'cmd -o | ...'   one quoted command to explain it."
+  fi
+}
