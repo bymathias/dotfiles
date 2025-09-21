@@ -1,0 +1,103 @@
+/* Define color palette with @define-color */
+@define-color bg-primary #1C2526;    /* Deep charcoal grey for main background */
+@define-color bg-secondary #2E3536;  /* Slate grey for module backgrounds */
+@define-color border #40494A;        /* Mid-tone grey for borders */
+@define-color text-secondary #596162; /* Muted steel grey for secondary text/icons */
+@define-color highlight #727B7C;     /* Light ash grey for active/highlighted elements */
+@define-color text-primary #8A9394;  /* Pale grey for primary text/icons */
+
+/* Global styles */
+* {
+  font-family: JetBrains Mono; /* Adjust to your preferred font, e.g., JetBrains Mono */
+  font-size: 14px;       /* Suitable for HiDPI; adjust if needed */
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Main Waybar background */
+#waybar {
+  background: @bg-primary;
+  color: @text-primary;
+}
+
+#workspaces {
+  margin-right: 10px;
+}
+
+/* Workspaces module */
+#workspaces button,
+#custom-power {
+  background: @bg-secondary;
+  color: @text-secondary;
+  border: 1px solid @border;
+  padding: 0 10px;
+  margin: 2px 2px;
+  border-radius: 4px;
+}
+
+#workspaces button.focused {
+  background: @highlight;
+  color: @bg-primary;
+}
+
+#workspaces button:hover,
+#custom-power:hover {
+  background: @text-secondary;
+  color: @bg-primary;
+}
+
+/* Common styles for modules (clock, battery, etc.) */
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd,
+#custom-updates,
+#custom-vpn,
+#bluetooth {
+  background: @bg-secondary;
+  color: @text-primary;
+  padding: 0 10px;
+  margin: 2px 2px;
+  border-radius: 4px;
+}
+
+/* Specific module tweaks */
+#clock,
+#custom-power {
+  font-weight: bold;
+}
+
+#battery.warning {
+  color: @highlight;
+}
+
+#battery.critical {
+  color: @text-primary;
+  background: @border;
+}
+
+/* Tray styling */
+#tray {
+  background: @bg-secondary;
+}
+
+#tray > .passive {
+  color: @text-secondary;
+}
+
+#tray > .active {
+  color: @text-primary;
+}

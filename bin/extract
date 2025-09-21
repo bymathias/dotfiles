@@ -1,0 +1,212 @@
+#!/usr/bin/env bash
+
+# Script: extract.sh
+# Description: Extracts various archive formats to the current or specified directory.
+# Usage: ./extract.sh <file> [output_dir]
+# Supported formats: .tar.bz2, .tar.gz, .tar, .tbz2, .tgz, .rar, .bz2, .gz, .zip, .Z, .7z, .xz, .tar.xz, .zst, .tar.zst
+# Exit codes: 0 on success, non-zero on failure
+#
+# Dependencies:
+#   Arch Linux:
+#     - tar: tar (Core) - sudo pacman -S tar
+#     - unrar: unrar (Extra) - sudo pacman -S unrar
+#     - 7z: 7zip (Extra) - sudo pacman -S 7zip
+#     - unzip: unzip (Extra) - sudo pacman -S unzip
+#     - gunzip: gzip (Core) - sudo pacman -S gzip
+#     - bunzip2: bzip2 (Core) - sudo pacman -S bzip2
+#     - uncompress: gzip (Core) - sudo pacman -S gzip
+#     - xz: xz (Core) - sudo pacman -S xz
+#     - zstd: zstd (Core) - sudo pacman -S zstd
+#
+#   Debian 13 (Trixie):
+#     - tar: tar (Main) - sudo apt install tar
+#     - unrar: unrar (Non-free) - sudo apt install unrar (enable non-free in /etc/apt/sources.list)
+#     - 7z: 7zip (Main) - sudo apt install 7zip
+#     - unzip: unzip (Main) - sudo apt install unzip
+#     - gunzip: gzip (Main) - sudo apt install gzip
+#     - bunzip2: bzip2 (Main) - sudo apt install bzip2
+#     - uncompress: ncompress (Main) - sudo apt install ncompress
+#     - xz: xz-utils (Main) - sudo apt install xz-utils
+#     - zstd: zstd (Main) - sudo apt install zstd
+
+# Input arguments
+file="$1"  # Input archive file
+output_dir="$2"  # Optional output directory
+supported_formats=".tar.bz2 .tar.gz .tar .tbz2 .tgz .rar .bz2 .gz .zip .Z .7z .xz .tar.xz .zst .tar.zst"
+
+# Detect distribution for error messages
+distro="unknown"
+if [[ -f /etc/os-release ]]; then
+    if grep -qi "Arch" /etc/os-release; then
+        distro="arch"
+    elif grep -qi "Debian" /etc/os-release; then
+        distro="debian"
+    fi
+fi
+
+# Check if a file was provided
+if [[ -z "$file" ]]; then
+    echo "Error: No file specified."
+    echo "Usage: $0 <file> [output_dir]"
+    exit 1
+fi
+
+# Check if the file exists and is a regular file
+if [[ ! -f "$file" ]]; then
+    echo "Error: '$file' is not a valid file."
+    exit 2
+fi
+
+# Check if output directory is specified and valid
+if [[ -n "$output_dir" ]]; then
+    if [[ -d "$output_dir" ]]; then
+        echo "Extracting to directory: '$output_dir'"
+    else
+        echo "Creating output directory: '$output_dir'"
+        mkdir -p "$output_dir" || {
+            echo "Error: Failed to create output directory '$output_dir'."
+            exit 3
+        }
+    fi
+fi
+
+# Dependency check for required tools
+dependencies=("tar:tar:tar" "unrar:unrar:unrar" "7z:7zip:7zip" "unzip:unzip:unzip" "gunzip:gzip:gzip" "bunzip2:bzip2:bzip2" "uncompress:gzip:ncompress" "xz:xz:xz-utils" "zstd:zstd:zstd")
+for dep in "${dependencies[@]}"; do
+    cmd="${dep%%:*}"
+    pkg_arch="${dep#*:}" pkg_debian="${dep##*:}"
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Error: '$cmd' is not installed."
+        if [[ "$distro" == "arch" ]]; then
+            echo "On Arch Linux: sudo pacman -S ${pkg_arch}"
+        elif [[ "$distro" == "debian" ]]; then
+            echo "On Debian: sudo apt install ${pkg_debian}"
+            [[ "$cmd" == "unrar" ]] && echo "Note: Enable 'non-free' repository in /etc/apt/sources.list for unrar."
+        else
+            echo "Unknown distribution. Install the '${pkg_debian}' package."
+        fi
+        exit 4
+    fi
+done
+
+# Perform extraction based on file extension
+case "$file" in
+    *.tar.bz2|*.tbz2)
+        echo "Extracting tar.bz2 archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            tar -xjf "$file" -C "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            tar -xjf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.tar.gz|*.tgz)
+        echo "Extracting tar.gz archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            tar -xzf "$file" -C "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            tar -xzf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.tar)
+        echo "Extracting tar archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            tar -xf "$file" -C "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            tar -xf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.rar)
+        echo "Extracting rar archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            unrar x -idq "$file" "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            unrar x -idq "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.bz2)
+        echo "Extracting bz2 file: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            cp "$file" "$output_dir" && (cd "$output_dir" && bunzip2 "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            bunzip2 "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.gz)
+        echo "Extracting gz file: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            cp "$file" "$output_dir" && (cd "$output_dir" && gunzip "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            gunzip "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.zip)
+        echo "Extracting zip archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            unzip -q "$file" -d "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            unzip -q "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.Z)
+        echo "Extracting Z file: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            cp "$file" "$output_dir" && (cd "$output_dir" && uncompress "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            uncompress "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.7z)
+        echo "Extracting 7z archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            7z x "$file" -o"$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            7z x "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.xz)
+        echo "Extracting xz file: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            cp "$file" "$output_dir" && (cd "$output_dir" && xz -d "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            xz -d "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.tar.xz)
+        echo "Extracting tar.xz archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            tar -xJf "$file" -C "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            tar -xJf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.zst)
+        echo "Extracting zst file: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            cp "$file" "$output_dir" && (cd "$output_dir" && zstd -d "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            zstd -d "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *.tar.zst)
+        echo "Extracting tar.zst archive: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            tar -I zstd -xf "$file" -C "$output_dir" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        else
+            tar -I zstd -xf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
+    *)
+        echo "Error: '$file' cannot be extracted."
+        echo "Supported formats: $supported_formats"
+        exit 6
+        ;;
+esac
+
+# Check if extraction was successful
+if [[ $? -eq 0 ]]; then
+    echo "Successfully extracted '$file'."
+    exit 0
+else
+    echo "Error: Extraction of '$file' failed."
+    exit 5
+fi

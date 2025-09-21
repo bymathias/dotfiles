@@ -1,0 +1,213 @@
+/**
+ * Rofi theme converted to dark grey palette without @define-color
+ * Matches Waybar, Mako, and Foot themes
+ * Optimized for Arch Linux with Sway on Asus Vivobook S 14 OLED
+ * Rofi version: 2.0.0
+ */
+
+* {
+    font: "monospace 14"; /* Adjust to your preferred font, e.g., JetBrains Mono */
+    red:                         #727B7C; /* Light ash grey for urgent elements */
+    selected-active-foreground:  #1C2526; /* Deep charcoal grey */
+    lightfg:                     #596162; /* Muted steel grey for secondary text */
+    separatorcolor:              #40494A; /* Mid-tone grey for borders */
+    urgent-foreground:           #727B7C; /* Light ash grey */
+    alternate-urgent-background: #2E3536; /* Slate grey */
+    lightbg:                     #2E3536; /* Slate grey for alternate backgrounds */
+    background-color:            transparent;
+    border-color:                #40494A; /* Mid-tone grey */
+    normal-background:           #1C2526; /* Deep charcoal grey */
+    selected-urgent-background:  #727B7C; /* Light ash grey */
+    alternate-active-background: #2E3536; /* Slate grey */
+    spacing:                     2;
+    blue:                        #727B7C; /* Light ash grey for active/selected */
+    alternate-normal-foreground: #8A9394; /* Pale grey */
+    urgent-background:           #1C2526; /* Deep charcoal grey */
+    selected-normal-foreground:  #2E3536; /* Slate grey */
+    active-foreground:           #727B7C; /* Light ash grey */
+    background:                  #1C2526; /* Deep charcoal grey */
+    selected-active-background:  #727B7C; /* Light ash grey */
+    active-background:           #1C2526; /* Deep charcoal grey */
+    selected-normal-background:  #596162; /* Muted steel grey */
+    alternate-normal-background: #2E3536; /* Slate grey */
+    foreground:                  #8A9394; /* Pale grey for primary text */
+    selected-urgent-foreground:  #1C2526; /* Deep charcoal grey */
+    normal-foreground:           #8A9394; /* Pale grey */
+    alternate-urgent-foreground: #727B7C; /* Light ash grey */
+    alternate-active-foreground: #727B7C; /* Light ash grey */
+}
+
+element {
+    padding: 1px;
+    cursor:  pointer;
+    spacing: 5px;
+    border:  0;
+}
+
+element normal.normal {
+    background-color: #1C2526;
+    text-color:       #8A9394;
+}
+
+element normal.urgent {
+    background-color: #1C2526;
+    text-color:       #727B7C;
+}
+
+element normal.active {
+    background-color: #1C2526;
+    text-color:       #727B7C;
+}
+
+element selected.normal {
+    background-color: #596162;
+    text-color:       #2E3536;
+}
+
+element selected.urgent {
+    background-color: #727B7C;
+    text-color:       #1C2526;
+}
+
+element selected.active {
+    background-color: #727B7C;
+    text-color:       #1C2526;
+}
+
+element alternate.normal {
+    background-color: #2E3536;
+    text-color:       #8A9394;
+}
+
+element alternate.urgent {
+    background-color: #2E3536;
+    text-color:       #727B7C;
+}
+
+element alternate.active {
+    background-color: #2E3536;
+    text-color:       #727B7C;
+}
+
+element-text {
+    background-color: transparent;
+    cursor:           inherit;
+    highlight:        inherit;
+    text-color:       inherit;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             1.0000em;
+    cursor:           inherit;
+    text-color:       inherit;
+}
+
+window {
+    padding:          5;
+    background-color: #1C2526;
+    border:           1;
+    border-color:     #40494A;
+}
+
+mainbox {
+    padding: 0;
+    border:  0;
+}
+
+message {
+    padding:      1px;
+    border-color: #40494A;
+    border:       2px dash 0px 0px;
+}
+
+textbox {
+    text-color: #8A9394;
+}
+
+listview {
+    padding:      2px 0px 0px;
+    scrollbar:    true;
+    border-color: #40494A;
+    spacing:      2px;
+    fixed-height: 0;
+    border:       2px dash 0px 0px;
+}
+
+scrollbar {
+    width:        4px;
+    padding:      0;
+    handle-width: 8px;
+    border:       0;
+    handle-color: #8A9394;
+}
+
+sidebar {
+    border-color: #40494A;
+    border:       2px dash 0px 0px;
+}
+
+button {
+    cursor:     pointer;
+    spacing:    0;
+    text-color: #8A9394;
+}
+
+button selected {
+    background-color: #596162;
+    text-color:       #2E3536;
+}
+
+num-filtered-rows {
+    expand:     false;
+    text-color: #596162;
+}
+
+num-rows {
+    expand:     false;
+    text-color: #596162;
+}
+
+textbox-num-sep {
+    expand:     false;
+    str:        "/";
+    text-color: #596162;
+}
+
+inputbar {
+    padding:    1px;
+    spacing:    0px;
+    text-color: #8A9394;
+    children:   [ prompt, textbox-prompt-colon, entry, overlay, num-filtered-rows, textbox-num-sep, num-rows, case-indicator ];
+}
+
+overlay {
+    padding:          0px 0.2000em;
+    background-color: #8A9394;
+    text-color:       #1C2526;
+}
+
+case-indicator {
+    spacing:    0;
+    text-color: #8A9394;
+}
+
+entry {
+    text-color:        #8A9394;
+    cursor:            text;
+    spacing:           0;
+    placeholder-color: #596162;
+    placeholder:       "Type to filter";
+}
+
+prompt {
+    spacing:    0;
+    text-color: #8A9394;
+}
+
+textbox-prompt-colon {
+    margin:     0px 0.3000em 0.0000em 0.0000em;
+    expand:     false;
+    str:        ":";
+    text-color: inherit;
+}

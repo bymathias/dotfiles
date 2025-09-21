@@ -1,0 +1,47 @@
+# HiDPI scaling
+#scale=1.75
+
+# Position (top-right is default)
+anchor=top-right
+
+# Timeout (ms)
+default-timeout=5000
+
+# Global settings
+font=monospace 12
+background-color=#1C2526 
+text-color=#8A9394 
+border-color=#40494A 
+border-size=1 
+border-radius=4 
+padding=10 
+margin=10 
+width=400 
+height=150
+
+# Default notification styling (normal urgency)
+[urgency=normal] 
+background-color=#2E3536 
+text-color=#8A9394 
+border-color=#40494A
+
+# Low urgency notifications
+[urgency=low]
+background-color=#2E3536
+text-color=#596162
+border-color=#40494A
+
+# Critical urgency notifications
+[urgency=critical]
+background-color=#596162
+text-color=#1C2526
+border-color=#727B7C
+
+# Progress bar or highlighted elements
+progress-color=#727B7C
+
+# Grouped notifications
+[grouped]
+format=%s\n%b
+background-color=#2E3536
+text-color=#8A9394

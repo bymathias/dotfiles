@@ -1,0 +1,162 @@
+# ~/.editorconfig
+#
+# Help make the world a better place
+# ref: http://editorconfig.org/
+
+# top-most EditorConfig file
+root = true
+
+# Default settings for all files
+[*]
+indent_style = space
+indent_size = 4
+tab_width = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# JavaScript, TypeScript, and related (2 spaces)
+[*.{js,ts,jsx,tsx}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Python (4 spaces)
+[*.py]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Go (tabs, 4-space width)
+[*.go]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+# C, C++ (4 spaces)
+[*.{c,cpp,h,hpp}]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Java (4 spaces)
+[*.java]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Rust (4 spaces)
+[*.rs]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# YAML (2 spaces)
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# JSON (2 spaces)
+[*.json]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# HTML (2 spaces)
+[*.html]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# CSS, SCSS, SASS (2 spaces)
+[*.{css,scss,sass}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Markdown (2 spaces, no trailing whitespace)
+[*.md]
+indent_style = space
+indent_size = 2
+tab_width = 2
+trim_trailing_whitespace = false
+
+# Shell scripts (4 spaces)
+[*.{sh,bash,zsh}]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Lua (2 spaces)
+[*.lua]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Ruby (2 spaces)
+[*.rb]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# PHP (4 spaces)
+[*.php]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# SQL (4 spaces)
+[*.sql]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Dockerfile (2 spaces)
+[Dockerfile,*.dockerfile]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# TOML (2 spaces)
+[*.toml]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# XML (2 spaces)
+[*.xml]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Swift (4 spaces)
+[*.swift]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Kotlin (4 spaces)
+[*.kt]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Haskell (2 spaces)
+[*.hs]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# LaTeX (2 spaces)
+[*.tex]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Make files (tabs, 8-space width)
+[Makefile,*.mk]
+indent_style = tab
+indent_size = 8
+tab_width = 8

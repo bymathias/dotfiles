@@ -1,0 +1,5 @@
+# ref: github.com/github/gitignore
+
+tmux/plugins/*
+!tmux/plugins/tpm/
+tmux/resurrect/*

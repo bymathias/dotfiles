@@ -1,0 +1,15 @@
+configuration {
+    modes: "drun,window,run,ssh";
+    font: "JetBrains Mono 12";
+    show-icons: true;
+    timeout {
+        action: "kb-cancel";
+        delay:  0;
+    }
+    filebrowser {
+        directories-first: true;
+        sorting-method:    "name";
+    }
+}
+
+@theme "~/.config/rofi/theme.rasi"
