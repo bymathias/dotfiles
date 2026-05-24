@@ -1,12 +1,4 @@
--- lua/options.lua
-
---[[
-==============================================================================
-  SETTING OPTIONS
-    See `:help vim.o`
-    For more options, you can see `:help option-list`
-==============================================================================
-]]
+-- lua/config/options.lua
 
 -- Make line numbers default
 vim.o.number = true

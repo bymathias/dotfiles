@@ -5,19 +5,19 @@
 -- License: MIT
 
 -- [[ Configurations ]]
-require 'config'
+require 'config.global'
 
 -- [[ Setting options ]]
-require 'options'
+require 'config.options'
 
 -- [[ Basic Keymaps ]]
-require 'keymaps'
+require 'config.keymaps'
 
--- [[ Install `lazy.nvim` plugin manager ]]
-require 'lazy-bootstrap'
+-- [[ Basic Autocommands ]]
+require 'config.autocommands'
 
--- [[ Configure and install plugins ]]
-require 'lazy-plugins'
+-- [[ Bootstrap Lazy.nvim and Install plugins ]]
+require 'core.lazy'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

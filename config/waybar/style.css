@@ -21,8 +21,8 @@
   color: @text-primary;
 }
 
-#workspaces {
-  margin-right: 10px;
+#window {
+  margin-left: 10px;
 }
 
 /* Workspaces module */
