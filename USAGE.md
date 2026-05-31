@@ -5,6 +5,8 @@
 - [Bash](#bash)
   - [Aliases](#aliases)
   - [Functions](#functions)
+- [Tmux](#tmux)
+  - [Key bindings](#key-bindings)
 - [Neovim](#neovim)
   - [Plugins](#plugins)
   - [Keymaps](#keymaps)
@@ -56,6 +58,33 @@
 | `list_todo`  | `list_todo [dir]`        | Grep for `TODO:` recursively, excluding `node_modules` |
 | `man`        | `man <cmd>`              | Colourised man pages via `LESS_TERMCAP_*`        |
 | `explain`    | `explain '<cmd>'`        | Explain a shell command via mankier.com API; omit arg for interactive mode |
+
+---
+
+## Tmux
+
+Prefix: `Ctrl+a`
+
+### Key bindings
+
+| Key                   | Action                                      |
+| --------------------- | ------------------------------------------- |
+| `prefix r`            | Reload `~/.tmux.conf`                       |
+| `prefix c`            | New window (current directory)              |
+| `prefix "`            | Split horizontally (current directory)      |
+| `prefix %`            | Split vertically (current directory)        |
+| `prefix h/j/k/l`      | Move focus between panes                    |
+| `prefix S-Left`       | Swap window left                            |
+| `prefix S-Right`      | Swap window right                           |
+| `prefix I`            | Install TPM plugins (first launch)          |
+
+#### Copy mode (vi)
+
+Enter copy mode with `prefix [`. Standard vi motions apply.
+
+| Key | Action                                 |
+| --- | -------------------------------------- |
+| `y` | Copy selection to Wayland clipboard    |
 
 ---
 

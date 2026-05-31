@@ -3,6 +3,7 @@
 ## Contents
 
 - [Bash](#bash)
+- [Tmux](#tmux)
 - [Neovim](#neovim)
   - [System dependencies](#system-dependencies)
   - [Rust (optional)](#rust-optional)
@@ -21,6 +22,25 @@
 | `tmux`             | Tmux aliases (`tx`, `tn`, `ta`, `tl`, `tk`)      |
 | `thunar`           | `o` alias — graphical file manager               |
 | `python3`          | `serve` alias — `python -m http.server`          |
+
+---
+
+## Tmux
+
+Version **≥ 3.2** — required for `set-clipboard on` (OSC 52 support).
+
+| Tool           | Why                                                      |
+| -------------- | -------------------------------------------------------- |
+| `tmux`         | ≥ 3.2                                                    |
+| `wl-clipboard` | `wl-copy` — Wayland clipboard in vi copy mode (`pacman -S wl-clipboard`) |
+
+Plugins are managed by **TPM** (bundled at `tmux/plugins/tpm`). Install on first launch with `prefix + I`. TPM fetches:
+
+| Plugin               | Role                                  |
+| -------------------- | ------------------------------------- |
+| `catppuccin/tmux`    | Status bar theme (mocha)              |
+| `tmux-resurrect`     | Save and restore sessions             |
+| `tmux-continuum`     | Automatic session save/restore        |
 
 ---
 
