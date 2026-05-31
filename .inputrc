@@ -2,7 +2,6 @@ set completion-ignore-case on
 set show-all-if-ambiguous on
 set mark-symlinked-directories on
 set visible-stats on
-set history-search-preserve-point on
 
 "\e[A": history-search-backward
 "\e[B": history-search-forward
