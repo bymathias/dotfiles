@@ -1,5 +1,29 @@
 # Requirements
 
+## Contents
+
+- [Bash](#bash)
+- [Neovim](#neovim)
+  - [System dependencies](#system-dependencies)
+  - [Rust (optional)](#rust-optional)
+  - [Mason-managed](#mason-managed-auto-installed-on-startup)
+
+---
+
+## Bash
+
+| Tool               | Why                                              |
+| ------------------ | ------------------------------------------------ |
+| `bash-completion`  | Tab completions — `pacman -S bash-completion`    |
+| `nvm`              | Node version management (lazy-loaded on first use) |
+| `rsync`            | `cpp` function — copy with progress              |
+| `curl`             | `wttr`, `ip`, and `explain`                      |
+| `tmux`             | Tmux aliases (`tx`, `tn`, `ta`, `tl`, `tk`)      |
+| `thunar`           | `o` alias — graphical file manager               |
+| `python3`          | `serve` alias — `python -m http.server`          |
+
+---
+
 ## Neovim
 
 Version **≥ 0.12** — uses `vim.pack` (native package manager).

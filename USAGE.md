@@ -1,4 +1,65 @@
-# Neovim Config Reference
+# Usage Reference
+
+## Contents
+
+- [Bash](#bash)
+  - [Aliases](#aliases)
+  - [Functions](#functions)
+- [Neovim](#neovim)
+  - [Plugins](#plugins)
+  - [Keymaps](#keymaps)
+
+---
+
+## Bash
+
+### Aliases
+
+| Alias      | Expands to                                                  |
+| ---------- | ----------------------------------------------------------- |
+| `..` / `...` / `....` | `cd` up 1 / 2 / 3 levels                      |
+| `ll`       | `ls -alF`                                                   |
+| `ld`       | List directories only                                       |
+| `e`        | `nvim`                                                      |
+| `o`        | `thunar &`                                                  |
+| `serve`    | `python -m http.server 8080`                                |
+| `wttr`     | Terminal weather (`curl wttr.in`)                           |
+| `ip`       | Public IP address                                           |
+| `now`      | Current date/time (`DD-MM-YYYY HH:MM:SS`)                   |
+| `week`     | Current ISO week number                                     |
+| `reload`   | Re-source `~/.bash_profile`                                 |
+| `path`     | Print `$PATH` entries one per line                          |
+| `fa`       | Search aliases — `fa <pattern>`                             |
+| `tx`       | Attach existing tmux session or create one named `$USER`    |
+| `tn` / `ta` / `tl` / `tk` | tmux new / attach / list / kill-server     |
+| `gaa`      | `git add .`                                                 |
+| `gcm`      | `git commit -m`                                             |
+| `gcma`     | `git commit -a -m`                                          |
+| `gnope`    | `git checkout .` — discard all changes                      |
+| `gwait`    | `git reset HEAD` — unstage everything                       |
+| `gundo`    | `git reset --soft HEAD^` — undo last commit, keep staged    |
+| `glog`     | `git log --graph --oneline --decorate --all`                |
+| `gck`      | `git checkout`                                              |
+| `gph`      | `git push`                                                  |
+| `gpl`      | `git pull --rebase`                                         |
+| `grb`      | `git rebase`                                                |
+
+### Functions
+
+| Function     | Usage                    | Description                                      |
+| ------------ | ------------------------ | ------------------------------------------------ |
+| `cdl`        | `cdl <dir>`              | `cd` into directory then `ls -al`                |
+| `mkc`        | `mkc <dir>`              | `mkdir -p` then `cd` into new directory          |
+| `cpp`        | `cpp <src> <dst>`        | Copy with progress via `rsync`                   |
+| `new-script` | `new-script <file>`      | Create executable bash script and open in editor |
+| `new-note`   | `new-note <name>`        | Create `~/Dropbox/sync/note/<name>.md`           |
+| `list_todo`  | `list_todo [dir]`        | Grep for `TODO:` recursively, excluding `node_modules` |
+| `man`        | `man <cmd>`              | Colourised man pages via `LESS_TERMCAP_*`        |
+| `explain`    | `explain '<cmd>'`        | Explain a shell command via mankier.com API; omit arg for interactive mode |
+
+---
+
+## Neovim
 
 Leader key: `,`
 
