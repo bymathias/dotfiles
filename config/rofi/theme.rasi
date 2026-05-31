@@ -1,40 +1,48 @@
 /**
- * Rofi theme converted to dark grey palette without @define-color
+ * Rofi theme — dark grey palette
  * Matches Waybar, Mako, and Foot themes
  * Optimized for Arch Linux with Sway on Asus Vivobook S 14 OLED
  * Rofi version: 2.0.0
  */
 
 * {
-    font: "monospace 14"; /* Adjust to your preferred font, e.g., JetBrains Mono */
-    red:                         #727B7C; /* Light ash grey for urgent elements */
-    selected-active-foreground:  #1C2526; /* Deep charcoal grey */
-    lightfg:                     #596162; /* Muted steel grey for secondary text */
-    separatorcolor:              #40494A; /* Mid-tone grey for borders */
-    urgent-foreground:           #727B7C; /* Light ash grey */
-    alternate-urgent-background: #2E3536; /* Slate grey */
-    lightbg:                     #2E3536; /* Slate grey for alternate backgrounds */
+    /* Color palette */
+    clr-bg:     #1C2526;
+    clr-bg2:    #2E3536;
+    clr-border: #40494A;
+    clr-dim:    #596162;
+    clr-mid:    #727B7C;
+    clr-fg:     #8A9394;
+
+    font: "monospace 14";
+    red:                         @clr-mid;
+    selected-active-foreground:  @clr-bg;
+    lightfg:                     @clr-dim;
+    separatorcolor:              @clr-border;
+    urgent-foreground:           @clr-mid;
+    alternate-urgent-background: @clr-bg2;
+    lightbg:                     @clr-bg2;
     background-color:            transparent;
-    border-color:                #40494A; /* Mid-tone grey */
-    normal-background:           #1C2526; /* Deep charcoal grey */
-    selected-urgent-background:  #727B7C; /* Light ash grey */
-    alternate-active-background: #2E3536; /* Slate grey */
+    border-color:                @clr-border;
+    normal-background:           @clr-bg;
+    selected-urgent-background:  @clr-mid;
+    alternate-active-background: @clr-bg2;
     spacing:                     2;
-    blue:                        #727B7C; /* Light ash grey for active/selected */
-    alternate-normal-foreground: #8A9394; /* Pale grey */
-    urgent-background:           #1C2526; /* Deep charcoal grey */
-    selected-normal-foreground:  #2E3536; /* Slate grey */
-    active-foreground:           #727B7C; /* Light ash grey */
-    background:                  #1C2526; /* Deep charcoal grey */
-    selected-active-background:  #727B7C; /* Light ash grey */
-    active-background:           #1C2526; /* Deep charcoal grey */
-    selected-normal-background:  #596162; /* Muted steel grey */
-    alternate-normal-background: #2E3536; /* Slate grey */
-    foreground:                  #8A9394; /* Pale grey for primary text */
-    selected-urgent-foreground:  #1C2526; /* Deep charcoal grey */
-    normal-foreground:           #8A9394; /* Pale grey */
-    alternate-urgent-foreground: #727B7C; /* Light ash grey */
-    alternate-active-foreground: #727B7C; /* Light ash grey */
+    blue:                        @clr-mid;
+    alternate-normal-foreground: @clr-fg;
+    urgent-background:           @clr-bg;
+    selected-normal-foreground:  @clr-bg2;
+    active-foreground:           @clr-mid;
+    background:                  @clr-bg;
+    selected-active-background:  @clr-mid;
+    active-background:           @clr-bg;
+    selected-normal-background:  @clr-dim;
+    alternate-normal-background: @clr-bg2;
+    foreground:                  @clr-fg;
+    selected-urgent-foreground:  @clr-bg;
+    normal-foreground:           @clr-fg;
+    alternate-urgent-foreground: @clr-mid;
+    alternate-active-foreground: @clr-mid;
 }
 
 element {
@@ -45,48 +53,48 @@ element {
 }
 
 element normal.normal {
-    background-color: #1C2526;
-    text-color:       #8A9394;
+    background-color: @clr-bg;
+    text-color:       @clr-fg;
 }
 
 element normal.urgent {
-    background-color: #1C2526;
-    text-color:       #727B7C;
+    background-color: @clr-bg;
+    text-color:       @clr-mid;
 }
 
 element normal.active {
-    background-color: #1C2526;
-    text-color:       #727B7C;
+    background-color: @clr-bg;
+    text-color:       @clr-mid;
 }
 
 element selected.normal {
-    background-color: #596162;
-    text-color:       #2E3536;
+    background-color: @clr-dim;
+    text-color:       @clr-bg2;
 }
 
 element selected.urgent {
-    background-color: #727B7C;
-    text-color:       #1C2526;
+    background-color: @clr-mid;
+    text-color:       @clr-bg;
 }
 
 element selected.active {
-    background-color: #727B7C;
-    text-color:       #1C2526;
+    background-color: @clr-mid;
+    text-color:       @clr-bg;
 }
 
 element alternate.normal {
-    background-color: #2E3536;
-    text-color:       #8A9394;
+    background-color: @clr-bg2;
+    text-color:       @clr-fg;
 }
 
 element alternate.urgent {
-    background-color: #2E3536;
-    text-color:       #727B7C;
+    background-color: @clr-bg2;
+    text-color:       @clr-mid;
 }
 
 element alternate.active {
-    background-color: #2E3536;
-    text-color:       #727B7C;
+    background-color: @clr-bg2;
+    text-color:       @clr-mid;
 }
 
 element-text {
@@ -105,9 +113,9 @@ element-icon {
 
 window {
     padding:          5;
-    background-color: #1C2526;
+    background-color: @clr-bg;
     border:           1;
-    border-color:     #40494A;
+    border-color:     @clr-border;
 }
 
 mainbox {
@@ -117,18 +125,18 @@ mainbox {
 
 message {
     padding:      1px;
-    border-color: #40494A;
+    border-color: @clr-border;
     border:       2px dash 0px 0px;
 }
 
 textbox {
-    text-color: #8A9394;
+    text-color: @clr-fg;
 }
 
 listview {
     padding:      2px 0px 0px;
     scrollbar:    true;
-    border-color: #40494A;
+    border-color: @clr-border;
     spacing:      2px;
     fixed-height: 0;
     border:       2px dash 0px 0px;
@@ -139,70 +147,70 @@ scrollbar {
     padding:      0;
     handle-width: 8px;
     border:       0;
-    handle-color: #8A9394;
+    handle-color: @clr-fg;
 }
 
 sidebar {
-    border-color: #40494A;
+    border-color: @clr-border;
     border:       2px dash 0px 0px;
 }
 
 button {
     cursor:     pointer;
     spacing:    0;
-    text-color: #8A9394;
+    text-color: @clr-fg;
 }
 
 button selected {
-    background-color: #596162;
-    text-color:       #2E3536;
+    background-color: @clr-dim;
+    text-color:       @clr-bg2;
 }
 
 num-filtered-rows {
     expand:     false;
-    text-color: #596162;
+    text-color: @clr-dim;
 }
 
 num-rows {
     expand:     false;
-    text-color: #596162;
+    text-color: @clr-dim;
 }
 
 textbox-num-sep {
     expand:     false;
     str:        "/";
-    text-color: #596162;
+    text-color: @clr-dim;
 }
 
 inputbar {
     padding:    1px;
     spacing:    0px;
-    text-color: #8A9394;
+    text-color: @clr-fg;
     children:   [ prompt, textbox-prompt-colon, entry, overlay, num-filtered-rows, textbox-num-sep, num-rows, case-indicator ];
 }
 
 overlay {
     padding:          0px 0.2000em;
-    background-color: #8A9394;
-    text-color:       #1C2526;
+    background-color: @clr-fg;
+    text-color:       @clr-bg;
 }
 
 case-indicator {
     spacing:    0;
-    text-color: #8A9394;
+    text-color: @clr-fg;
 }
 
 entry {
-    text-color:        #8A9394;
+    text-color:        @clr-fg;
     cursor:            text;
     spacing:           0;
-    placeholder-color: #596162;
+    placeholder-color: @clr-dim;
     placeholder:       "Type to filter";
 }
 
 prompt {
     spacing:    0;
-    text-color: #8A9394;
+    text-color: @clr-fg;
 }
 
 textbox-prompt-colon {
