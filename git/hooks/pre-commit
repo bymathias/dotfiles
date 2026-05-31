@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+gitleaks protect --staged --redact --no-banner
