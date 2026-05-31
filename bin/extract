@@ -126,7 +126,9 @@ case "$file" in
     *.bz2)
         echo "Extracting bz2 file: '$file'"
         if [[ -n "$output_dir" ]]; then
-            cp "$file" "$output_dir" && (cd "$output_dir" && bunzip2 "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+            if ! { cp "$file" "$output_dir" && (cd "$output_dir" && bunzip2 "$(basename "$file")"); }; then
+                echo "Error: Failed to extract '$file'."; exit 5
+            fi
         else
             bunzip2 "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
@@ -134,7 +136,9 @@ case "$file" in
     *.gz)
         echo "Extracting gz file: '$file'"
         if [[ -n "$output_dir" ]]; then
-            cp "$file" "$output_dir" && (cd "$output_dir" && gunzip "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+            if ! { cp "$file" "$output_dir" && (cd "$output_dir" && gunzip "$(basename "$file")"); }; then
+                echo "Error: Failed to extract '$file'."; exit 5
+            fi
         else
             gunzip "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
@@ -150,7 +154,9 @@ case "$file" in
     *.Z)
         echo "Extracting Z file: '$file'"
         if [[ -n "$output_dir" ]]; then
-            cp "$file" "$output_dir" && (cd "$output_dir" && uncompress "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+            if ! { cp "$file" "$output_dir" && (cd "$output_dir" && uncompress "$(basename "$file")"); }; then
+                echo "Error: Failed to extract '$file'."; exit 5
+            fi
         else
             uncompress "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
@@ -163,14 +169,6 @@ case "$file" in
             7z x "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
         ;;
-    *.xz)
-        echo "Extracting xz file: '$file'"
-        if [[ -n "$output_dir" ]]; then
-            cp "$file" "$output_dir" && (cd "$output_dir" && xz -d "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
-        else
-            xz -d "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
-        fi
-        ;;
     *.tar.xz)
         echo "Extracting tar.xz archive: '$file'"
         if [[ -n "$output_dir" ]]; then
@@ -179,12 +177,14 @@ case "$file" in
             tar -xJf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
         ;;
-    *.zst)
-        echo "Extracting zst file: '$file'"
+    *.xz)
+        echo "Extracting xz file: '$file'"
         if [[ -n "$output_dir" ]]; then
-            cp "$file" "$output_dir" && (cd "$output_dir" && zstd -d "$(basename "$file")") || { echo "Error: Failed to extract '$file'."; exit 5; }
+            if ! { cp "$file" "$output_dir" && (cd "$output_dir" && xz -d "$(basename "$file")"); }; then
+                echo "Error: Failed to extract '$file'."; exit 5
+            fi
         else
-            zstd -d "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+            xz -d "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
         ;;
     *.tar.zst)
@@ -195,6 +195,16 @@ case "$file" in
             tar -I zstd -xf "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
         fi
         ;;
+    *.zst)
+        echo "Extracting zst file: '$file'"
+        if [[ -n "$output_dir" ]]; then
+            if ! { cp "$file" "$output_dir" && (cd "$output_dir" && zstd -d "$(basename "$file")"); }; then
+                echo "Error: Failed to extract '$file'."; exit 5
+            fi
+        else
+            zstd -d "$file" || { echo "Error: Failed to extract '$file'."; exit 5; }
+        fi
+        ;;
     *)
         echo "Error: '$file' cannot be extracted."
         echo "Supported formats: $supported_formats"
@@ -202,11 +212,4 @@ case "$file" in
         ;;
 esac
 
-# Check if extraction was successful
-if [[ $? -eq 0 ]]; then
-    echo "Successfully extracted '$file'."
-    exit 0
-else
-    echo "Error: Extraction of '$file' failed."
-    exit 5
-fi
+echo "Successfully extracted '$file'."
