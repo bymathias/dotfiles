@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#
+# Usage: switch-theme [dark|light]
+# Toggles between dark (mocha) and light (latte) catppuccin theme.
+# Omit argument to toggle from current state.
+
+STATE="$HOME/.local/share/theme-mode"
+
+if [[ "$1" == "dark" || "$1" == "light" ]]; then
+    MODE="$1"
+elif [[ -f "$STATE" && "$(cat "$STATE")" == "dark" ]]; then
+    MODE="light"
+else
+    MODE="dark"
+fi
+
+echo "$MODE" > "$STATE"
+
+# --- Alacritty (hot-reloads on config change) ---
+alacritty_theme=$([[ "$MODE" == "dark" ]] && echo "catppuccin-mocha" || echo "catppuccin-latte")
+sed -i -E "s|catppuccin-[a-z]+\.toml|${alacritty_theme}.toml|" \
+    "$HOME/.config/alacritty/alacritty.toml"
+
+# --- Btop (takes effect on next launch or F2 inside btop) ---
+btop_theme=$([[ "$MODE" == "dark" ]] && echo "catppuccin_mocha" || echo "catppuccin_latte")
+sed -i -E "s|^color_theme = .*|color_theme = \"${btop_theme}\"|" \
+    "$HOME/.config/btop/btop.conf"
+
+# --- Neovim ---
+nvim_bg=$([[ "$MODE" == "dark" ]] && echo "dark" || echo "light")
+echo "$nvim_bg" > "$HOME/.local/share/nvim/theme_background"
+
+runtime_dir="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+for socket in "$runtime_dir"/nvim.*.0; do
+    [[ -S "$socket" ]] || continue
+    nvim --server "$socket" \
+        --remote-send "<Esc>:set background=${nvim_bg}<CR>" 2>/dev/null
+done
+
+# --- Tmux ---
+tmux_flavor=$([[ "$MODE" == "dark" ]] && echo "mocha" || echo "latte")
+if tmux info &>/dev/null 2>&1; then
+    tmux set -g @catppuccin_flavour "$tmux_flavor"
+    bash "$HOME/.tmux/plugins/tmux/catppuccin.tmux" 2>/dev/null
+fi
