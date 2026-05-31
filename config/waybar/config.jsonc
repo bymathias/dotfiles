@@ -188,8 +188,17 @@
     "clock": {
         // "timezone": "America/New_York",
         "format": "{:%H:%M}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt>{calendar}</tt>",
         "format-alt": "{:%Y-%m-%d}",
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "weeks": "<span color='#596162'>{}</span>",
+                "today": "<span color='#cba6f7'><b>{}</b></span>"
+            }
+        }
     },
     "custom/power": {
         "format": "󰐥",
