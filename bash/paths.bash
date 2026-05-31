@@ -10,7 +10,9 @@ export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
     _nvm_lazy_load() {
         unset -f nvm node npm npx
+        # shellcheck source=/dev/null
         \. "$NVM_DIR/nvm.sh"
+        # shellcheck source=/dev/null
         [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
         "$1" "${@:2}"
     }

@@ -6,6 +6,7 @@
 # Helper to source files
 DOT_BASH="$HOME/.dotfiles/bash"
 __source_exists() {
+    # shellcheck source=/dev/null
     [[ -r "$1" ]] && [[ -f "$1" ]] && . "$1"
 }
 export -f __source_exists

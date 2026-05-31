@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+    # shellcheck source=/dev/null
     source /usr/share/git/completion/git-prompt.sh
     export GIT_PS1_SHOWDIRTYSTATE=1     # * unstaged, + staged
     export GIT_PS1_SHOWSTASHSTATE=1     # $ stashed
