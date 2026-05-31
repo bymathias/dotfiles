@@ -7,6 +7,7 @@
   - [Functions](#functions)
 - [Tmux](#tmux)
   - [Key bindings](#key-bindings)
+  - [Plugins](#tmux-plugins)
 - [Neovim](#neovim)
   - [Plugins](#plugins)
   - [Keymaps](#keymaps)
@@ -85,6 +86,27 @@ Enter copy mode with `prefix [`. Standard vi motions apply.
 | Key | Action                                 |
 | --- | -------------------------------------- |
 | `y` | Copy selection to Wayland clipboard    |
+
+### Plugins {#tmux-plugins}
+
+#### TPM — Plugin Manager
+
+| Key              | Action                  |
+| ---------------- | ----------------------- |
+| `prefix I`       | Install listed plugins  |
+| `prefix U`       | Update all plugins      |
+| `prefix alt+u`   | Remove unlisted plugins |
+
+#### tmux-resurrect — Manual session save/restore
+
+| Key              | Action           |
+| ---------------- | ---------------- |
+| `prefix Ctrl+s`  | Save session     |
+| `prefix Ctrl+r`  | Restore session  |
+
+#### tmux-continuum
+
+Automatically saves the session every 15 minutes. No key bindings — works in the background.
 
 ---
 
