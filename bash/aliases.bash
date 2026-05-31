@@ -32,7 +32,7 @@ alias o='thunar &'
 alias ssa='ssh-add'
 alias host-edit='sudoedit /etc/hosts'
 alias ip='curl -s http://checkip.dyndns.com/ | sed "s/[^0-9\.]//g"'
-alias serve='python -m SimpleHTTPServer 8080'
+alias serve='python -m http.server 8080'
 
 alias now='date +"%d-%m-%Y %T"'
 alias week='date +%V'
