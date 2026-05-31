@@ -24,6 +24,12 @@ See [USAGE.md](USAGE.md).
 
 The code is available under the [MIT LICENSE](LICENSE.txt).
 
+## CI
+
+[![ShellCheck](https://github.com/bymathias/dotfiles/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/bymathias/dotfiles/actions/workflows/shellcheck.yml)
+[![LuaCheck](https://github.com/bymathias/dotfiles/actions/workflows/luacheck.yml/badge.svg)](https://github.com/bymathias/dotfiles/actions/workflows/luacheck.yml)
+[![Gitleaks](https://github.com/bymathias/dotfiles/actions/workflows/gitleaks.yml/badge.svg)](https://github.com/bymathias/dotfiles/actions/workflows/gitleaks.yml)
+
 <!-- Links -->
 
 [dotfiles]: https://github.com/bymathias/dotfiles
