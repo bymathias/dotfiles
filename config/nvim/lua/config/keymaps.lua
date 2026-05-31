@@ -1,26 +1,43 @@
 -- lua/config/keymaps.lua
 
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- Base keymaps with no plugin dependencies.
+-- Plugin-specific keymaps live in each plugin's config file.
 
--- Save and Quit current buffer/window
-vim.keymap.set('n', '<leader>w', ':w<cr>', { desc = 'Save the current buffer' })
-vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = 'Quit the current window' })
-vim.keymap.set('n', '<leader>wq', ':wq<cr>', { desc = 'Save and quit the current buffer' })
+-- ╭─────────────────────────────────────────╮
+-- │ File                                    │
+-- ╰─────────────────────────────────────────╯
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+keymap.n("<leader>w",  "<cmd>w<cr>",  "Save the current buffer")
+keymap.n("<leader>q",  "<cmd>q<cr>",  "Quit the current window")
+keymap.n("<leader>wq", "<cmd>wq<cr>", "Save and quit the current buffer")
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- ╭─────────────────────────────────────────╮
+-- │ Windows                                 │
+-- ╰─────────────────────────────────────────╯
 
--- vim: ts=2 sts=2 sw=2 et
+keymap.n("<C-h>", "<C-w><C-h>", "Move focus to the left window")
+keymap.n("<C-l>", "<C-w><C-l>", "Move focus to the right window")
+keymap.n("<C-j>", "<C-w><C-j>", "Move focus to the lower window")
+keymap.n("<C-k>", "<C-w><C-k>", "Move focus to the upper window")
+
+keymap.n("<leader>sv", "<cmd>vsplit<cr>", "Split vertically")
+keymap.n("<leader>sh", "<cmd>split<cr>",  "Split horizontally")
+keymap.n("<leader>se", "<C-w>=",          "Equalise split sizes")
+
+keymap.n("<C-Up>",    "<cmd>resize +2<cr>",          "Increase window height")
+keymap.n("<C-Down>",  "<cmd>resize -2<cr>",          "Decrease window height")
+keymap.n("<C-Left>",  "<cmd>vertical resize -2<cr>", "Decrease window width")
+keymap.n("<C-Right>", "<cmd>vertical resize +2<cr>", "Increase window width")
+
+-- ╭─────────────────────────────────────────╮
+-- │ Editing                                 │
+-- ╰─────────────────────────────────────────╯
+
+keymap.n("<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlights")
+keymap.n("<leader>D", '"_d', "Delete without yanking")
+
+-- ╭─────────────────────────────────────────╮
+-- │ Misc                                    │
+-- ╰─────────────────────────────────────────╯
+
+keymap.n("<leader>tt", "<cmd>terminal<cr>", "Open terminal")

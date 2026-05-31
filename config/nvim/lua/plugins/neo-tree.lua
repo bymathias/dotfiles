@@ -1,37 +1,38 @@
--- Neo-tree is a Neovim plugin to browse the file system
--- https://github.com/nvim-neo-tree/neo-tree.nvim
+-- lua/plugins/neo-tree.lua
 
-return {
-  'nvim-neo-tree/neo-tree.nvim',
-  version = '*',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-    'MunifTanjim/nui.nvim',
+local neotree = plug("neo-tree")
+if not neotree then return end
+
+neotree.setup({
+  close_if_last_window = false,
+  window = {
+    position = "left",
+    width = 30,
   },
-  lazy = false,
-  keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
-  },
-  opts = {
-    filesystem = {
-      filtered_items = {
-        visible = true,           -- Show filtered items by default (e.g., gitignored)
-        hide_dotfiles = false,    -- Show hidden files (e.g., .gitignore)
-        hide_gitignored = false,  -- Still hide .gitignore'd files if desired
-        hide_by_name = {          -- Optionally hide specific files regardless
-          ".git",
-          ".DS_Store",
-        },
-        -- never_show = {          -- Always hide these
-        --   ".git",
-        -- },
-      },
-      window = {
-        mappings = {
-          ['\\'] = 'close_window',
-        },
-      },
+  filesystem = {
+    filtered_items = {
+      visible = true,
+      hide_dotfiles = false,
+      hide_gitignored = false,
+      hide_by_name = { ".git", ".DS_Store" },
     },
+    follow_current_file = { enabled = true },
   },
-}
+})
+
+-- Close neo-tree before quitting so Neovim can exit when it's the last window
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    local wins = vim.api.nvim_list_wins()
+    local neotree_wins = vim.tbl_filter(function(w)
+      return vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w)):match("neo-tree")
+    end, wins)
+    if #neotree_wins == #wins then
+      for _, w in ipairs(neotree_wins) do
+        vim.api.nvim_win_close(w, true)
+      end
+    end
+  end,
+})
+
+keymap.n("<leader>e", "<cmd>Neotree toggle<cr>", "Toggle Neo-tree")

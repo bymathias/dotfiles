@@ -1,6 +1,0 @@
-return {
-  settings = {
-    typescript = { },
-    javascript = { },
-  },
-}
