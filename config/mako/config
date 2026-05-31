@@ -1,44 +1,45 @@
 # HiDPI scaling
 #scale=1.75
 
-# Position (top-right is default)
+# Position
 anchor=top-right
 
 # Timeout (ms)
 default-timeout=5000
 
 # Global settings
+icon-path=/usr/share/icons/Arc:/usr/share/icons/hicolor
+max-icon-size=48
+icon-location=left
 font=monospace 12
-background-color=#1C2526 
-text-color=#8A9394 
-border-color=#40494A 
-border-size=1 
-border-radius=4 
-padding=10 
-margin=10 
-width=400 
+background-color=#1C2526
+text-color=#8A9394
+border-color=#40494A
+border-size=1
+border-radius=4
+padding=10
+margin=10
+width=400
 height=150
-
-# Default notification styling (normal urgency)
-[urgency=normal] 
-background-color=#2E3536 
-text-color=#8A9394 
-border-color=#40494A
-
-# Low urgency notifications
-[urgency=low]
-background-color=#2E3536
-text-color=#596162
-border-color=#40494A
-
-# Critical urgency notifications
-[urgency=critical]
-background-color=#596162
-text-color=#1C2526
-border-color=#727B7C
-
-# Progress bar or highlighted elements
 progress-color=#727B7C
+
+# Low urgency — subdued, blends with bar
+[urgency=low]
+background-color=#1C2526
+text-color=#596162
+border-color=#2E3536
+
+# Normal urgency — standard
+[urgency=normal]
+background-color=#2E3536
+text-color=#8A9394
+border-color=#40494A
+
+# Critical urgency — inverted, clearly stands out
+[urgency=critical]
+background-color=#727B7C
+text-color=#1C2526
+border-color=#8A9394
 
 # Grouped notifications
 [grouped]

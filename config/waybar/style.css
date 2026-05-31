@@ -1,36 +1,28 @@
-/* Define color palette with @define-color */
-@define-color bg-primary #1C2526;    /* Deep charcoal grey for main background */
-@define-color bg-secondary #2E3536;  /* Slate grey for module backgrounds */
-@define-color border #40494A;        /* Mid-tone grey for borders */
-@define-color text-secondary #596162; /* Muted steel grey for secondary text/icons */
-@define-color highlight #727B7C;     /* Light ash grey for active/highlighted elements */
-@define-color text-primary #8A9394;  /* Pale grey for primary text/icons */
+@define-color bg-primary    #1C2526;
+@define-color bg-secondary  #2E3536;
+@define-color border        #40494A;
+@define-color text-muted    #596162;
+@define-color highlight     #727B7C;
+@define-color text-primary  #8A9394;
 
-/* Global styles */
 * {
-  font-family: JetBrains Mono; /* Adjust to your preferred font, e.g., JetBrains Mono */
-  font-size: 14px;       /* Suitable for HiDPI; adjust if needed */
+  font-family: JetBrains Mono;
+  font-size: 14px;
   margin: 0;
   padding: 0;
   border: none;
 }
 
-/* Main Waybar background */
+/* Bar */
 #waybar {
   background: @bg-primary;
   color: @text-primary;
 }
 
-#window {
-  margin-left: 10px;
-}
-
-/* Workspaces module */
-#workspaces button,
-#custom-power {
+/* Workspaces */
+#workspaces button {
   background: @bg-secondary;
-  color: @text-secondary;
-  border: 1px solid @border;
+  color: @text-muted;
   padding: 0 10px;
   margin: 2px 2px;
   border-radius: 4px;
@@ -41,25 +33,57 @@
   color: @bg-primary;
 }
 
-#workspaces button:hover,
-#custom-power:hover {
-  background: @text-secondary;
+#workspaces button:hover {
+  background: @text-muted;
   color: @bg-primary;
 }
 
-/* Common styles for modules (clock, battery, etc.) */
-#clock,
-#battery,
+/* Window title */
+#window {
+  margin-left: 10px;
+}
+
+/* Drawer / group containers */
+#group-system,
+#group-tray,
+#group-utilities,
+#group-power {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+/* System group — pill shared by adjacent modules */
 #cpu,
 #memory,
 #disk,
-#temperature,
+#temperature {
+  background: @bg-secondary;
+  color: @text-primary;
+  padding: 0 10px;
+  margin: 2px 0;
+  border-radius: 0;
+}
+
+#cpu {
+  border-radius: 4px 0 0 4px;
+  margin-left: 2px;
+}
+
+#temperature {
+  border-radius: 0 4px 4px 0;
+  margin-right: 2px;
+}
+
+/* Right modules — shared base */
+#clock,
+#battery,
 #backlight,
 #network,
 #pulseaudio,
 #wireplumber,
-#tray,
 #mode,
+#tray,
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
@@ -74,28 +98,42 @@
   border-radius: 4px;
 }
 
-/* Specific module tweaks */
-#clock,
+/* Power button */
 #custom-power {
+  background: @bg-secondary;
+  color: @text-muted;
+  padding: 0 10px;
+  margin: 2px 2px;
+  border-radius: 4px;
   font-weight: bold;
 }
 
-#battery.warning {
+#custom-power:hover {
+  background: @text-muted;
+  color: @bg-primary;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+/* State styles */
+#battery.warning,
+#disk.warning,
+#temperature.critical,
+#custom-vpn.vpn-off {
   color: @highlight;
 }
 
-#battery.critical {
+#battery.critical,
+#disk.critical {
   color: @text-primary;
   background: @border;
 }
 
-/* Tray styling */
-#tray {
-  background: @bg-secondary;
-}
-
+/* Tray */
 #tray > .passive {
-  color: @text-secondary;
+  color: @text-muted;
 }
 
 #tray > .active {
