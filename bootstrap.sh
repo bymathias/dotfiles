@@ -20,7 +20,7 @@ mapfile -t DOT_FILES < <(
 
 mapfile -t DIR_CONFIG < <(
     find "$DOT_HOME/config" -maxdepth 1 -type d -not -path "$DOT_HOME/config" \
-        -exec sh -c 'echo "config/$(basename "{}")"' \;
+        -exec sh -c 'echo "config/$(basename "$1")"' _ {} \;
     )
 
 DOT_SYMLINKS+=("${DOT_FILES[@]}" "${DOT_FOLDERS[@]}" "${DIR_CONFIG[@]}")

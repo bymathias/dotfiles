@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # ~/.bash_profile
 #
@@ -8,4 +9,5 @@
 #    exec sway
 #fi
 
+# shellcheck source=/dev/null
 [[ -f ~/.bashrc ]] && . ~/.bashrc
