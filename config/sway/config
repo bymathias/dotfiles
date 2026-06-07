@@ -180,6 +180,7 @@ input type:touchpad {
 
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+slash move scratchpad
+    bindsym $mod+Shift+backslash move container to workspace current; floating disable
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
