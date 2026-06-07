@@ -11,6 +11,14 @@
 - [Neovim](#neovim)
   - [Plugins](#plugins)
   - [Keymaps](#keymaps)
+- [Sway](#sway)
+  - [Basics](#basics)
+  - [Focus & windows](#focus--windows)
+  - [Workspaces](#workspaces)
+  - [Layout](#layout)
+  - [Scratchpad](#scratchpad)
+  - [Resize mode](#resize-mode)
+  - [Media keys](#media-keys)
 
 ---
 
@@ -297,3 +305,77 @@ Uses fzf-lua pickers when available, falls back to native `vim.lsp.buf` otherwis
 | Key          | Action        |
 | ------------ | ------------- |
 | `<leader>cf` | Format buffer |
+
+---
+
+## Sway
+
+Modifier: `Super` (Mod4). Direction keys follow vim home row: `h` left, `j` down, `k` up, `l` right.
+
+### Basics
+
+| Key | Action |
+| --- | --- |
+| `Super+Return` | Open terminal (alacritty) |
+| `Super+Shift+q` | Kill focused window |
+| `Super+Space` | App launcher (rofi) |
+| `Super+Shift+c` | Reload config |
+| `Super+Shift+e` | Exit Sway |
+
+### Focus & windows
+
+| Key | Action |
+| --- | --- |
+| `Super+h/j/k/l` | Move focus |
+| `Super+Shift+h/j/k/l` | Move focused window |
+| `Super+Shift+Arrow` | Move focused window (arrow keys) |
+| `Super+Shift+Space` | Toggle floating |
+| `Super+d` | Toggle focus tiling / floating |
+| `Super+a` | Focus parent container |
+
+### Workspaces
+
+| Key | Action |
+| --- | --- |
+| `Super+1–0` | Switch to workspace 1–10 |
+| `Super+Shift+1–0` | Move window to workspace 1–10 |
+| `Super+Left/Right` | Previous / next workspace |
+
+### Layout
+
+| Key | Action |
+| --- | --- |
+| `Super+b` | Split horizontally |
+| `Super+v` | Split vertically |
+| `Super+s` | Stacking layout |
+| `Super+w` | Tabbed layout |
+| `Super+e` | Toggle split layout |
+| `Super+f` | Fullscreen |
+
+### Scratchpad
+
+| Key | Action |
+| --- | --- |
+| `Super+Shift+/` | Send window to scratchpad |
+| `Super+/` | Show / cycle scratchpad |
+| `Super+Shift+\` | Pull window back to current workspace |
+
+### Resize mode
+
+Enter with `Super+r`, exit with `Enter` or `Escape`.
+
+| Key | Action |
+| --- | --- |
+| `h/j/k/l` / Arrow keys | Shrink / grow width or height by 10px |
+
+### Media keys
+
+| Key | Action |
+| --- | --- |
+| `Mute` | Toggle speaker mute |
+| `Volume Down` | Volume −5% |
+| `Volume Up` | Volume +5% |
+| `Mic Mute` | Toggle microphone mute |
+| `Brightness Down` | Brightness −5% |
+| `Brightness Up` | Brightness +5% |
+| `Print Screen` | Screenshot a selection → `~/Images/Screenshots/` |
