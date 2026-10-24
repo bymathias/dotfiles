@@ -5,6 +5,7 @@
 - [Bash](#bash)
   - [Aliases](#aliases)
   - [Functions](#functions)
+  - [SSH agent](#ssh-agent)
 - [Tmux](#tmux)
   - [Key bindings](#key-bindings)
   - [Plugins](#tmux-plugins)
@@ -67,6 +68,26 @@
 | `list_todo`  | `list_todo [dir]`        | Grep for `TODO:` recursively, excluding `node_modules` |
 | `man`        | `man <cmd>`              | Colourised man pages via `LESS_TERMCAP_*`        |
 | `explain`    | `explain '<cmd>'`        | Explain a shell command via mankier.com API; omit arg for interactive mode |
+
+### SSH agent
+
+One `ssh-agent` per login, run by the systemd user socket (`bootstrap.sh` enables it). `SSH_AUTH_SOCK` is exported in `bash/config.bash`, so every shell and tmux session shares the same agent.
+
+To have the key added on first use (passphrase asked once per login), add to the host block in `~/.ssh/config` (not tracked):
+
+```
+Host github.com
+    AddKeysToAgent yes
+```
+
+| Command | Description |
+| ------- | ----------- |
+| `systemctl --user enable --now ssh-agent.socket` | Enable the agent (done by `bootstrap.sh`) |
+| `ssa` / `ssh-add <key>` | Add a key manually |
+| `ssh-add -l` | List loaded keys |
+| `ssh-add -D` | Remove all keys from the agent |
+| `ssh -T git@github.com` | Test GitHub authentication |
+| `export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"` | Fix a shell started before the change |
 
 ---
 
