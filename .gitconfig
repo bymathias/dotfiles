@@ -17,6 +17,6 @@
     undo = reset --soft HEAD^
 [user]
 	name = Mathias Brouilly
-	email = mathias@brouilly.fr
+	email = 1146268+bymathias@users.noreply.github.com
 [github]
 	user = bymathias
