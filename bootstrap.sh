@@ -84,6 +84,12 @@ if __cmd "alacritty"; then
     done
 fi
 
+if __cmd "claude"; then
+    __log_info "Symlink Claude Code config"
+    mkdir -p "$HOME/.claude"
+    __symlink "claude/CLAUDE.md" ".claude/CLAUDE.md"
+fi
+
 if __cmd "ssh-agent" && __cmd "systemctl"; then
     __log_info "Enable ssh-agent user socket"
     systemctl --user enable --now ssh-agent.socket

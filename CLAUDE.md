@@ -12,7 +12,7 @@ Personal dotfiles for an Arch Linux / Sway WM setup. All files in the repo root 
 ./bootstrap.sh
 ```
 
-This script symlinks everything: dotfiles at repo root (`.*`) go to `$HOME/.*`, `tmux/` → `~/.tmux`, and each `config/<app>/` → `~/.config/<app>`. Existing files are backed up as `<file>.<date>.backup` before being replaced. It also downloads Catppuccin themes for Alacritty and Btop if those tools are present.
+This script symlinks everything: dotfiles at repo root (`.*`) go to `$HOME/.*`, `tmux/` → `~/.tmux`, each `config/<app>/` → `~/.config/<app>`, and `claude/CLAUDE.md` → `~/.claude/CLAUDE.md` (file-level, since `~/.claude/` is mostly runtime state). Existing files are backed up as `<file>.<date>.backup` before being replaced. It also downloads Catppuccin themes for Alacritty and Btop if those tools are present.
 
 To re-run after adding new files, just re-run `bootstrap.sh` — it handles existing symlinks cleanly.
 
@@ -32,6 +32,7 @@ To re-run after adding new files, just re-run `bootstrap.sh` — it handles exis
 | `config/mako/` | Mako notification daemon config |
 | `config/btop/` | Btop resource monitor config + themes |
 | `tmux/` | Tmux config; plugins managed by TPM in `tmux/plugins/` |
+| `claude/` | Global Claude Code instructions (`CLAUDE.md`); `settings.json` stays local |
 | `git/` | Global gitignore and commit message template |
 
 ## Bash config load order
