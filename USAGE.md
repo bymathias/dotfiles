@@ -21,6 +21,8 @@
   - [Resize mode](#resize-mode)
   - [Media keys](#media-keys)
 - [Claude Code](#claude-code)
+  - [Plugins](#claude-plugins)
+  - [Using skills](#claude-skills)
 
 ---
 
@@ -417,3 +419,43 @@ Global instructions live in `claude/CLAUDE.md`, symlinked to `~/.claude/CLAUDE.m
 | `~/.claude/projects/`, `sessions/`, `history.jsonl` | Never | Memory and conversation data |
 
 The repo is public: keep tokens, private emails and machine paths out of `claude/`.
+
+### Plugins {#claude-plugins}
+
+Installed at user scope; recorded in `~/.claude/settings.json` (not tracked), so reinstall on each machine.
+
+| Plugin | Marketplace source | Provides |
+| ------ | ------------------ | -------- |
+| `andrej-karpathy-skills@karpathy-skills` | `forrestchang/andrej-karpathy-skills` | Coding behaviour guidelines skill |
+| `ui-ux-pro-max@ui-ux-pro-max-skill` | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX design skills (needs `python3`) |
+| `uipath@uipath-marketplace` | Local directory from the UiPath tooling | UiPath skills and agents |
+
+Reinstall (inside Claude Code):
+
+```
+/plugin marketplace add forrestchang/andrej-karpathy-skills
+/plugin install andrej-karpathy-skills@karpathy-skills
+/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+/plugin install ui-ux-pro-max@ui-ux-pro-max-skill
+```
+
+| Command | Description |
+| ------- | ----------- |
+| `/plugin` | Browse, enable, disable, update or uninstall plugins |
+| `/reload-plugins` | Reload plugins without restarting |
+
+### Using skills {#claude-skills}
+
+Skills load automatically when a request matches their description — no action needed. To force one, type its slash command (type `/` to browse) or name it in the prompt ("use the ui-ux-pro-max skill to …").
+
+| Skill | Invoke | Use for |
+| ----- | ------ | ------- |
+| Karpathy guidelines | `/andrej-karpathy-skills:karpathy-guidelines` | Keep changes minimal and surgical when writing or reviewing code |
+| UI/UX Pro Max | `/ui-ux-pro-max:ui-ux-pro-max` | Design, build or review UI: styles, palettes, fonts, UX rules per stack |
+| Design system | `/ui-ux-pro-max:design-system` | Design tokens, component specs |
+| UI styling | `/ui-ux-pro-max:ui-styling` | shadcn/ui + Tailwind components, theming, dark mode |
+| Brand / banners / slides | `/ui-ux-pro-max:brand`, `:banner-design`, `:slides` | Brand identity, social/ad banners, HTML presentations |
+| Account skills | e.g. `/anthropic-skills:pdf`, `:docx`, `:xlsx`, `:pptx`, `:deep-research` | Office documents, PDFs, web research |
+| Built-in | `/code-review`, `/security-review`, `/simplify` | Review the current diff |
+
+Arguments after the command are passed to the skill, e.g. `/ui-ux-pro-max:ui-ux-pro-max landing page for a spa, React + Tailwind`.
