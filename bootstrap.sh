@@ -84,6 +84,11 @@ if __cmd "alacritty"; then
     done
 fi
 
+if __cmd "ssh-agent" && __cmd "systemctl"; then
+    __log_info "Enable ssh-agent user socket"
+    systemctl --user enable --now ssh-agent.socket
+fi
+
 if __cmd "btop"; then
     DIR_BTOP_THEME="$DOT_HOME/config/btop/themes"
     __log_info "Install/Update Btop themes"
