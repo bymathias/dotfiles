@@ -43,3 +43,5 @@ package-lock.json
 
 # BOWER
 bower_components
+
+**/.claude/settings.local.json

@@ -15,3 +15,6 @@ export -f __source_exists
 for i in config prompt paths aliases functions completions; do
     __source_exists "$DOT_BASH/$i.bash"
 done
+
+# opencode
+export PATH=/home/bm/.opencode/bin:$PATH
