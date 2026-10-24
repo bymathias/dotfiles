@@ -20,6 +20,7 @@
   - [Scratchpad](#scratchpad)
   - [Resize mode](#resize-mode)
   - [Media keys](#media-keys)
+- [Claude Code](#claude-code)
 
 ---
 
@@ -400,3 +401,19 @@ Enter with `Super+r`, exit with `Enter` or `Escape`.
 | `Brightness Down` | Brightness −5% |
 | `Brightness Up` | Brightness +5% |
 | `Print Screen` | Screenshot a selection → `~/Images/Screenshots/` |
+
+---
+
+## Claude Code
+
+Global instructions live in `claude/CLAUDE.md`, symlinked to `~/.claude/CLAUDE.md` by `bootstrap.sh` (only if `claude` is installed). Edit either path — they are the same file — then commit from the repo. Changes apply to new sessions.
+
+| Path | Tracked | Notes |
+| ---- | ------- | ----- |
+| `~/.claude/CLAUDE.md` | Yes | Global instructions for all projects |
+| `~/.claude/settings.json` | No | Plugins, marketplaces, theme; contains machine-specific paths |
+| `~/.claude/skills/synced/` | No | Account skills, synced on login |
+| `~/.claude.json`, `~/.claude/.credentials.json` | Never | App state and auth token |
+| `~/.claude/projects/`, `sessions/`, `history.jsonl` | Never | Memory and conversation data |
+
+The repo is public: keep tokens, private emails and machine paths out of `claude/`.
